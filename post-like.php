@@ -131,7 +131,7 @@ function process_simple_like() {
 						'action_related' => $post_id, 
 						'user_id' => $user_id, 
 						'user_action' => 'hg_draft', 
-						'user_activity' => 'Removed ' .$title. ' to your drafts!',
+						'user_activity' => 'Removed ' .$title. ' from your drafts!',
  					) 
 				);
 					
