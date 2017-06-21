@@ -24,8 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Register the stylesheets for the public-facing side of the site.
  * @since    0.5
  */
-
-	global $wpdb;
 	
 
 
@@ -79,7 +77,11 @@ function process_simple_like() {
 					update_user_option( $user_id, "_user_like_count", ++$user_like_count );
 					if ( $post_users ) {
 						update_post_meta( $post_id, "_user_liked", $post_users );
+
+						global $wpdb;
 						$table_name = $wpdb->prefix . 'logs';
+					
+
 					$wpdb->insert( 
 					$table_name, 
 					array( 
@@ -121,7 +123,7 @@ function process_simple_like() {
 					$uid_key = array_search( $user_id, $post_users );
 					unset( $post_users[$uid_key] );
 					update_post_meta( $post_id, "_user_liked", $post_users );
-
+					global $wpdb;
 					$table_name = $wpdb->prefix . 'logs';
 					$wpdb->insert( 
 					$table_name, 
