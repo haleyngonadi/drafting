@@ -26,8 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 	global $wpdb;
-
 	
+
+
 add_action( 'wp_enqueue_scripts', 'sl_enqueue_scripts' );
 function sl_enqueue_scripts() {
 	 wp_enqueue_style( 'simple-likes-public-css', get_template_directory_uri() . '/css/simple-likes-public.css' );
@@ -78,13 +79,8 @@ function process_simple_like() {
 					update_user_option( $user_id, "_user_like_count", ++$user_like_count );
 					if ( $post_users ) {
 						update_post_meta( $post_id, "_user_liked", $post_users );
-					}
-
-					
-					$table_name = $wpdb->prefix . 'logs';
-
-
-				$wpdb->insert( 
+						$table_name = $wpdb->prefix . 'logs';
+					$wpdb->insert( 
 					$table_name, 
 					array( 
 						'action_related' => $post_id, 
@@ -94,6 +90,13 @@ function process_simple_like() {
  					) 
 				);
 					
+					}
+
+					
+					
+
+
+
 
 
 				
@@ -118,8 +121,21 @@ function process_simple_like() {
 					$uid_key = array_search( $user_id, $post_users );
 					unset( $post_users[$uid_key] );
 					update_post_meta( $post_id, "_user_liked", $post_users );
+
+					$table_name = $wpdb->prefix . 'logs';
+					$wpdb->insert( 
+					$table_name, 
+					array( 
+						'action_related' => $post_id, 
+						'user_id' => $user_id, 
+						'user_action' => 'hg_draft', 
+						'user_activity' => 'Removed ' .$title. ' to your drafts!',
+ 					) 
+				);
 					
 				}
+
+
 			} 
 			$like_count = ( $count > 0 ) ? --$count : 0; // Prevent negative number
 			$response['status'] = "unliked";
