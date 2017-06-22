@@ -16,10 +16,16 @@ get_header(); ?>
 <div id="main-content" class="main-content">
 
 
+
+<!--?php 
+$mydata = get_user_meta( 2, "wp_user_drafts", true );
+echo implode(", ", $mydata)
+
+?-->
+
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 
-			
 <article id="houseguest-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<?php while ( have_posts() ) : the_post(); ?>
 

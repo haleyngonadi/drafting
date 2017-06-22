@@ -61,6 +61,7 @@ function process_simple_like() {
 	$title = get_the_title($post_id);
 	$result = array();
 	$post_users = NULL;
+	$draft_users = NULL;
 	$like_count = 0;
 	// Get plugin options
 	if ( $post_id != '' ) {
@@ -69,7 +70,8 @@ function process_simple_like() {
 		if ( !already_liked( $post_id, $is_comment ) ) { // Like the post
 			if ( is_user_logged_in() ) { // user is logged in
 				$user_id = get_current_user_id();
-				$post_users = post_user_likes( $user_id, $post_id, $is_comment );
+				$post_users = post_user_likes( $user_id, $post_id );
+				$draft_users = add_draft(  $post_id, $user_id );
 				
 					// Update User & Post
 					$user_like_count = get_user_option( "_user_like_count", $user_id );
@@ -77,8 +79,17 @@ function process_simple_like() {
 					update_user_option( $user_id, "_user_like_count", ++$user_like_count );
 					if ( $post_users ) {
 						update_post_meta( $post_id, "_user_liked", $post_users );
+	
+					}
 
-						global $wpdb;
+
+					if ( $draft_users ) {
+						update_user_option( $user_id, "user_drafts", $draft_users );
+
+						}
+					
+
+/*						global $wpdb;
 						$table_name = $wpdb->prefix . 'logs';
 					
 
@@ -92,16 +103,8 @@ function process_simple_like() {
  					) 
 				);
 					
-					}
-
-					
-					
-
-
-
-
-
-				
+*/
+	
 			} 
 			$like_count = ++$count;
 			$response['status'] = "liked";
@@ -109,7 +112,8 @@ function process_simple_like() {
 		} else { // Unlike the post
 			if ( is_user_logged_in() ) { // user is logged in
 				$user_id = get_current_user_id();
-				$post_users = post_user_likes( $user_id, $post_id, $is_comment );
+				$post_users = post_user_likes( $user_id, $post_id );
+				$draft_users = add_draft( $post_id, $user_id );
 				// Update User
 			
 					$user_like_count = get_user_option( "_user_like_count", $user_id );
@@ -123,7 +127,9 @@ function process_simple_like() {
 					$uid_key = array_search( $user_id, $post_users );
 					unset( $post_users[$uid_key] );
 					update_post_meta( $post_id, "_user_liked", $post_users );
-					global $wpdb;
+
+
+/*					global $wpdb;
 					$table_name = $wpdb->prefix . 'logs';
 					$wpdb->insert( 
 					$table_name, 
@@ -134,8 +140,21 @@ function process_simple_like() {
 						'user_activity' => 'Removed ' .$title. ' from your drafts!',
  					) 
 				);
+*/
+
+			if ( $draft_users ) {	
+								echo 'Randy aint well';
+					$pid_key = array_search( $post_id, $draft_users );
+					echo $pid_key;
+					unset( $draft_users[$pid_key] );
+					update_user_option( $user_id, "user_drafts", $draft_users );
+
+				}
+
 					
 				}
+
+
 
 
 			} 
@@ -146,6 +165,7 @@ function process_simple_like() {
 		 
 			update_post_meta( $post_id, "_post_like_count", $like_count );
 			update_post_meta( $post_id, "_post_like_modified", date( 'Y-m-d H:i:s' ) );
+
 		
 		$response['count'] = get_like_count( $like_count );
 		$response['testing'] = $is_comment;
@@ -176,19 +196,52 @@ function already_liked( $post_id, $is_comment ) {
 		if ( count( $post_meta_users ) != 0 ) {
 			$post_users = $post_meta_users[0];
 		}
-	} else { // user is anonymous
-		$user_id = sl_get_ip();
-		$post_meta_users = ( $is_comment == 1 ) ? get_comment_meta( $post_id, "_user_comment_IP" ) : get_post_meta( $post_id, "_user_IP" ); 
-		if ( count( $post_meta_users ) != 0 ) { // meta exists, set up values
-			$post_users = $post_meta_users[0];
-		}
-	}
+	} 
 	if ( is_array( $post_users ) && in_array( $user_id, $post_users ) ) {
 		return true;
 	} else {
 		return false;
 	}
 } // already_liked()
+
+
+/**
+ * Utility retrieves post meta user likes (user id array), 
+ * then adds new user id to retrieved array
+ * @since    0.5
+ */
+function post_user_likes( $user_id, $post_id ) {
+	$post_users = '';
+	$post_meta_users = get_post_meta( $post_id, "_user_liked" );
+	if ( count( $post_meta_users ) != 0 ) {
+		$post_users = $post_meta_users[0];
+	}
+	if ( !is_array( $post_users ) ) {
+		$post_users = array();
+	}
+	if ( !in_array( $user_id, $post_users ) ) {
+		$post_users['user-' . $user_id] = $user_id;
+	}
+	return $post_users;
+} // post_user_likes()
+
+
+function add_draft( $post_id, $user_id ) {
+	$draft_users = '';
+	$get_user_drafts = get_user_meta( $user_id, "wp_user_drafts" );
+	print_r($get_user_drafts);
+
+	if ( count( $get_user_drafts ) != 0 ) {
+		$draft_users = $get_user_drafts[0];
+	}
+	if ( !is_array( $draft_users ) ) {
+		$draft_users = array();
+	}
+	if ( !in_array( $post_id, $draft_users ) ) {
+		$draft_users['post-' . $post_id] = $post_id;
+	}
+	return $draft_users;
+} // post_user_likes()
 
 /**
  * Output the like button
@@ -198,17 +251,12 @@ function get_simple_likes_button( $post_id, $is_comment = NULL ) {
 	$is_comment = ( NULL == $is_comment ) ? 0 : 1;
 	$output = '';
 	$nonce = wp_create_nonce( 'simple-likes-nonce' ); // Security
-	if ( $is_comment == 1 ) {
-		$post_id_class = esc_attr( ' sl-comment-button-' . $post_id );
-		$comment_class = esc_attr( ' sl-comment' );
-		$like_count = get_comment_meta( $post_id, "_comment_like_count", true );
-		$like_count = ( isset( $like_count ) && is_numeric( $like_count ) ) ? $like_count : 0;
-	} else {
+
 		$post_id_class = esc_attr( ' sl-button-' . $post_id );
 		$comment_class = esc_attr( '' );
 		$like_count = get_post_meta( $post_id, "_post_like_count", true );
 		$like_count = ( isset( $like_count ) && is_numeric( $like_count ) ) ? $like_count : 0;
-	}
+	
 	$count = get_like_count( $like_count );
 	$icon_empty = get_unliked_icon();
 	$icon_full = get_liked_icon();
@@ -245,63 +293,8 @@ function sl_shortcode() {
 	return get_simple_likes_button( get_the_ID(), 0 );
 } // shortcode()
 
-/**
- * Utility retrieves post meta user likes (user id array), 
- * then adds new user id to retrieved array
- * @since    0.5
- */
-function post_user_likes( $user_id, $post_id, $is_comment ) {
-	$post_users = '';
-	$post_meta_users = ( $is_comment == 1 ) ? get_comment_meta( $post_id, "_user_comment_liked" ) : get_post_meta( $post_id, "_user_liked" );
-	if ( count( $post_meta_users ) != 0 ) {
-		$post_users = $post_meta_users[0];
-	}
-	if ( !is_array( $post_users ) ) {
-		$post_users = array();
-	}
-	if ( !in_array( $user_id, $post_users ) ) {
-		$post_users['user-' . $user_id] = $user_id;
-	}
-	return $post_users;
-} // post_user_likes()
 
-/**
- * Utility retrieves post meta ip likes (ip array), 
- * then adds new ip to retrieved array
- * @since    0.5
- */
-function post_ip_likes( $user_ip, $post_id, $is_comment ) {
-	$post_users = '';
-	$post_meta_users = ( $is_comment == 1 ) ? get_comment_meta( $post_id, "_user_comment_IP" ) : get_post_meta( $post_id, "_user_IP" );
-	// Retrieve post information
-	if ( count( $post_meta_users ) != 0 ) {
-		$post_users = $post_meta_users[0];
-	}
-	if ( !is_array( $post_users ) ) {
-		$post_users = array();
-	}
-	if ( !in_array( $user_ip, $post_users ) ) {
-		$post_users['ip-' . $user_ip] = $user_ip;
-	}
-	return $post_users;
-} // post_ip_likes()
 
-/**
- * Utility to retrieve IP address
- * @since    0.5
- */
-function sl_get_ip() {
-	if ( isset( $_SERVER['HTTP_CLIENT_IP'] ) && ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
-		$ip = $_SERVER['HTTP_CLIENT_IP'];
-	} elseif ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) && ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-	} else {
-		$ip = ( isset( $_SERVER['REMOTE_ADDR'] ) ) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
-	}
-	$ip = filter_var( $ip, FILTER_VALIDATE_IP );
-	$ip = ( $ip === false ) ? '0.0.0.0' : $ip;
-	return $ip;
-} // sl_get_ip()
 
 /**
  * Utility returns the button icon for "like" action
@@ -326,7 +319,7 @@ function get_unliked_icon() {
 
 
 
-/*** Get Draft Count ***/
+
 
 
 
@@ -426,3 +419,5 @@ function get_draft_count () {
 
 	return $like_count;
 }
+
+
