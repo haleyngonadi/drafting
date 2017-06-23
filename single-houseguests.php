@@ -40,6 +40,30 @@ echo implode(", ", $mydata)
 
 
 		<?php echo get_simple_likes_button( get_the_ID() );?>
+Baby!!!!
+		<?php 
+
+    $args = array(
+    'meta_query' => array(
+        array(
+            'key'     => 'wp_user_drafts',
+            'value' => '16',
+            'compare' => 'LIKE'
+        )
+    )
+ );
+$user_query = new WP_User_Query( $args );
+ 
+if ( ! empty( $user_query->results ) ) {
+    echo '<h3>Extra and Super Special Users</h3>';
+    echo '<ul>';
+    foreach ( $user_query->results as $user ) {
+        echo '<li>' . $user->display_name . '</li>';
+    }
+    echo '</ul>';
+}
+
+		?>
 
 
 

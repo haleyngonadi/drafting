@@ -151,149 +151,132 @@ add_action( 'save_post', 'my_url_save_metabox' );
 
 
 
-
-
-function week_one_metabox() {
-   add_meta_box(
-    'one_section',           // The HTML id attribute for the metabox section
-    'Week 1',     // The title of your metabox section
-    'one_callback',  // The metabox callback function (below)
-    'houseguests',
-    'normal',
-    'high'                 
-  );
+add_action("admin_init", "users_meta_init");
+function users_meta_init()
+{
+  add_meta_box("users-meta", "Week 1", "users", "houseguests", "normal", "high");
 }
-add_action( 'add_meta_boxes', 'week_one_metabox' );
-
-$prefix = 'location_';
-$location_meta_fields = array(
+// function to display list of authors in select box in post
+function users()
+{
+  global $post;
+  $authors = array(
     array(
         'label'=> 'Game Servers',
-        'desc'  => 'Display this location in the Game Servers List page sidebar',
         'id'    => 'gameservers',
-        'type'  => 'checkbox'
     ),
     array(
         'label'=> 'Voice Servers',
-        'desc'  => 'Display this location in the Voice Servers List page sidebar',
         'id'    => 'voiceservers',
-        'type'  => 'checkbox'
     ),
     array(
         'label'=> 'VPS Hosting',
-        'desc'  => 'Display this location in the VPS Hosting sidebar',
         'id'    => 'vpshosting',
-        'type'  => 'checkbox'
     ),
     array(
         'label'=> 'Web Hosting',
-        'desc'  => 'Display this location in the Web Hosting sidebar',
         'id'    => 'webhosting',
-        'type'  => 'checkbox'
     ),
 
 );
 
-
-function one_callback( $post ) {
-
-    global $location_meta_fields, $post;
-    // Use nonce for verification
-    echo '<input type="hidden" name="location_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-    // Begin the field table and loop
-    echo '<table class="form-table">';
-    foreach ($location_meta_fields as $field) {
-        // get value of this field if it exists for this post
-        $meta = get_post_meta($post->ID, $field['id'], true);
-        // begin a table row with
-        echo '<tr>
-                <th><label for="'.$field['id'].'">'.$field['label'].'</label></th>
-                <td>';
-        switch($field['type']) {
-            // text
-            case 'text':
-                echo '<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$meta.'" size="30" />
-                    <br /><span class="description">'.$field['desc'].'</span>';
-                break;
-            // checkbox
-            case 'checkbox':
-                echo '<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'" ',$meta ? ' checked="checked"' : '','/>
-                    <label for="'.$field['id'].'">'.$field['desc'].'</label>';
-                break;
-        } //end switch
-        echo '</td></tr>';
-    } // end foreach
-    echo '</table>'; // end table
-}
-
-// Save the Data
-function save_location_meta($post_id) {
-    global $location_meta_fields;
-    // verify nonce
-    if (!isset($_POST['location_meta_box_nonce']) || !wp_verify_nonce($_POST['location_meta_box_nonce'], basename(__FILE__)))
-        return $post_id;
-    // check autosave
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-        return $post_id;
-    // check permissions
-    if ('page' == $_POST['post_type']) {
-        if (!current_user_can('edit_page', $post_id))
-            return $post_id;
-    } elseif (!current_user_can('edit_post', $post_id)) {
-        return $post_id;
+  $output = '';
+  if (!empty($authors)) {
+    $output.= '<ul class="categorychecklist form-no-clear">';
+    foreach($authors as $author) {
+      $author_info = $author['id'];
+      $authors_array = explode(",", get_post_meta($post->ID, 'week_one', true));
+      if (in_array($author_info, $authors_array)) {
+        $author_selected = 'checked';
+      }
+      else {
+        $author_selected = '';
+      }
+      $output.= '<li>';
+      $output.= '<label class="selectit">';
+      $output.= '<input type="checkbox" name="contributor[]" value="' .$author['id']. '" ' . $author_selected . '>' .$author['label']. ' ' ;
+      $output.= '</label></li>';
     }
-    // loop through fields and save the data
-    foreach ($location_meta_fields as $field) {
-        $old = get_post_meta($post_id, $field['id'], true);
-        $new = $_POST[$field['id']];
-        if($new == '' && !$old && array_key_exists('default',$field)){
-            $new = $field['default'];
-        }
-        if ($new != '' && $new != $old) {
-            update_post_meta($post_id, $field['id'], $new);
-
-            $post_users = get_weekly_stats( $post_id, $field['id'], $new );
-
-            if ( $post_users ) {
-             update_post_meta($post_id,'test', $post_users);
-           }
-
-
-        } elseif ($new == '' && $old != '') {
-
-          $post_users = get_weekly_stats( $post_id, $field['id'], $old );
-
-          $uid_key = array_search( $field['id'], $post_users);
-
-          unset( $post_users[$uid_key] );
-
-          update_post_meta( $post_id, "_test_one", $uid_key );
-
-            update_post_meta( $post_id, "test", $post_users );
-
-
-
-            delete_post_meta($post_id, $field['id'], $old);
-
-        }
-    } // end foreach
+    $output.= '</ul>';
+  }
+  else {
+    $output.= _x('No Contributor found.', 'rtPanel');
+  }
+  echo $output;
 }
-add_action('save_post', 'save_location_meta');
-
-
-
-
-function get_weekly_stats( $post_id, $actions, $week ) {
-  $post_users = '';
-  $post_meta_users = get_post_meta( $post_id, $actions, $week  );
-  if ( count( $post_meta_users ) != 0 ) {
-    $post_users = $post_meta_users[0];
+// Save Meta Details
+add_action('save_post', 'save_userlist');
+function save_userlist()
+{
+  global $post;
+  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+    return $post->ID;
   }
-  if ( !is_array( $post_users ) ) {
-    $post_users = array();
+  if (isset($_POST["contributor"]) && !empty($_POST["contributor"])) {
+    update_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));}
+
+    else {
+      delete_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));
+    }
+
+
+    $args = array(
+    'meta_query' => array(
+        array(
+            'key'     => 'wp_user_drafts',
+            'value' => $post->ID,
+            'compare' => 'LIKE'
+        )
+    )
+ );
+$user_query = new WP_User_Query( $args );
+// Get the results
+$users = $user_query->get_results();
+
+
+  if ( in_array( 'voiceservers',$_POST["contributor"] ) ) {
+   $_POST["contributor"]['voiceservers'] = '234';
   }
-  if ( !in_array( $actions, $post_users ) ) {
-    $post_users['user-' . $actions] = $actions;
+
+  if ( in_array( 'gameservers',$_POST["contributor"] ) ) {
+   // unset($_POST['contributor'][array_search( 'gameservers', $_POST['contributor'] )]);
+
+    $_POST['contributor'][array_search( 'gameservers', $_POST['contributor'] )] = '456';
+
+
+  // $_POST["contributor"]['gameservers'] = '678';
   }
-  return $post_users;
+
+  if ( in_array( 'vpshosting',$_POST["contributor"] ) ) {
+   $_POST["contributor"]['vpshosting'] = '097';
+  }
+
+
+  if (!empty($users)) {
+
+foreach($users as $user) {
+
+  $data1 = "week_1_";
+$data2 = $post->ID;
+$result = $data1 . '' . $data2;
+
+
+  if((isset($_POST["contributor"])) && (!empty($_POST["contributor"]))){
+
+
+ update_user_meta($user->ID, $result, $_POST["contributor"]);}
+
+ else {
+   delete_user_meta($user->ID, $result, $_POST["contributor"]);
+
+ }
+
+
+}
+
+
+
+
+}
+
 }

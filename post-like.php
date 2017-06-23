@@ -85,6 +85,8 @@ function process_simple_like() {
 
 					if ( $draft_users ) {
 						update_user_option( $user_id, "user_drafts", $draft_users );
+						update_user_option( $user_id, "_user_post", implode(",", $draft_users) );
+
 
 						}
 					
@@ -143,11 +145,11 @@ function process_simple_like() {
 */
 
 			if ( $draft_users ) {	
-								echo 'Randy aint well';
 					$pid_key = array_search( $post_id, $draft_users );
-					echo $pid_key;
 					unset( $draft_users[$pid_key] );
 					update_user_option( $user_id, "user_drafts", $draft_users );
+
+					update_user_option( $user_id, "_user_post",  implode(",", $draft_users) );
 
 				}
 
