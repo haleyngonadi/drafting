@@ -265,10 +265,11 @@ add_action("admin_init", "users_meta_init");
 function users_meta_init()
 {
 
-  foreach ($variable as $key => $value) {
+print_r($feature_meta_fields);
+  foreach ($feature_meta_fields as $feature) {
     # code...
   
-  add_meta_box($value->meta_id, $value->title, "users", "houseguests", "normal", "high");
+  add_meta_box($feature->meta_id, $feature->title, "users", "houseguests", "normal", "high");
 
 }
 }
