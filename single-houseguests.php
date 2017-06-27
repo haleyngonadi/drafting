@@ -1,120 +1,196 @@
-<?php
-/**
- * The template for displaying all pages
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages and that
- * other 'pages' on your WordPress site will use a different template.
- *
- * @package WordPress
- * @subpackage Twenty_Fourteen
- * @since Twenty Fourteen 1.0
- */
+<?php get_header(); ?>
 
-get_header(); ?>
+	<?php while ( have_posts() ) : the_post(); ?>
+		
 
-<div id="main-content" class="main-content">
+			<?php echo get_the_id()?>
 
+				<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main" data-active="<?php echo get_user_meta(1, 'active', true );?>">
 
-
-<!--?php 
-$mydata = get_user_meta( 2, "wp_user_drafts", true );
-echo implode(", ", $mydata)
-
-?-->
-
-	<div id="primary" class="content-area">
-		<div id="content" class="site-content" role="main">
-
-<article id="houseguest-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<?php while ( have_posts() ) : the_post(); ?>
-
+	<article id="houseguest-<?php the_ID(); ?>" <?php post_class('row'); ?>>
+		
+					<div class="col-sm-4">
 	<?php
 		// Page thumbnail and title.
 		the_post_thumbnail();
-		the_title( '<header class="entry-header"><h1 class="entry-title">', '</h1></header><!-- .entry-header -->' );
+		
 	?>
 
-	<div class="entry-content">
+	<?php echo get_simple_likes_button( get_the_ID() );?>
+
+	</div>
+
+	<div class="entry-content col-sm-8">
+
+		<?php the_title( '<header class="entry-header"><h1 class="entry-title">', '</h1></header><!-- .entry-header -->' );?>
+
+
 		<?php the_content();?>
 
 
-		<?php echo get_simple_likes_button( get_the_ID() );?>
-go felicidad away!!!
+		
 
 
-
-<ul>
-<?php
-
-global $post;
-
-  $user_id = get_current_user_id();
-  $key = 'wp__user_post';
-  $single = true;
-  $user_last = get_user_meta( $user_id, $key, $single ); 
-  echo '<p>The '. $key . ' value for user id ' . $user_id . ' is: ' . $user_last . '</p>'; 
+<div class="row points-row">
+<div class="col-sm-4 inner-point">
 
 
-//$array = array_map( 'trim', explode( ', ', $user_last ) ); 
+	<span class="point-big draft-count"><?php echo get_post_meta( 15, '_post_like_count', true );?></span>
+	<span class="point-small">draft(s)</span>
 
-$args = array('meta_key' => 'week_one', 'post_type' => 'houseguests' );
-$lastposts = get_posts( $args );
+</div>
 
-$string = '';
+<div class="col-sm-4 inner-point">
+	<span class="point-big">232</span>
+	<span class="point-small">this week</span>
 
-foreach ( $lastposts as $post ):
+</div>
 
-  $key_1_value = get_post_meta($post->ID, 'week_one', true );
-  if ( ! empty( $key_1_value ) ) {
-     $string .= $key_1_value.', ';
-  }
+<div class="col-sm-4 inner-point">
+	<span class="point-big">232</span>
+	<span class="point-small">all time</span>
 
-  endforeach;
+</div>
 
-$string =  rtrim($string, ', ');
+</div>
 
- echo $string;
+		
+	</div><!-- .entry-content -->
 
-$authors_array = explode(", ", $string);
-       
 
-$array = array(
-    'key1' => 'value1',
-    'key2' => 'value2',
+		</article>
+
+		<div class="the_weeks row">
+
+
+<?php 
+
+$prefix = '';
+$feature_meta_fields = array(
+    array(
+        'meta_id'=>  1,
+        'title'  => 'Week 1',
+        'callback' => 'w_one',
+    ),
+    array(
+        'meta_id'=>  2,
+        'title'  => 'Week 2',
+        'callback' => 'w_two',
+    ),
+    array(
+        'meta_id'=>  3,
+        'title'  => 'Week 3',
+        'callback' => 'w_three',
+    ),
+    array(
+         'meta_id'=>  4,
+        'title'  => 'Week 4',
+        'callback' => 'w_four',
+    ),
+    array(
+        'meta_id'=>  5,
+        'title'  => 'Week 5',
+        'callback' => 'w_five',
+    ),
+    array(
+         'meta_id'=>  6,
+        'title'  => 'Week 6',
+        'callback' => 'w_six',
+    ),
+        array(
+        'meta_id'=>  7,
+        'title'  => 'Week 7',
+        'callback' => 'w_seven',
+    ),
+    array(
+        'meta_id'=>  8,
+        'title'  => 'Week 8',
+        'callback' => 'w_eight',
+    ),
+    array(
+        'meta_id'=>  9,
+        'title'  => 'Week 9',
+        'callback' => 'w_nine',
+    ),
+    array(
+         'meta_id'=>  10,
+        'title'  => 'Week 10',
+        'callback' => 'w_ten',
+    ),
+    array(
+        'meta_id'=>  11,
+        'title'  => 'Week 11',
+        'callback' => 'w_eleven',
+    ),
+    array(
+         'meta_id'=>  12,
+        'title'  => 'Week 12',
+        'callback' => 'w_twelve',
+    )
 );
 
- $authors_array = explode(", ", $string);
-
-
-if (in_array('gameservers', $authors_array)) {
-    $array['gameservers']['score'] = 5;
-    $array['gameservers']['houseguests'] = 'Christmas';
-
-}
+foreach ( $feature_meta_fields as $fields ) : ?>
 
 
 
-$multiarray[] = $array;
+
+<?php 
+
+$getit = $fields['callback'];
+
+$user_last = get_post_meta( get_the_ID(), $getit , true ); ?>
+
+<?php if ( !empty( $user_last) ) : 
+
+$args = array('post__in' => $user_last, 'post_type' => 'points' );
+
+$the_query = new WP_Query( $args ); ?>
 
 
-$json = json_encode($array);
+<?php if ( $the_query->have_posts() ) : ?>
 
-//echo $json;
+		<section class="weeks <?php echo $fields['callback'];?> col-sm-4" data-value="<?php echo $fields['meta_id'];?>">
 
 
-
-?>
-
-</ul>
-
-		<?php endwhile; // end of the loop. ?>
-	</div><!-- .entry-content -->
-</article><!-- #post-## -->
-
-		</div><!-- #content -->
-	</div><!-- #primary -->
+<?php $meta = get_user_meta(1, 'active', true );
+    if ($fields['meta_id'] == $meta) {
+        echo '<div class="week-active" title="Active Week">';
+    } else {
+        echo '<div class="week-not">';
+      }
 	
-</div><!-- #main-content -->
+?>
+	
+<div class="week-header">
+<span class="circle-span">stats</span>
+<h3 class="cute-circle"><?php echo $fields['title'];?> </h3>
+</div>
 
-<?php get_footer();?>
+	<!-- pagination here -->
+
+	<!-- the loop -->
+	<ul class="won">
+	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+		<li><span class="won-value"><?php echo get_post_meta( get_the_ID(), '_point_value', true ); ?></span><span class="won-title"><?php the_title(); ?></span></li>
+	<?php endwhile; ?></ul>
+	<!-- end of the loop -->
+</div></section>
+	<!-- pagination here -->
+
+	<?php wp_reset_postdata(); ?>
+
+<?php else : ?>
+	<p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+<?php endif; ?>
+
+<?php endif; ?>
+
+<?php endforeach; ?>
+
+</div>
+
+		</div></div>
+	<?php endwhile; ?>
+
+<?php get_footer(); ?>

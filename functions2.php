@@ -142,10 +142,6 @@ function week_callback( $post ) {
       <p>
          <label>Week 1: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'week_one', true ); ?>" size="30" disabled />
       </p>
-
-            <p>
-         <label>Week 2: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'week_two', true ); ?>" size="30" disabled />
-      </p>
    <?php
 }
 
@@ -196,15 +192,6 @@ add_action( 'save_post', 'my_url_save_metabox' );
 
 /**** Weeekly Shenanigans****/
 
-
-
-
-add_action("admin_init", "users_meta_init");
-
-  # code...
-
-function users_meta_init()
-{
 
 $prefix = 'week_';
 $feature_meta_fields = array(
@@ -271,17 +258,18 @@ $feature_meta_fields = array(
 );
 
 
-  foreach ($feature_meta_fields as $arr) {
+add_action("admin_init", "users_meta_init");
 
-      add_meta_box($arr['meta_id'],$arr['title'], $arr['callback'], "houseguests", "normal", "high");
+  # code...
 
-}
+function users_meta_init()
+{
 
-
+  add_meta_box($feature->meta_id, $feature->title, "users", "houseguests", "normal", "high");
 
 }
 // function to display list of authors in select box in post
-function weekly_one()
+function users()
 {
   global $post;
 
@@ -313,11 +301,9 @@ function weekly_one()
   }
   echo $output;
 }
-
-
 // Save Meta Details
-add_action('save_post', 'save_one');
-function save_one()
+add_action('save_post', 'save_userlist');
+function save_userlist()
 {
   global $post;
   if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
@@ -325,13 +311,23 @@ function save_one()
   }
 
 
+  //   if ( in_array( 'gameservers',$_POST["contributor"] ) ) {
+  // // unset($_POST['contributor'][array_search( 'gameservers', $_POST['contributor'] )]);
+  //  $_POST["contributor"]['billons']['value'] = '678';
+  //  $_POST["contributor"]['billons']['houseguest'] = $post->title;
+  //  $_POST["contributor"]['billons']['post_id'] = $post->ID;
+  // }
+
+
+
+
   if (isset($_POST["contributor"]) && !empty($_POST["contributor"])) {
     update_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));
      update_post_meta($post->ID, "w_one", $_POST["contributor"]);
 
-     foreach ($_POST["contributor"] as $getID) {
-     update_post_meta($getID, "week_one", $post->post_title);
-      }
+
+
+     update_post_meta(implode("", $_POST["contributor"]), "week_one", $post->post_title);
 
 
   }
@@ -339,9 +335,7 @@ function save_one()
     else {
       delete_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));
       delete_post_meta($post->ID, "w_one", $_POST["contributor"]);
-      foreach ($_POST["contributor"] as $getID) {
-     delete_post_meta($getID, "week_one", $post->post_title);
-      }
+     delete_post_meta(implode("", $_POST["contributor"]), "week_one", $post->post_title);
 
     }
 
@@ -349,7 +343,7 @@ function save_one()
 $args = array(
     'meta_query' => array(
         array(
-            'key'     => 'wp__user_like_count',
+            'key'     => 'wp_user_drafts',
             'compare' => 'EXISTS'
         )
     )
@@ -364,24 +358,12 @@ $users = $user_query->get_results();
 foreach($users as $user) {
 
 
-        $query_posts = array(
-        'numberposts' => -1,
-        'post_type' => 'houseguests',
-        'fields' => 'ids',
-        'meta_query' => array (
-        array (
-          'key' => '_user_liked',
-          'value' => $user->ID,
-          'compare' => 'LIKE'
-        )
-        ) );    
 
-  $posts_ids = get_posts($query_posts);
-
-  update_user_meta($user->ID, 'test', $posts_ids);
+  $the_posts = get_user_meta($user->ID, 'wp__user_post', true);
+    $array = array_map( 'trim', explode( ',', $the_posts ) ); 
 
 
-$args = array('meta_key' => 'week_one', 'post_type' => 'houseguests', 'post__in' => $posts_ids);
+$args = array('meta_key' => 'week_one', 'post_type' => 'houseguests', 'post__in' => $array);
 $lastposts = get_posts( $args );
 
 $string = '';
@@ -399,138 +381,6 @@ $string =  rtrim($string, ', ');
 
 
 update_user_meta($user->ID, 'week_one', $string);
-
-
-}
-
-}
-
-
-}
-
-
-
-/**** Week Two ***/
-
-
-function weekly_two()
-{
-  global $post;
-
-  $args = array('post_type' => 'points', 'order'=> 'DESC');
-  $authors = get_posts( $args );
-
-
-  $output = '';
-  if (!empty($authors)) {
-    $output.= '<ul class="categorychecklist form-no-clear">';
-    foreach($authors as $author) {
-      $author_info = $author->ID;
-      $authors_array = explode(",", get_post_meta($post->ID, 'week_two', true));
-      if (in_array($author_info, $authors_array)) {
-        $author_selected = 'checked';
-      }
-      else {
-        $author_selected = '';
-      }
-      $output.= '<li>';
-      $output.= '<label class="selectit">';
-      $output.= '<input type="checkbox" name="two[]" value="' .$author->ID. '" ' . $author_selected . '>' .$author->post_title. ' ' ;
-      $output.= '</label></li>';
-    }
-    $output.= '</ul>';
-  }
-  else {
-    $output.= _x('No Contributor found.', 'rtPanel');
-  }
-  echo $output;
-}
-
-
-add_action('save_post', 'save_two');
-function save_two()
-{
-  global $post;
-  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-    return $post->ID;
-  }
-
-
-  if (isset($_POST["two"]) && !empty($_POST["two"])) {
-    update_post_meta($post->ID, "week_two", implode(",", $_POST["two"]));
-     update_post_meta($post->ID, "w_two", $_POST["two"]);
-     
-          foreach ($_POST["two"] as $getID) {
-     update_post_meta($getID, "week_two", $post->post_title);
-      }
-
-
-  }
-
-    else {
-      delete_post_meta($post->ID, "week_two", implode(",", $_POST["two"]));
-      delete_post_meta($post->ID, "w_two", $_POST["two"]);
-     delete_post_meta(implode("", $_POST["two"]), "week_two", $post->post_title);
-
-           foreach ($_POST["two"] as $getID) {
-     delete_post_meta(implode("", $_POST["two"]), "week_two", $post->post_title);
-      }
-
-    }
-
-
-$args = array(
-    'meta_query' => array(
-        array(
-            'key'     => 'wp__user_like_count',
-            'compare' => 'EXISTS'
-        )
-    )
- );
-$user_query = new WP_User_Query( $args );
-// Get the results
-$users = $user_query->get_results();
-
-
-  if (!empty($users)) {
-
-foreach($users as $user) {
-
-
-        $query_posts = array(
-        'numberposts' => -1,
-        'post_type' => 'houseguests',
-        'fields' => 'ids',
-        'meta_query' => array (
-        array (
-          'key' => '_user_liked',
-          'value' => $user->ID,
-          'compare' => 'LIKE'
-        )
-        ) );    
-
-  $posts_ids = get_posts($query_posts);
-
-
-
-$args = array('meta_key' => 'week_two', 'post_type' => 'houseguests', 'post__in' => $posts_ids);
-$lastposts = get_posts( $args );
-
-$string = '';
-
-foreach ( $lastposts as $post ) {
-
-
-  $key_1_value = get_post_meta($post->ID, 'week_two', true );
-  if ( ! empty( $key_1_value ) ) {
-     $string .= $key_1_value.', ';
-  }
-
-}
-$string =  rtrim($string, ', ');
-
-
-update_user_meta($user->ID, 'week_two', $string);
 
 
 }
