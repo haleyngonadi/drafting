@@ -1,17 +1,18 @@
-// jQuery(document).ready( function() {
+jQuery(document).ready( function() {
 
-// $(document).on( 'click', '.sl-button', function( event ) {
-//    event.preventDefault();
-//    $.ajax({
-//       url: simpleLikes.ajaxurl,
-//       type: 'post',
-//       data: {
-//          action: 'ajax_pagination'
-//       },
-//       success: function( result ) {
-//          $('.draft-array').html(result);
-//       }
-//    })
-// })
+var activeclass = $('#content').attr('data-active');
 
-// })
+if  (activeclass = 1){
+var arr = [];
+$(".w_one span.won-count").each(function(index, elem){
+    arr.push("span" +index+ "_" + $(this).text());
+});
+}
+
+foreach($arr as $num) {
+    $hourly[$num]++;
+}
+
+console.log($arr);
+
+})
