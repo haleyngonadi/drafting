@@ -18,6 +18,76 @@ body {
 
 }
 
+body.single-houseguest,
+.page-template-points,
+.single-points{
+  background: #01acd7
+}
+
+.point-name:before {
+  background: #01acd7 !important;
+}
+
+
+.page-template-points .point-name:before {
+  background: #01acd7
+
+}
+
+.page-template-houseguests, .single-houseguests {
+  background: #9d00a9
+}
+
+.page-template-houseguests .point-name:before {
+  background: #9d00a9 !important
+}
+
+span.hg-drafted {
+    float: right;
+    background: rgba(0,0,0,0.1);
+    padding: 10px 16px;
+    font-weight: bold;
+}
+
+div#house-title {
+    background: #9d00a9;
+    color: white;
+}
+
+span.the-hg {
+    padding: 7px 4px 7px 14px;
+    display: inline-block;
+    font-size: 20px;
+}
+
+
+body.author {
+  background: #fb7802;
+}
+
+
+body.author ul.listed li {
+    border-bottom: 3px solid #fb7802;
+
+  }
+
+.author ul.listed li:before {
+    background: #fb7802;
+
+  }
+  
+ .author ul.listed {
+    border: 3px solid #fb7802;
+}
+
+.author .circle-span:before {
+  background: #fb7802;
+
+  }
+
+.author .point-name:before {
+    background: #fb7802 !important;
+}
 .wrapper {
 	background: white;
 	margin: 0 63px;
@@ -34,6 +104,11 @@ body {
   .st6{fill:#FFFFFF;}
   .st7{display:none;fill:none;stroke:#FFFFFF;stroke-width:10;stroke-linecap:round;stroke-miterlimit:10;}
   .st8{fill:none;}
+
+  .hg-row img {
+    max-width: 100%;
+    height: auto;
+  }
 
 
 
@@ -94,6 +169,18 @@ h3.cute-circle {
         margin:-11px 16px 0;
 }
 
+.pages-header {
+  text-align: center;
+}
+
+
+.pages-header, .entry-header {
+    padding-bottom: 9px;
+    margin: 0px 0 20px;
+    border-bottom: 1px solid #eee;
+}
+
+
 h3.point-name {
     font-family: 'Abril Fatface', cursive;
     color: #222;
@@ -102,6 +189,8 @@ h3.point-name {
     z-index: 0;
     position: relative;
 }
+
+
 
 .point-name:before{
 content: "";
@@ -127,7 +216,7 @@ table.point-system {
 }
 
 .point-system th{
-background: #f06;
+background: #01acd7;
 text-align: center;
 color: white;
 font-size: 20px;
@@ -147,6 +236,16 @@ padding: 10px;
 padding: 10px;
 
 }
+
+  .single-houseguests .circle-span:before{
+    background: #880093
+  }
+
+  .single-houseguests .won li{
+    background: #880093
+  }
+
+
 
 .circle-span {
     position: relative;
@@ -242,6 +341,21 @@ background: #f06;
     top: 0;
     z-index: -1;
 	}
+
+ .single-houseguests a.sl-button:before {
+    background: #880093;
+  }
+
+  .single-houseguests a.sl-button {
+        border: 3px solid #880093;
+        color:#880093;
+
+}
+
+  .single-houseguests  a.sl-button.liked {
+    background: #880093;
+    color: white;
+}
 
 	a.sl-button:hover:before {
 content: "";
@@ -375,7 +489,7 @@ ul.listed li {
 
 
 ul.listed li:last-child {
-    border-bottom: 0px solid #f06;
+    border-bottom: 0px solid #f06 !Important;
 }
 
 ul.listed span{
@@ -422,6 +536,36 @@ content: "\f2bc";
     max-width: 100%;
     margin: 0 auto;
 }
+
+div#points-title {
+    background: #01acd7;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+.point-row a {
+  color: white;
+}
+
+.point-row {
+  text-align: center;
+}
+
+.point-row .col-sm-4 {
+    margin-bottom: 20px;
+}
+
+.point-row span {
+    background: #039bc1;
+    display: block;
+    color: white;
+        padding: 5px;
+}
+
 
 .shake {
   display: inline-block;

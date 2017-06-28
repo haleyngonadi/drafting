@@ -388,12 +388,82 @@ add_action("admin_init", "users_meta_init");
 function users_meta_init()
 {
 
+$prefix = 'week_';
+$feature_meta_fields = array(
+    array(
+        'meta_id'=>  $prefix.'1',
+        'title'  => 'Week 1',
+        'callback' => 'weekly_one',
+    ),
+    array(
+        'meta_id'=>  $prefix.'2',
+        'title'  => 'Week 2',
+        'callback' => 'weekly_two',
+    ),
+    array(
+        'meta_id'=>  $prefix.'3',
+        'title'  => 'Week 3',
+        'callback' => 'weekly_three',
+    ),
+    array(
+         'meta_id'=>  $prefix.'4',
+        'title'  => 'Week 4',
+        'callback' => 'weekly_four',
+    ),
+    array(
+        'meta_id'=>  $prefix.'5',
+        'title'  => 'Week 5',
+        'callback' => 'weekly_five',
+    ),
+    array(
+         'meta_id'=>  $prefix.'6',
+        'title'  => 'Week 6',
+        'callback' => 'weekly_six',
+    ),
+        array(
+        'meta_id'=>  $prefix.'7',
+        'title'  => 'Week 7',
+        'callback' => 'weekly_seven',
+    ),
+    array(
+        'meta_id'=>  $prefix.'8',
+        'title'  => 'Week 8',
+        'callback' => 'weekly_eight',
+    ),
+    array(
+        'meta_id'=>  $prefix.'9',
+        'title'  => 'Week 9',
+        'callback' => 'weekly_nine',
+    ),
+    array(
+         'meta_id'=>  $prefix.'10',
+        'title'  => 'Week 10',
+        'callback' => 'weekly_ten',
+    ),
+    array(
+        'meta_id'=>  $prefix.'11',
+        'title'  => 'Week 11',
+        'callback' => 'weekly_eleven',
+    ),
+    array(
+         'meta_id'=>  $prefix.'12',
+        'title'  => 'Week 12',
+        'callback' => 'weekly_twelve',
+    )
+);
 
-add_meta_box('boxes', 'Weekly', 'weekly_callback', "houseguests", "normal", "high");
+
+  foreach ($feature_meta_fields as $arr) {
+
+      add_meta_box($arr['meta_id'],$arr['title'], $arr['callback'], "houseguests", "normal", "high");
+
+}
+
+
 
 }
 // function to display list of authors in select box in post
-function weekly_callback()
+function weekly_one()
 {
   global $post;
 
@@ -401,131 +471,29 @@ function weekly_callback()
   $authors = get_posts( $args );
 
 
-$prefix = 'week_';
-$feature_meta_fields = array(
-    array(
-        'meta_id'=>  $prefix.'1',
-        'title'  => 'Week 1',
-        'callback' => 'weekly_one',
-        'get' => 'contributor[]',
-        'week' => 'week_one',
-
-
-    ),
-    array(
-        'meta_id'=>  $prefix.'2',
-        'title'  => 'Week 2',
-        'callback' => 'weekly_two',
-        'get' => 'two[]',
-        'week' => 'week_two',
-    ),
-    array(
-        'meta_id'=>  $prefix.'3',
-        'title'  => 'Week 3',
-        'callback' => 'weekly_three',
-        'get' => 'three[]',
-        'week' => 'week_three',
-    ),
-    array(
-         'meta_id'=>  $prefix.'4',
-        'title'  => 'Week 4',
-        'callback' => 'weekly_four',
-        'get' => 'four[]',
-        'week' => 'week_four',
-    ),
-    array(
-        'meta_id'=>  $prefix.'5',
-        'title'  => 'Week 5',
-        'callback' => 'weekly_five',
-        'get' => 'five[]',
-        'week' => 'week_five',
-    ),
-    array(
-         'meta_id'=>  $prefix.'6',
-        'title'  => 'Week 6',
-        'callback' => 'weekly_six',
-        'get' => 'six[]',
-        'week' => 'week_six',
-    ),
-        array(
-        'meta_id'=>  $prefix.'7',
-        'title'  => 'Week 7',
-        'callback' => 'weekly_seven',
-        'get' => 'seven[]',
-        'week' => 'week_seven',
-    ),
-    array(
-        'meta_id'=>  $prefix.'8',
-        'title'  => 'Week 8',
-        'callback' => 'weekly_eight',
-        'get' => 'eight[]',
-        'week' => 'week_eight',
-    ),
-    array(
-        'meta_id'=>  $prefix.'9',
-        'title'  => 'Week 9',
-        'callback' => 'weekly_nine',
-        'get' => 'nine[]',
-        'week' => 'week_nine',
-    ),
-    array(
-         'meta_id'=>  $prefix.'10',
-        'title'  => 'Week 10',
-        'callback' => 'weekly_ten',
-        'get' => 'ten[]',
-        'week' => 'week_ten',
-    ),
-    array(
-        'meta_id'=>  $prefix.'11',
-        'title'  => 'Week 11',
-        'callback' => 'weekly_eleven',
-        'get' => 'eleven[]',
-        'week' => 'week_eleven',
-    ),
-    array(
-         'meta_id'=>  $prefix.'12',
-        'title'  => 'Week 12',
-        'callback' => 'weekly_twelve',
-        'get' => 'twelve[]',
-        'week' => 'week_twelve',
-    )
-);
-
-foreach ($feature_meta_fields as $fields) {
-
   $output = '';
   if (!empty($authors)) {
     $output.= '<ul class="categorychecklist form-no-clear">';
-      $output.= '<h3>' .$fields['title']. '</h3>';
-
     foreach($authors as $author) {
       $author_info = $author->ID;
-      $authors_array = explode(",", get_post_meta($post->ID, $fields['week'], true));
+      $authors_array = explode(",", get_post_meta($post->ID, 'week_one', true));
       if (in_array($author_info, $authors_array)) {
         $author_selected = 'checked';
       }
       else {
         $author_selected = '';
       }
-
       $output.= '<li>';
       $output.= '<label class="selectit">';
-      $output.= '<input type="checkbox" name="' .$fields['get']. '" value="' .$author->ID. '" ' . $author_selected . '>' .$author->post_title. ' ' ;
+      $output.= '<input type="checkbox" name="contributor[]" value="' .$author->ID. '" ' . $author_selected . '>' .$author->post_title. ' ' ;
       $output.= '</label></li>';
-
     }
-
-
     $output.= '</ul>';
   }
   else {
     $output.= _x('No Contributor found.', 'rtPanel');
   }
   echo $output;
-
-}
-
-
 }
 
 
@@ -538,142 +506,27 @@ function save_one()
     return $post->ID;
   }
 
-  $prefix = 'week_';
-$feature_meta_fields = array(
-    array(
-        'meta_id'=>  $prefix.'1',
-        'title'  => 'Week 1',
-        'callback' => 'weekly_one',
-        'get' => 'contributor[]',
-        'week' => 'week_one',
-        'final' => 'contributor',
-    ),
-    array(
-        'meta_id'=>  $prefix.'2',
-        'title'  => 'Week 2',
-        'callback' => 'weekly_two',
-        'get' => 'two[]',
-        'week' => 'week_two',
-        'final' => 'two',
 
-    ),
-    array(
-        'meta_id'=>  $prefix.'3',
-        'title'  => 'Week 3',
-        'callback' => 'weekly_three',
-        'get' => 'three[]',
-        'week' => 'week_three',
-        'final' => 'three',
+  if (isset($_POST["contributor"]) && !empty($_POST["contributor"])) {
+    update_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));
+     update_post_meta($post->ID, "w_one", $_POST["contributor"]);
 
-    ),
-    array(
-         'meta_id'=>  $prefix.'4',
-        'title'  => 'Week 4',
-        'callback' => 'weekly_four',
-        'get' => 'four[]',
-        'week' => 'week_four',
-        'final' => 'four',
-
-    ),
-    array(
-        'meta_id'=>  $prefix.'5',
-        'title'  => 'Week 5',
-        'callback' => 'weekly_five',
-        'get' => 'five[]',
-        'week' => 'week_five',
-        'final' => 'five',
-
-    ),
-    array(
-         'meta_id'=>  $prefix.'6',
-        'title'  => 'Week 6',
-        'callback' => 'weekly_six',
-        'get' => 'six[]',
-        'week' => 'week_six',
-        'final' => 'six',
-
-    ),
-        array(
-        'meta_id'=>  $prefix.'7',
-        'title'  => 'Week 7',
-        'callback' => 'weekly_seven',
-        'get' => 'seven[]',
-        'week' => 'week_seven',
-        'final' => 'seven',
-
-    ),
-    array(
-        'meta_id'=>  $prefix.'8',
-        'title'  => 'Week 8',
-        'callback' => 'weekly_eight',
-        'get' => 'eight[]',
-        'week' => 'week_eight',
-        'final' => 'eight',
-
-    ),
-    array(
-        'meta_id'=>  $prefix.'9',
-        'title'  => 'Week 9',
-        'callback' => 'weekly_nine',
-        'get' => 'nine[]',
-        'week' => 'week_nine',
-        'final' => 'nine',
-
-    ),
-    array(
-         'meta_id'=>  $prefix.'10',
-        'title'  => 'Week 10',
-        'callback' => 'weekly_ten',
-        'get' => 'ten[]',
-        'week' => 'week_ten',
-        'final' => 'ten',
-
-    ),
-    array(
-        'meta_id'=>  $prefix.'11',
-        'title'  => 'Week 11',
-        'callback' => 'weekly_eleven',
-        'get' => 'eleven[]',
-        'week' => 'week_eleven',
-        'final' => 'eleven',
-
-    ),
-    array(
-         'meta_id'=>  $prefix.'12',
-        'title'  => 'Week 12',
-        'callback' => 'weekly_twelve',
-        'get' => 'twelve[]',
-        'week' => 'week_twelve',
-        'final' => 'twelve',
-
-    )
-);
-
-foreach ($feature_meta_fields as $fields) {
-
-    if (isset($_POST[$fields['final']]) && !empty($_POST[$fields['final']])) {
-    update_post_meta($post->ID, $fields['week'], implode(",", $_POST[$fields['final']]));
-
-    $data1 = "w_"; $data2 = $fields['final']; $fin = $data1 . '' . $data2;
+     foreach ($_POST["contributor"] as $getID) {
+     update_post_meta($getID, "points_week_one", $post->post_title);
+      }
 
 
-     update_post_meta($post->ID, $fin, $_POST[$fields['final']]);
-
-    $data3 = "points_"; $data4 = $fields['week']; $end = $data3 . '' . $data4;
-
-
-     foreach ($_POST[$fields['final']] as $getID) {update_post_meta($getID, $end, $post->post_title);}
-    }
+  }
 
     else {
-      delete_post_meta($post->ID, $fields['week'], implode(",", $_POST[$fields['final']]));
-
-      $data1 = "w_"; $data2 = $fields['final']; $fin = $data1 . '' . $data2;
-
-      delete_post_meta($post->ID, $fin, $_POST[$fields['final']]);
-
+      delete_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));
+      delete_post_meta($post->ID, "w_one", $_POST["contributor"]);
+      foreach ($_POST["contributor"] as $getID) {
+     delete_post_meta($getID, "points_week_one", $post->post_title);
+      }
 
     }
+
 
 $args = array(
     'meta_query' => array(
@@ -691,6 +544,149 @@ $users = $user_query->get_results();
   if (!empty($users)) {
 
 foreach($users as $user) {
+
+
+        $query_posts = array(
+        'numberposts' => -1,
+        'post_type' => 'houseguests',
+        'fields' => 'ids',
+        'meta_query' => array (
+        array (
+          'key' => '_user_liked',
+          'value' => $user->ID,
+          'compare' => 'LIKE'
+        )
+        ) );    
+
+  $posts_ids = get_posts($query_posts);
+
+  update_user_meta($user->ID, 'test', $posts_ids);
+
+
+$args = array('meta_key' => 'week_one', 'post_type' => 'houseguests', 'post__in' => $posts_ids);
+$lastposts = get_posts( $args );
+
+$string = '';
+
+foreach ( $lastposts as $post ) {
+
+
+  $key_1_value = get_post_meta($post->ID, 'week_one', true );
+  if ( ! empty( $key_1_value ) ) {
+     $string .= $key_1_value.', ';
+  }
+
+}
+$string =  rtrim($string, ', ');
+
+
+update_user_meta($user->ID, 'week_one', $string);
+
+update_post_meta($user->ID, 'all_weeks', $lastposts);
+
+}
+
+}
+
+
+}
+
+
+
+/**** Week Two ***/
+
+
+function weekly_two( $post)
+{
+
+  wp_nonce_field( basename( __FILE__ ), 'prfx_nonce' );
+
+  $args = array('post_type' => 'points', 'order'=> 'DESC');
+  $authors = get_posts( $args );
+
+
+  $output = '';
+  if (!empty($authors)) {
+    $output.= '<ul class="categorychecklist form-no-clear">';
+    foreach($authors as $author) {
+      $author_info = $author->ID;
+      $authors_array = explode(",", get_post_meta($post->ID, 'week_two', true));
+      if (in_array($author_info, $authors_array)) {
+        $author_selected = 'checked';
+      }
+      else {
+        $author_selected = '';
+      }
+      $output.= '<li>';
+      $output.= '<label class="selectit">';
+      $output.= '<input type="checkbox" name="two[]" value="' .$author->ID. '" ' . $author_selected . '>' .$author->post_title. ' ' ;
+      $output.= '</label></li>';
+    }
+    $output.= '</ul>';
+  }
+  else {
+    $output.= _x('No Contributor found.', 'rtPanel');
+  }
+  echo $output;
+}
+
+
+add_action('save_post', 'save_two');
+
+function save_two($post_id)
+{
+  // Checks save status
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_nonce = ( isset( $_POST[ 'prfx_nonce' ] ) && wp_verify_nonce( $_POST[ 'prfx_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+ 
+    // Exits script depending on save status
+    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+        return;
+    }
+
+        if( isset( $_POST[ 'two' ] ) ) {
+        update_post_meta( $post_id, 'week_two', implode(",", $_POST["two"]) );
+        update_post_meta($post_id, "w_two", $_POST["two"]);
+
+        foreach ($_POST["two"] as $getID) {
+        update_post_meta($getID, "points_week_two", get_the_title( $post_id ));}
+       
+       }
+
+       else {
+         delete_post_meta( $post_id, 'week_two', implode(",", $_POST["two"]) );
+        delete_post_meta($post_id, "w_two", $_POST["two"]);
+        
+
+        foreach ($_POST["two"] as $getID) {
+        delete_post_meta($getID, "points_week_two", get_the_title( $post_id ));
+         update_post_meta(4, "test", $getID);
+       
+       }
+
+
+         }
+
+
+         $args = array(
+    'meta_query' => array(
+        array(
+            'key'     => 'wp__user_like_count',
+            'compare' => 'EXISTS'
+        )
+    )
+ );
+$user_query = new WP_User_Query( $args );
+// Get the results
+$users = $user_query->get_results();
+
+
+  if (!empty($users)) {
+
+foreach($users as $user) {
+
+
         $query_posts = array(
         'numberposts' => -1,
         'post_type' => 'houseguests',
@@ -706,31 +702,30 @@ foreach($users as $user) {
   $posts_ids = get_posts($query_posts);
 
 
-$args = array('meta_key' => $fields['week'], 'post_type' => 'houseguests', 'post__in' => $posts_ids);
+$args = array('meta_key' => 'week_two', 'post_type' => 'houseguests', 'post__in' => $posts_ids);
 $lastposts = get_posts( $args );
+
 $string = '';
 
 foreach ( $lastposts as $post ) {
-  $key_1_value = $_POST[$fields['final']];
+
+
+  $key_1_value = get_post_meta($post->ID, 'week_two', true );
   if ( ! empty( $key_1_value ) ) {
      $string .= $key_1_value.', ';
   }
 
 }
 $string =  rtrim($string, ', ');
-update_user_meta($user->ID, $fields['week'], $string);
 
+
+update_user_meta($user->ID, 'week_two', $string);
+
+update_post_meta($user->ID, 'all_weeks', $lastposts);
 
 }
 
-
-} /*** end Empty Users ***/
 }
-
-
-
-
-
 
 
 }
