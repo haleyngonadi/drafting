@@ -45,6 +45,22 @@ add_action( 'wp_enqueue_scripts', 'wpb_adding_scripts' );
 
 /*** Post Type ***/
 
+
+function book_setup_post_type() {
+    $args = array(
+        'public'    => true,
+        'labels' => array(
+        'name' => __( 'Points' ) ),
+        'menu_icon' => 'dashicons-portfolio',
+        'supports' => array( 'title', 'thumbnail' ),
+        'has_archive' => true,
+    );
+    register_post_type( 'points', $args );
+}
+add_action( 'init', 'book_setup_post_type' );
+
+
+
 add_action( 'init', 'create_post_type' );
 function create_post_type() {
   register_post_type( 'houseguests',
@@ -66,7 +82,7 @@ function create_post_type() {
       'public' => true,
       'has_archive' => true,
        'menu_icon' => 'dashicons-groups',
-       'supports'           => array( 'title', 'editor', 'thumbnail',  'comments' ),
+       'supports'           => array( 'title', 'thumbnail',  'comments' ),
     )
   );
 }
@@ -78,13 +94,28 @@ function create_post_type() {
 function my_url_add_metabox() {
    add_meta_box(
 		'basic_section',           // The HTML id attribute for the metabox section
-		'Basic Information',     // The title of your metabox section
+		'Information',     // The title of your metabox section
 		'basic_callback',  // The metabox callback function (below)
-		'houseguests',
-		'side'                 
+		'points',
+		'normal'                 
 	);
 }
 add_action( 'add_meta_boxes', 'my_url_add_metabox' );
+
+
+function points_add_metabox() {
+   add_meta_box(
+    'points_section',           // The HTML id attribute for the metabox section
+    'Weekly',     // The title of your metabox section
+    'week_callback',  // The metabox callback function (below)
+    'points',
+    'normal'                 
+  );
+}
+add_action( 'add_meta_boxes', 'points_add_metabox' );
+
+add_action( 'add_meta_boxes', 'points_add_metabox' );
+
 
 /**
  * Print the metabox content.
@@ -96,12 +127,29 @@ function basic_callback( $post ) {
 	wp_nonce_field( 'my_url_metabox', 'my_url_metabox_nonce' );
 
 	// Retrieve a previously saved value, if available.
-	$url = get_post_meta( $post->ID, '_my_url', true );
+	$url = get_post_meta( $post->ID, '_point_value', true );
 
    // Create the metabox field mark-up.
    ?>
       <p>
-         <label>Sex </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo esc_url( $url ); ?>" size="30" class="regular-text" />
+         <label>Score </label><input type="number" name="my_url" value="<?php echo $url; ?>"  />
+      </p>
+   <?php
+}
+
+
+function week_callback( $post ) {
+
+   // Create a nonce field.
+  wp_nonce_field( 'points_add_metabox', 'points_add_metabox_nonce' );
+
+   ?>
+      <p>
+         <label>Week 1: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'points_week_one', true ); ?>" size="30" disabled />
+      </p>
+
+            <p>
+         <label>Week 2: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'points_week_two', true ); ?>" size="30" disabled />
       </p>
    <?php
 }
@@ -138,13 +186,13 @@ function my_url_save_metabox( $post_id ) {
       return;
    }
 
-   $url = esc_url_raw( $_POST['my_url'] );
+   $url = $_POST['my_url'] ;
 
    // Update the meta fields in the database, or clean up after ourselves.
    if ( empty( $url ) ) {
-      delete_post_meta( $post_id, '_my_url' );
+      delete_post_meta( $post_id, '_point_value' );
    } else {
-      update_post_meta( $post_id, '_my_url', $url );
+      update_post_meta( $post_id, '_point_value', $url );
    }
 }
 add_action( 'save_post', 'my_url_save_metabox' );
@@ -153,147 +201,517 @@ add_action( 'save_post', 'my_url_save_metabox' );
 
 
 
-function week_one_metabox() {
+function about_add_metabox() {
    add_meta_box(
-    'one_section',           // The HTML id attribute for the metabox section
-    'Week 1',     // The title of your metabox section
-    'one_callback',  // The metabox callback function (below)
+    'info_section',           // The HTML id attribute for the metabox section
+    'About Houseguest',     // The title of your metabox section
+    'about_callback',  // The metabox callback function (below)
     'houseguests',
-    'normal',
-    'high'                 
+    'side'
   );
 }
-add_action( 'add_meta_boxes', 'week_one_metabox' );
 
-$prefix = 'location_';
-$location_meta_fields = array(
-    array(
-        'label'=> 'Game Servers',
-        'desc'  => 'Display this location in the Game Servers List page sidebar',
-        'id'    => 'gameservers',
-        'type'  => 'checkbox'
-    ),
-    array(
-        'label'=> 'Voice Servers',
-        'desc'  => 'Display this location in the Voice Servers List page sidebar',
-        'id'    => 'voiceservers',
-        'type'  => 'checkbox'
-    ),
-    array(
-        'label'=> 'VPS Hosting',
-        'desc'  => 'Display this location in the VPS Hosting sidebar',
-        'id'    => 'vpshosting',
-        'type'  => 'checkbox'
-    ),
-    array(
-        'label'=> 'Web Hosting',
-        'desc'  => 'Display this location in the Web Hosting sidebar',
-        'id'    => 'webhosting',
-        'type'  => 'checkbox'
-    ),
+add_action( 'add_meta_boxes', 'about_add_metabox' );
 
+
+
+function about_callback( $post ) {
+
+   // Create a nonce field.
+  wp_nonce_field( 'about_metabox', 'about_metabox_nonce' );
+
+
+   ?>
+      <p>
+         <label>Age </label><br>
+         <input type="number" name="the_age" value="<?php echo get_post_meta( $post->ID, 'get_age', true ); ?>"  />
+      </p>
+
+             <p>
+         <label>From </label><br>
+             <input type="" style="width: 100%"  name="the_from" id="meta-textarea" value="<?php echo get_post_meta( $post->ID, 'get_from', true ); ?>">
+      </p>
+
+       <p>
+         <label>Occupation </label><br>
+         <input type="text"  name="the_gender" value="<?php echo get_post_meta( $post->ID, 'get_gender', true ); ?>"  />
+      </p>
+
+
+       <p>
+         <label>Adjectives </label><br>
+             <textarea style="width: 100%" name="the_abject" id="meta-textarea"><?php echo get_post_meta( $post->ID, 'get_aject', true ); ?></textarea>
+
+      </p>
+
+       <p>
+         <label>Fun Facts </label><br>
+             <textarea style="width: 100%"  name="the_fun" id="meta-textarea"><?php echo get_post_meta( $post->ID, 'get_fun', true ); ?></textarea>
+      </p>
+
+
+       <p>
+         <label>Motto </label><br>
+             <textarea style="width: 100%"  name="the_motto" id="meta-textarea"><?php echo get_post_meta( $post->ID, 'get_motto', true ); ?></textarea>
+      </p>
+
+   <?php
+}
+
+
+function about_save_metabox( $post_id ) {
+   // Check if our nonce is set.
+   if ( ! isset( $_POST['about_metabox_nonce'] ) ) {
+      return;
+   }
+
+   $nonce = $_POST['about_metabox_nonce'];
+
+   // Verify that the nonce is valid.
+   if ( ! wp_verify_nonce( $nonce, 'about_metabox' ) ) {
+      return;
+   }
+
+   // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+   if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+      return;
+   }
+
+   // Check the user's permissions.
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+      return;
+   }
+
+   // Check for and sanitize user input.
+   if ( ! isset( $_POST['the_age'] ) ) {
+      return;
+   }
+
+    if ( ! isset( $_POST['the_gender'] ) ) {
+      return;
+   }
+
+    if ( ! isset( $_POST['the_abject'] ) ) {
+      return;
+   }
+
+    if ( ! isset( $_POST['the_fun'] ) ) {
+      return;
+   }
+
+     if ( ! isset( $_POST['the_motto'] ) ) {
+      return;
+   }
+
+        if ( ! isset( $_POST['the_from'] ) ) {
+      return;
+   }
+
+   $age = $_POST['the_age'] ;
+   $gender = $_POST['the_gender'] ;
+   $adject = $_POST['the_abject'] ;
+   $fun = $_POST['the_fun'] ;
+      $motto = $_POST['the_motto'] ;
+            $from= $_POST['the_from'] ;
+
+
+
+   // Update the meta fields in the database, or clean up after ourselves.
+   if ( empty( $age ) ) {
+      delete_post_meta( $post_id, 'get_age' );
+   } else {
+      update_post_meta( $post_id, 'get_age', $age );
+   }
+
+      if ( empty( $gender ) ) {
+      delete_post_meta( $post_id, 'get_gender' );
+   } else {
+      update_post_meta( $post_id, 'get_gender', $gender );
+   }
+
+      if ( empty( $adject ) ) {
+      delete_post_meta( $post_id, 'get_aject' );
+   } else {
+      update_post_meta( $post_id, 'get_aject', $adject );
+   }
+
+      if ( empty( $fun ) ) {
+      delete_post_meta( $post_id, 'get_fun' );
+   } else {
+      update_post_meta( $post_id, 'get_fun', $fun );
+   }
+
+
+         if ( empty( $motto ) ) {
+      delete_post_meta( $post_id, 'get_motto' );
+   } else {
+      update_post_meta( $post_id, 'get_motto', $fun );
+   }
+
+            if ( empty( $from ) ) {
+      delete_post_meta( $post_id, 'get_from' );
+   } else {
+      update_post_meta( $post_id, 'get_from', $from );
+   }
+
+
+
+}
+add_action( 'save_post', 'about_save_metabox' );
+
+
+
+
+/**** Weeekly Shenanigans****/
+
+
+
+
+add_action("admin_init", "users_meta_init");
+
+  # code...
+
+function users_meta_init()
+{
+
+$prefix = 'week_';
+$feature_meta_fields = array(
+    array(
+        'meta_id'=>  $prefix.'1',
+        'title'  => 'Week 1',
+        'callback' => 'weekly_one',
+    ),
+    array(
+        'meta_id'=>  $prefix.'2',
+        'title'  => 'Week 2',
+        'callback' => 'weekly_two',
+    ),
+    array(
+        'meta_id'=>  $prefix.'3',
+        'title'  => 'Week 3',
+        'callback' => 'weekly_three',
+    ),
+    array(
+         'meta_id'=>  $prefix.'4',
+        'title'  => 'Week 4',
+        'callback' => 'weekly_four',
+    ),
+    array(
+        'meta_id'=>  $prefix.'5',
+        'title'  => 'Week 5',
+        'callback' => 'weekly_five',
+    ),
+    array(
+         'meta_id'=>  $prefix.'6',
+        'title'  => 'Week 6',
+        'callback' => 'weekly_six',
+    ),
+        array(
+        'meta_id'=>  $prefix.'7',
+        'title'  => 'Week 7',
+        'callback' => 'weekly_seven',
+    ),
+    array(
+        'meta_id'=>  $prefix.'8',
+        'title'  => 'Week 8',
+        'callback' => 'weekly_eight',
+    ),
+    array(
+        'meta_id'=>  $prefix.'9',
+        'title'  => 'Week 9',
+        'callback' => 'weekly_nine',
+    ),
+    array(
+         'meta_id'=>  $prefix.'10',
+        'title'  => 'Week 10',
+        'callback' => 'weekly_ten',
+    ),
+    array(
+        'meta_id'=>  $prefix.'11',
+        'title'  => 'Week 11',
+        'callback' => 'weekly_eleven',
+    ),
+    array(
+         'meta_id'=>  $prefix.'12',
+        'title'  => 'Week 12',
+        'callback' => 'weekly_twelve',
+    )
 );
 
 
-function one_callback( $post ) {
+  foreach ($feature_meta_fields as $arr) {
 
-    global $location_meta_fields, $post;
-    // Use nonce for verification
-    echo '<input type="hidden" name="location_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-    // Begin the field table and loop
-    echo '<table class="form-table">';
-    foreach ($location_meta_fields as $field) {
-        // get value of this field if it exists for this post
-        $meta = get_post_meta($post->ID, $field['id'], true);
-        // begin a table row with
-        echo '<tr>
-                <th><label for="'.$field['id'].'">'.$field['label'].'</label></th>
-                <td>';
-        switch($field['type']) {
-            // text
-            case 'text':
-                echo '<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$meta.'" size="30" />
-                    <br /><span class="description">'.$field['desc'].'</span>';
-                break;
-            // checkbox
-            case 'checkbox':
-                echo '<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'" ',$meta ? ' checked="checked"' : '','/>
-                    <label for="'.$field['id'].'">'.$field['desc'].'</label>';
-                break;
-        } //end switch
-        echo '</td></tr>';
-    } // end foreach
-    echo '</table>'; // end table
+      add_meta_box($arr['meta_id'],$arr['title'], $arr['callback'], "houseguests", "normal", "high");
+
 }
 
-// Save the Data
-function save_location_meta($post_id) {
-    global $location_meta_fields;
-    // verify nonce
-    if (!isset($_POST['location_meta_box_nonce']) || !wp_verify_nonce($_POST['location_meta_box_nonce'], basename(__FILE__)))
-        return $post_id;
-    // check autosave
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-        return $post_id;
-    // check permissions
-    if ('page' == $_POST['post_type']) {
-        if (!current_user_can('edit_page', $post_id))
-            return $post_id;
-    } elseif (!current_user_can('edit_post', $post_id)) {
-        return $post_id;
+
+
+}
+// function to display list of authors in select box in post
+function weekly_one()
+{
+  global $post;
+
+  $args = array('post_type' => 'points', 'order'=> 'DESC');
+  $authors = get_posts( $args );
+
+
+  $output = '';
+  if (!empty($authors)) {
+    $output.= '<ul class="categorychecklist form-no-clear">';
+    foreach($authors as $author) {
+      $author_info = $author->ID;
+      $authors_array = explode(",", get_post_meta($post->ID, 'week_one', true));
+      if (in_array($author_info, $authors_array)) {
+        $author_selected = 'checked';
+      }
+      else {
+        $author_selected = '';
+      }
+      $output.= '<li>';
+      $output.= '<label class="selectit">';
+      $output.= '<input type="checkbox" name="contributor[]" value="' .$author->ID. '" ' . $author_selected . '>' .$author->post_title. ' ' ;
+      $output.= '</label></li>';
     }
-    // loop through fields and save the data
-    foreach ($location_meta_fields as $field) {
-        $old = get_post_meta($post_id, $field['id'], true);
-        $new = $_POST[$field['id']];
-        if($new == '' && !$old && array_key_exists('default',$field)){
-            $new = $field['default'];
-        }
-        if ($new != '' && $new != $old) {
-            update_post_meta($post_id, $field['id'], $new);
-
-            $post_users = get_weekly_stats( $post_id, $field['id'], $new );
-
-            if ( $post_users ) {
-             update_post_meta($post_id,'test', $post_users);
-           }
-
-
-        } elseif ($new == '' && $old != '') {
-
-          $post_users = get_weekly_stats( $post_id, $field['id'], $old );
-
-          $uid_key = array_search( $field['id'], $post_users);
-
-          unset( $post_users[$uid_key] );
-
-          update_post_meta( $post_id, "_test_one", $uid_key );
-
-            update_post_meta( $post_id, "test", $post_users );
-
-
-
-            delete_post_meta($post_id, $field['id'], $old);
-
-        }
-    } // end foreach
+    $output.= '</ul>';
+  }
+  else {
+    $output.= _x('No Contributor found.', 'rtPanel');
+  }
+  echo $output;
 }
-add_action('save_post', 'save_location_meta');
 
 
-
-
-function get_weekly_stats( $post_id, $actions, $week ) {
-  $post_users = '';
-  $post_meta_users = get_post_meta( $post_id, $actions, $week  );
-  if ( count( $post_meta_users ) != 0 ) {
-    $post_users = $post_meta_users[0];
+// Save Meta Details
+add_action('save_post', 'save_one');
+function save_one()
+{
+  global $post;
+  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+    return $post->ID;
   }
-  if ( !is_array( $post_users ) ) {
-    $post_users = array();
+
+
+  if (isset($_POST["contributor"]) && !empty($_POST["contributor"])) {
+    update_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));
+     update_post_meta($post->ID, "w_one", $_POST["contributor"]);
+
+     foreach ($_POST["contributor"] as $getID) {
+     update_post_meta($getID, "points_week_one", $post->post_title);
+      }
+
+
   }
-  if ( !in_array( $actions, $post_users ) ) {
-    $post_users['user-' . $actions] = $actions;
+
+    else {
+      delete_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));
+      delete_post_meta($post->ID, "w_one", $_POST["contributor"]);
+      foreach ($_POST["contributor"] as $getID) {
+     delete_post_meta($getID, "points_week_one", $post->post_title);
+      }
+
+    }
+
+
+$args = array(
+    'meta_query' => array(
+        array(
+            'key'     => 'wp__user_like_count',
+            'compare' => 'EXISTS'
+        )
+    )
+ );
+$user_query = new WP_User_Query( $args );
+// Get the results
+$users = $user_query->get_results();
+
+
+  if (!empty($users)) {
+
+foreach($users as $user) {
+
+
+        $query_posts = array(
+        'numberposts' => -1,
+        'post_type' => 'houseguests',
+        'fields' => 'ids',
+        'meta_query' => array (
+        array (
+          'key' => '_user_liked',
+          'value' => $user->ID,
+          'compare' => 'LIKE'
+        )
+        ) );    
+
+  $posts_ids = get_posts($query_posts);
+
+  update_user_meta($user->ID, 'test', $posts_ids);
+
+
+$args = array('meta_key' => 'week_one', 'post_type' => 'houseguests', 'post__in' => $posts_ids);
+$lastposts = get_posts( $args );
+
+$string = '';
+
+foreach ( $lastposts as $post ) {
+
+
+  $key_1_value = get_post_meta($post->ID, 'week_one', true );
+  if ( ! empty( $key_1_value ) ) {
+     $string .= $key_1_value.', ';
   }
-  return $post_users;
+
+}
+$string =  rtrim($string, ', ');
+
+
+update_user_meta($user->ID, 'week_one', $string);
+
+
+}
+
+}
+
+
+}
+
+
+
+/**** Week Two ***/
+
+
+function weekly_two( $post)
+{
+
+  wp_nonce_field( basename( __FILE__ ), 'prfx_nonce' );
+
+  $args = array('post_type' => 'points', 'order'=> 'DESC');
+  $authors = get_posts( $args );
+
+
+  $output = '';
+  if (!empty($authors)) {
+    $output.= '<ul class="categorychecklist form-no-clear">';
+    foreach($authors as $author) {
+      $author_info = $author->ID;
+      $authors_array = explode(",", get_post_meta($post->ID, 'week_two', true));
+      if (in_array($author_info, $authors_array)) {
+        $author_selected = 'checked';
+      }
+      else {
+        $author_selected = '';
+      }
+      $output.= '<li>';
+      $output.= '<label class="selectit">';
+      $output.= '<input type="checkbox" name="two[]" value="' .$author->ID. '" ' . $author_selected . '>' .$author->post_title. ' ' ;
+      $output.= '</label></li>';
+    }
+    $output.= '</ul>';
+  }
+  else {
+    $output.= _x('No Contributor found.', 'rtPanel');
+  }
+  echo $output;
+}
+
+
+add_action('save_post', 'save_two');
+
+function save_two($post_id)
+{
+  // Checks save status
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_nonce = ( isset( $_POST[ 'prfx_nonce' ] ) && wp_verify_nonce( $_POST[ 'prfx_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+ 
+    // Exits script depending on save status
+    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+        return;
+    }
+
+        if( isset( $_POST[ 'two' ] ) ) {
+        update_post_meta( $post_id, 'week_two', implode(",", $_POST["two"]) );
+        update_post_meta($post_id, "w_two", $_POST["two"]);
+
+        foreach ($_POST["two"] as $getID) {
+        update_post_meta($getID, "points_week_two", get_the_title( $post_id ));}
+       
+       }
+
+       else {
+         delete_post_meta( $post_id, 'week_two', implode(",", $_POST["two"]) );
+        delete_post_meta($post_id, "w_two", $_POST["two"]);
+        
+
+        foreach ($_POST["two"] as $getID) {
+        delete_post_meta($getID, "points_week_two", get_the_title( $post_id ));
+         update_post_meta(4, "test", $getID);
+       
+       }
+
+
+         }
+
+
+         $args = array(
+    'meta_query' => array(
+        array(
+            'key'     => 'wp__user_like_count',
+            'compare' => 'EXISTS'
+        )
+    )
+ );
+$user_query = new WP_User_Query( $args );
+// Get the results
+$users = $user_query->get_results();
+
+
+  if (!empty($users)) {
+
+foreach($users as $user) {
+
+
+        $query_posts = array(
+        'numberposts' => -1,
+        'post_type' => 'houseguests',
+        'fields' => 'ids',
+        'meta_query' => array (
+        array (
+          'key' => '_user_liked',
+          'value' => $user->ID,
+          'compare' => 'LIKE'
+        )
+        ) );    
+
+  $posts_ids = get_posts($query_posts);
+
+  update_user_meta($user->ID, 'test', $posts_ids);
+
+
+$args = array('meta_key' => 'week_one', 'post_type' => 'houseguests', 'post__in' => $posts_ids);
+$lastposts = get_posts( $args );
+
+$string = '';
+
+foreach ( $lastposts as $post ) {
+
+
+  $key_1_value = get_post_meta($post->ID, 'week_one', true );
+  if ( ! empty( $key_1_value ) ) {
+     $string .= $key_1_value.', ';
+  }
+
+}
+$string =  rtrim($string, ', ');
+
+
+update_user_meta($user->ID, 'week_one', $string);
+
+
+}
+
+}
+
+
 }

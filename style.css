@@ -11,5 +11,739 @@ Text Domain: bigbrotherdraft
 body {
 	margin: 0;
 	padding: 0;
-    background-color: antiquewhite
+    background-color: #f06;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #808080;
+    font-size: 16px;
+
+}
+
+.wrapper {
+	background: white;
+	margin: 0 63px;
+	    padding: 35px 0;
+}
+
+
+  .st0{display:none;fill:#1EDDD2;}
+  .st1{display:none;}
+  .st2{display:inline;}
+  .st3{fill:#F3FE96;}
+  .st4{display:none;fill:#F3FE96;}
+  .st5{fill:none;stroke:#FFFFFF;stroke-width:31;stroke-miterlimit:10;}
+  .st6{fill:#FFFFFF;}
+  .st7{display:none;fill:none;stroke:#FFFFFF;stroke-width:10;stroke-linecap:round;stroke-miterlimit:10;}
+  .st8{fill:none;}
+
+
+
+ul.navigation li {
+    display: inline-block;
+    color: white;
+    text-transform: uppercase;
+    font-size: 18px;
+    list-style-type: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.09);
+    padding: 9px 16px;
+    margin-left: -4px;
+    letter-spacing: 2px;
+    font-weight: 600;
+
+}
+
+ul.navigation li:last-child {
+    border: 0px;
+
+}
+
+
+ul.navigation {
+text-align: center;
+    padding: 0;
+    margin-bottom: 0;
+    background: rgba(0, 0, 0, 0.08);
+    border-bottom: 4px solid rgba(0, 0, 0, 0.03);
+}
+
+
+.green {
+color: #f06;	
+}
+
+footer {
+      font-family: 'Inconsolata', monospace;
+text-align: center;
+margin: 20px;
+color: white;
+}
+
+h1.entry-title {
+    font-family: 'Inconsolata', monospace;
+    color: #222;
+    margin-top: 0;
+}
+
+
+h3.cute-circle {
+    position: relative;
+    font-family: 'Abril Fatface', cursive;
+    font-size: 44px;
+    color: #222;
+    z-index: 0;
+    letter-spacing: -2px;
+        margin:-11px 16px 0;
+}
+
+h3.point-name {
+    font-family: 'Abril Fatface', cursive;
+    color: #222;
+    display: inline-block;
+    font-size: 35px;
+    z-index: 0;
+    position: relative;
+}
+
+.point-name:before{
+content: "";
+    width: 24px;
+    height: 24px;
+    z-index: -1;
+    top: -1px;
+    background: #f06;
+    position: absolute;
+    left: -7px;
+    border-radius: 50%;
+}
+
+.point-single {
+    text-align: center;
+}
+
+table.point-system {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+        table-layout: fixed;
+}
+
+.point-system th{
+background: #f06;
+text-align: center;
+color: white;
+font-size: 20px;
+text-transform: uppercase;
+padding: 10px;
+    border: 1px solid #fff;
+
+}
+
+
+
+.point-system tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.point-system td{
+padding: 10px;
+
+}
+
+.circle-span {
+    position: relative;
+    letter-spacing: 8px;
+    font-weight: 100;
+    z-index: 0;
+    font-size: 19px;
+    color: #222;
+    text-transform: uppercase;
+    padding-left: 8px;
+
+}
+.circle-span:before{
+    content: "";
+    width: 21px;
+    height: 21px;
+    z-index: -1;
+    top: 2px;
+    background: #f06;
+    position: absolute;
+    left: 2px;
+    transform: rotate(45deg);
+}
+
+.points-row {
+	text-align: center;
+    margin: 15px 0;
+}
+
+span.point-big {
+    font-family: 'Abril Fatface', cursive;
+    color: #222;
+    display: inline-block;
+    font-size: 35px;
+        margin-bottom: -15px;
+}
+
+span.point-small {
+    text-transform: uppercase;
+    font-size: 12px;
+    display: block;
+    color: #828282;
+}
+
+.inner-point {
+    border-top: solid 1px #e8e8e8;
+    padding: 7px 0;
+    border-right: 1px solid #e8e8e8;
+    border-bottom: solid 1px #e8e8e8;
+
+}
+
+
+.inner-point:last-child {
+    border-right: 0px solid #e8e8e8;
+}
+
+a.sl-button {
+    display: inline-block;
+    background: transparent;
+    color: #f06;
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+        font-size: 20px;
+        text-decoration: none;
+        border: 3px solid #f06;
+        position: relative;
+        transition: color 0.5s;
+        z-index: 0
+
+}
+
+a.sl-button.liked {
+    background: #f06;
+    color: white;
+}
+a.sl-button:hover {
+color: white;
+}
+
+
+a.sl-button:before {
+content: "";
+width: 0px;
+height: 100%;
+position: absolute;
+transition: 0.2s;
+background: #f06;
+    left: 0;
+    top: 0;
+    z-index: -1;
+	}
+
+	a.sl-button:hover:before {
+content: "";
+width: 100%;
+height: 100%;
+
+	}
+
+.sl-icon {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 8px;
+    margin-right: 5px;
+}
+
+span.sl-count {
+    padding: 8px;
+}
+
+span.sl-count {
+    font-weight: bold;
+}
+
+.weeks {
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+}
+
+.won {
+  margin: 5px 0;padding: 0;
+}
+
+.won li {
+    display: inline-block;
+    list-style-type: none;
+    background: #f06;
+    color: white;
+    margin-right: 5px;
+    margin-top: 6px;
+}
+
+.won li:last-child {
+  margin-right: 0
+}
+
+span.won-value {
+    padding: 6px;
+    background: rgba(0, 0, 0, 0.15);
+    font-weight: 600;
+    display: inline-block;
+    min-width: 33px;
+    text-align: center;
+    font-size: 21px;
+}
+
+span.won-title {
+    padding: 7px 11px;
+    display: inline-block;
+    text-transform: uppercase;
+        font-family: 'Inconsolata', monospace;
+
+}
+
+.site-content {
+  max-width: 815px;
+  margin: 0 auto;
+}
+
+.week-active {
+    background: rgba(91, 179, 206, 0.22);
+    padding: 5px;
+}
+
+.week-not {
+    border-right: 1px solid #e3e3e3;
+    padding: 5px;
+}
+
+.author .week-not {
+    border-right: 0px solid #e3e3e3;
+    padding: 0px;
+}
+
+.hg-photo {
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.the_weeks {
+    margin: 30px 0;
+}
+
+/*** Author Page ***/
+
+.draft-photo {
+height: 161px;
+    background-size: cover;
+    background-position: 0px -12px;
+    margin-bottom: 11px;
+}
+
+span.draft-name {
+    font-family: 'Inconsolata', monospace;
+    color: #222;
+    font-size: 18px;
+}
+
+.author-photo img {
+    height: auto;
+    border-radius: 50%;
+    max-width: 172px;
+}
+
+
+ul.listed {
+    list-style-type: none;
+    margin: 10px 0;
+    padding: 0;
+    border: 3px solid #f06;
+
+}
+
+
+ul.listed li {
+    border-bottom: 3px solid #f06;
+    position: relative;
+    padding: 7px 5px;
+    color: #222;
+}
+
+
+ul.listed li:last-child {
+    border-bottom: 0px solid #f06;
+}
+
+ul.listed span{
+
+position: relative;
+padding-left: 40px;
+}
+
+ul.listed li:before {
+    content: "";
+    position: absolute;
+    background: #f06;
+    padding: 7px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    font-family: FontAwesome;
+    color: white;
+    text-align: center;
+        min-width: 32px;
+}
+
+ul.listed li:first-child:before {
+content: "\f080";
+}
+
+ul.listed li:nth-child(2):before {
+content: "\f0a4";
+}
+
+
+ul.listed li:last-child:before {
+content: "\f2bc";
+}
+
+
+.logo {
+    max-width: 300px;
+    margin: 30px auto;
+}
+
+
+.logo img{
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.shake {
+  display: inline-block;
+  transform-origin: center center;
+}
+.shake:hover {
+  animation-name: shake-base;
+  animation-duration: 100ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+}
+
+.shake.shake-little:hover {
+  animation-name: shake-little;
+  animation-duration: 100ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+}
+
+@keyframes shake-little {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+  2% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  4% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  6% {
+    transform: translate(1px, 0px) rotate(0.5deg);
+  }
+  8% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  10% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  12% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  14% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  16% {
+    transform: translate(0px, 1px) rotate(0.5deg);
+  }
+  18% {
+    transform: translate(1px, 0px) rotate(0.5deg);
+  }
+  20% {
+    transform: translate(1px, 0px) rotate(0.5deg);
+  }
+  22% {
+    transform: translate(1px, 0px) rotate(0.5deg);
+  }
+  24% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  26% {
+    transform: translate(1px, 0px) rotate(0.5deg);
+  }
+  28% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  30% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  32% {
+    transform: translate(1px, 0px) rotate(0.5deg);
+  }
+  34% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  36% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  38% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  40% {
+    transform: translate(1px, 0px) rotate(0.5deg);
+  }
+  42% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  44% {
+    transform: translate(0px, 1px) rotate(0.5deg);
+  }
+  46% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  48% {
+    transform: translate(0px, 1px) rotate(0.5deg);
+  }
+  50% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  52% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  54% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  56% {
+    transform: translate(1px, 0px) rotate(0.5deg);
+  }
+  58% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  60% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  62% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  64% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  66% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  68% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  70% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  72% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  74% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  76% {
+    transform: translate(0px, 1px) rotate(0.5deg);
+  }
+  78% {
+    transform: translate(0px, 1px) rotate(0.5deg);
+  }
+  80% {
+    transform: translate(0px, 1px) rotate(0.5deg);
+  }
+  82% {
+    transform: translate(1px, 1px) rotate(0.5deg);
+  }
+  84% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  86% {
+    transform: translate(1px, 0px) rotate(0.5deg);
+  }
+  88% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  90% {
+    transform: translate(0px, 1px) rotate(0.5deg);
+  }
+  92% {
+    transform: translate(1px, 0px) rotate(0.5deg);
+  }
+  94% {
+    transform: translate(0px, 1px) rotate(0.5deg);
+  }
+  96% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+  98% {
+    transform: translate(0px, 0px) rotate(0.5deg);
+  }
+}
+@keyframes shake-slow {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+  2% {
+    transform: translate(4px, 10px) rotate(-1.5deg);
+  }
+  4% {
+    transform: translate(-3px, 8px) rotate(0.5deg);
+  }
+  6% {
+    transform: translate(-8px, -9px) rotate(-2.5deg);
+  }
+  8% {
+    transform: translate(-7px, 7px) rotate(3.5deg);
+  }
+  10% {
+    transform: translate(-9px, 4px) rotate(1.5deg);
+  }
+  12% {
+    transform: translate(4px, 6px) rotate(2.5deg);
+  }
+  14% {
+    transform: translate(2px, 4px) rotate(0.5deg);
+  }
+  16% {
+    transform: translate(1px, 10px) rotate(-0.5deg);
+  }
+  18% {
+    transform: translate(-6px, -8px) rotate(-0.5deg);
+  }
+  20% {
+    transform: translate(5px, -1px) rotate(-0.5deg);
+  }
+  22% {
+    transform: translate(-8px, -7px) rotate(0.5deg);
+  }
+  24% {
+    transform: translate(-6px, -5px) rotate(2.5deg);
+  }
+  26% {
+    transform: translate(5px, -2px) rotate(-1.5deg);
+  }
+  28% {
+    transform: translate(-1px, 6px) rotate(-2.5deg);
+  }
+  30% {
+    transform: translate(-1px, -5px) rotate(2.5deg);
+  }
+  32% {
+    transform: translate(-2px, -4px) rotate(-1.5deg);
+  }
+  34% {
+    transform: translate(-5px, -1px) rotate(-0.5deg);
+  }
+  36% {
+    transform: translate(0px, -9px) rotate(-1.5deg);
+  }
+  38% {
+    transform: translate(6px, -7px) rotate(1.5deg);
+  }
+  40% {
+    transform: translate(3px, 10px) rotate(2.5deg);
+  }
+  42% {
+    transform: translate(4px, -9px) rotate(-0.5deg);
+  }
+  44% {
+    transform: translate(-5px, 7px) rotate(2.5deg);
+  }
+  46% {
+    transform: translate(-4px, 8px) rotate(-1.5deg);
+  }
+  48% {
+    transform: translate(2px, 3px) rotate(2.5deg);
+  }
+  50% {
+    transform: translate(2px, -5px) rotate(-0.5deg);
+  }
+  52% {
+    transform: translate(7px, 9px) rotate(-2.5deg);
+  }
+  54% {
+    transform: translate(7px, 7px) rotate(-1.5deg);
+  }
+  56% {
+    transform: translate(0px, 4px) rotate(0.5deg);
+  }
+  58% {
+    transform: translate(8px, 9px) rotate(-0.5deg);
+  }
+  60% {
+    transform: translate(-8px, 7px) rotate(1.5deg);
+  }
+  62% {
+    transform: translate(6px, -5px) rotate(-2.5deg);
+  }
+  64% {
+    transform: translate(-2px, -2px) rotate(-0.5deg);
+  }
+  66% {
+    transform: translate(8px, 3px) rotate(-1.5deg);
+  }
+  68% {
+    transform: translate(9px, 3px) rotate(-0.5deg);
+  }
+  70% {
+    transform: translate(8px, -1px) rotate(-1.5deg);
+  }
+  72% {
+    transform: translate(6px, -7px) rotate(0.5deg);
+  }
+  74% {
+    transform: translate(-6px, 4px) rotate(-0.5deg);
+  }
+  76% {
+    transform: translate(8px, 2px) rotate(0.5deg);
+  }
+  78% {
+    transform: translate(-7px, -1px) rotate(2.5deg);
+  }
+  80% {
+    transform: translate(0px, 10px) rotate(2.5deg);
+  }
+  82% {
+    transform: translate(-9px, 4px) rotate(-2.5deg);
+  }
+  84% {
+    transform: translate(-9px, -8px) rotate(-1.5deg);
+  }
+  86% {
+    transform: translate(-7px, -1px) rotate(0.5deg);
+  }
+  88% {
+    transform: translate(-7px, -5px) rotate(0.5deg);
+  }
+  90% {
+    transform: translate(-2px, 0px) rotate(0.5deg);
+  }
+  92% {
+    transform: translate(-6px, 6px) rotate(3.5deg);
+  }
+  94% {
+    transform: translate(6px, 9px) rotate(0.5deg);
+  }
+  96% {
+    transform: translate(-4px, 3px) rotate(1.5deg);
+  }
+  98% {
+    transform: translate(7px, 6px) rotate(3.5deg);
+  }
 }
