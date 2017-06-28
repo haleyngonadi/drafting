@@ -20,12 +20,61 @@ body {
 
 .wrapper {
 	background: white;
-	margin: 153px 35px 35px;
+	margin: 0 63px;
 	    padding: 35px 0;
 }
 
+
+  .st0{display:none;fill:#1EDDD2;}
+  .st1{display:none;}
+  .st2{display:inline;}
+  .st3{fill:#F3FE96;}
+  .st4{display:none;fill:#F3FE96;}
+  .st5{fill:none;stroke:#FFFFFF;stroke-width:31;stroke-miterlimit:10;}
+  .st6{fill:#FFFFFF;}
+  .st7{display:none;fill:none;stroke:#FFFFFF;stroke-width:10;stroke-linecap:round;stroke-miterlimit:10;}
+  .st8{fill:none;}
+
+
+
+ul.navigation li {
+    display: inline-block;
+    color: white;
+    text-transform: uppercase;
+    font-size: 18px;
+    list-style-type: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.09);
+    padding: 9px 16px;
+    margin-left: -4px;
+    letter-spacing: 2px;
+    font-weight: 600;
+
+}
+
+ul.navigation li:last-child {
+    border: 0px;
+
+}
+
+
+ul.navigation {
+text-align: center;
+    padding: 0;
+    margin-bottom: 0;
+    background: rgba(0, 0, 0, 0.08);
+    border-bottom: 4px solid rgba(0, 0, 0, 0.03);
+}
+
+
 .green {
-color: #14851b;	
+color: #f06;	
+}
+
+footer {
+      font-family: 'Inconsolata', monospace;
+text-align: center;
+margin: 20px;
+color: white;
 }
 
 h1.entry-title {
@@ -45,6 +94,60 @@ h3.cute-circle {
         margin:-11px 16px 0;
 }
 
+h3.point-name {
+    font-family: 'Abril Fatface', cursive;
+    color: #222;
+    display: inline-block;
+    font-size: 35px;
+    z-index: 0;
+    position: relative;
+}
+
+.point-name:before{
+content: "";
+    width: 24px;
+    height: 24px;
+    z-index: -1;
+    top: -1px;
+    background: #f06;
+    position: absolute;
+    left: -7px;
+    border-radius: 50%;
+}
+
+.point-single {
+    text-align: center;
+}
+
+table.point-system {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+        table-layout: fixed;
+}
+
+.point-system th{
+background: #f06;
+text-align: center;
+color: white;
+font-size: 20px;
+text-transform: uppercase;
+padding: 10px;
+    border: 1px solid #fff;
+
+}
+
+
+
+.point-system tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.point-system td{
+padding: 10px;
+
+}
+
 .circle-span {
     position: relative;
     letter-spacing: 8px;
@@ -62,7 +165,7 @@ h3.cute-circle {
     height: 21px;
     z-index: -1;
     top: 2px;
-    background: #14851b;
+    background: #f06;
     position: absolute;
     left: 2px;
     transform: rotate(45deg);
@@ -215,6 +318,109 @@ span.won-title {
 .week-not {
     border-right: 1px solid #e3e3e3;
     padding: 5px;
+}
+
+.author .week-not {
+    border-right: 0px solid #e3e3e3;
+    padding: 0px;
+}
+
+.hg-photo {
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.the_weeks {
+    margin: 30px 0;
+}
+
+/*** Author Page ***/
+
+.draft-photo {
+height: 161px;
+    background-size: cover;
+    background-position: 0px -12px;
+    margin-bottom: 11px;
+}
+
+span.draft-name {
+    font-family: 'Inconsolata', monospace;
+    color: #222;
+    font-size: 18px;
+}
+
+.author-photo img {
+    height: auto;
+    border-radius: 50%;
+    max-width: 172px;
+}
+
+
+ul.listed {
+    list-style-type: none;
+    margin: 10px 0;
+    padding: 0;
+    border: 3px solid #f06;
+
+}
+
+
+ul.listed li {
+    border-bottom: 3px solid #f06;
+    position: relative;
+    padding: 7px 5px;
+    color: #222;
+}
+
+
+ul.listed li:last-child {
+    border-bottom: 0px solid #f06;
+}
+
+ul.listed span{
+
+position: relative;
+padding-left: 40px;
+}
+
+ul.listed li:before {
+    content: "";
+    position: absolute;
+    background: #f06;
+    padding: 7px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    font-family: FontAwesome;
+    color: white;
+    text-align: center;
+        min-width: 32px;
+}
+
+ul.listed li:first-child:before {
+content: "\f080";
+}
+
+ul.listed li:nth-child(2):before {
+content: "\f0a4";
+}
+
+
+ul.listed li:last-child:before {
+content: "\f2bc";
+}
+
+
+.logo {
+    max-width: 300px;
+    margin: 30px auto;
+}
+
+
+.logo img{
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 .shake {

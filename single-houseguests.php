@@ -3,7 +3,7 @@
 	<?php while ( have_posts() ) : the_post(); ?>
 		
 
-			<?php echo get_the_id()?>
+			<!--?php echo get_the_id()?-->
 
 				<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main" data-active="<?php echo get_user_meta(1, 'active', true );?>">
@@ -11,11 +11,7 @@
 	<article id="houseguest-<?php the_ID(); ?>" <?php post_class('row'); ?>>
 		
 					<div class="col-sm-4">
-	<?php
-		// Page thumbnail and title.
-		the_post_thumbnail();
-		
-	?>
+	<div class="hg-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
 
 	<?php echo get_simple_likes_button( get_the_ID() );?>
 
@@ -25,8 +21,11 @@
 
 		<?php the_title( '<header class="entry-header"><h1 class="entry-title">', '</h1></header><!-- .entry-header -->' );?>
 
+<p><?php the_title();?> is a <?php echo get_post_meta(get_the_id(), "get_age", true);?> year old <u><?php echo get_post_meta(get_the_id(), "get_gender", true);?></u> from <strong>Humeston, IA</strong>! The three adjectives that best describe <?php the_title();?> are: <?php echo get_post_meta(get_the_id(), "get_aject", true);?>.</p>
 
-		<?php the_content();?>
+<p><u>A fun fact about <?php the_title();?> </u>: "I'm a storyteller extraordinaire. My stories are true, very handy, very creative, and infectious."</p>
+
+<p><u>Life Motto</u>: You only live once.</p>
 
 
 		
@@ -36,19 +35,30 @@
 <div class="col-sm-4 inner-point">
 
 
-	<span class="point-big draft-count"><?php echo get_post_meta( 15, '_post_like_count', true );?></span>
+	<span class="point-big draft-count">
+
+	<?php 
+
+	$countoflikes = get_post_meta( get_the_ID(), '_post_like_count', true );
+	if(!empty($countoflikes)) {
+		echo $countoflikes;
+	}
+	else {
+		echo '0';
+	}
+	?></span>
 	<span class="point-small">draft(s)</span>
 
 </div>
 
 <div class="col-sm-4 inner-point">
-	<span class="point-big">232</span>
+	<span class="point-big point-week">0</span>
 	<span class="point-small">this week</span>
 
 </div>
 
 <div class="col-sm-4 inner-point">
-	<span class="point-big">232</span>
+	<span class="point-big points-all">0</span>
 	<span class="point-small">all time</span>
 
 </div>

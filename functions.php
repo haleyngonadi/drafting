@@ -49,9 +49,11 @@ add_action( 'wp_enqueue_scripts', 'wpb_adding_scripts' );
 function book_setup_post_type() {
     $args = array(
         'public'    => true,
-        'label'     => __( 'Points' ),
+        'labels' => array(
+        'name' => __( 'Points' ) ),
         'menu_icon' => 'dashicons-portfolio',
-        'supports'           => array( 'title' ),
+        'supports' => array( 'title', 'thumbnail' ),
+        'has_archive' => true,
     );
     register_post_type( 'points', $args );
 }
@@ -80,7 +82,7 @@ function create_post_type() {
       'public' => true,
       'has_archive' => true,
        'menu_icon' => 'dashicons-groups',
-       'supports'           => array( 'title', 'editor', 'thumbnail',  'comments' ),
+       'supports'           => array( 'title', 'thumbnail',  'comments' ),
     )
   );
 }
@@ -112,6 +114,9 @@ function points_add_metabox() {
 }
 add_action( 'add_meta_boxes', 'points_add_metabox' );
 
+add_action( 'add_meta_boxes', 'points_add_metabox' );
+
+
 /**
  * Print the metabox content.
  */
@@ -140,11 +145,11 @@ function week_callback( $post ) {
 
    ?>
       <p>
-         <label>Week 1: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'week_one', true ); ?>" size="30" disabled />
+         <label>Week 1: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'points_week_one', true ); ?>" size="30" disabled />
       </p>
 
             <p>
-         <label>Week 2: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'week_two', true ); ?>" size="30" disabled />
+         <label>Week 2: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'points_week_two', true ); ?>" size="30" disabled />
       </p>
    <?php
 }
@@ -191,6 +196,169 @@ function my_url_save_metabox( $post_id ) {
    }
 }
 add_action( 'save_post', 'my_url_save_metabox' );
+
+
+
+
+
+function about_add_metabox() {
+   add_meta_box(
+    'info_section',           // The HTML id attribute for the metabox section
+    'About Houseguest',     // The title of your metabox section
+    'about_callback',  // The metabox callback function (below)
+    'houseguests',
+    'side'
+  );
+}
+
+add_action( 'add_meta_boxes', 'about_add_metabox' );
+
+
+
+function about_callback( $post ) {
+
+   // Create a nonce field.
+  wp_nonce_field( 'about_metabox', 'about_metabox_nonce' );
+
+
+   ?>
+      <p>
+         <label>Age </label><br>
+         <input type="number" name="the_age" value="<?php echo get_post_meta( $post->ID, 'get_age', true ); ?>"  />
+      </p>
+
+             <p>
+         <label>From </label><br>
+             <input type="" style="width: 100%"  name="the_from" id="meta-textarea" value="<?php echo get_post_meta( $post->ID, 'get_from', true ); ?>">
+      </p>
+
+       <p>
+         <label>Occupation </label><br>
+         <input type="text"  name="the_gender" value="<?php echo get_post_meta( $post->ID, 'get_gender', true ); ?>"  />
+      </p>
+
+
+       <p>
+         <label>Adjectives </label><br>
+             <textarea style="width: 100%" name="the_abject" id="meta-textarea"><?php echo get_post_meta( $post->ID, 'get_aject', true ); ?></textarea>
+
+      </p>
+
+       <p>
+         <label>Fun Facts </label><br>
+             <textarea style="width: 100%"  name="the_fun" id="meta-textarea"><?php echo get_post_meta( $post->ID, 'get_fun', true ); ?></textarea>
+      </p>
+
+
+       <p>
+         <label>Motto </label><br>
+             <textarea style="width: 100%"  name="the_motto" id="meta-textarea"><?php echo get_post_meta( $post->ID, 'get_motto', true ); ?></textarea>
+      </p>
+
+   <?php
+}
+
+
+function about_save_metabox( $post_id ) {
+   // Check if our nonce is set.
+   if ( ! isset( $_POST['about_metabox_nonce'] ) ) {
+      return;
+   }
+
+   $nonce = $_POST['about_metabox_nonce'];
+
+   // Verify that the nonce is valid.
+   if ( ! wp_verify_nonce( $nonce, 'about_metabox' ) ) {
+      return;
+   }
+
+   // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+   if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+      return;
+   }
+
+   // Check the user's permissions.
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+      return;
+   }
+
+   // Check for and sanitize user input.
+   if ( ! isset( $_POST['the_age'] ) ) {
+      return;
+   }
+
+    if ( ! isset( $_POST['the_gender'] ) ) {
+      return;
+   }
+
+    if ( ! isset( $_POST['the_abject'] ) ) {
+      return;
+   }
+
+    if ( ! isset( $_POST['the_fun'] ) ) {
+      return;
+   }
+
+     if ( ! isset( $_POST['the_motto'] ) ) {
+      return;
+   }
+
+        if ( ! isset( $_POST['the_from'] ) ) {
+      return;
+   }
+
+   $age = $_POST['the_age'] ;
+   $gender = $_POST['the_gender'] ;
+   $adject = $_POST['the_abject'] ;
+   $fun = $_POST['the_fun'] ;
+      $motto = $_POST['the_motto'] ;
+            $from= $_POST['the_from'] ;
+
+
+
+   // Update the meta fields in the database, or clean up after ourselves.
+   if ( empty( $age ) ) {
+      delete_post_meta( $post_id, 'get_age' );
+   } else {
+      update_post_meta( $post_id, 'get_age', $age );
+   }
+
+      if ( empty( $gender ) ) {
+      delete_post_meta( $post_id, 'get_gender' );
+   } else {
+      update_post_meta( $post_id, 'get_gender', $gender );
+   }
+
+      if ( empty( $adject ) ) {
+      delete_post_meta( $post_id, 'get_aject' );
+   } else {
+      update_post_meta( $post_id, 'get_aject', $adject );
+   }
+
+      if ( empty( $fun ) ) {
+      delete_post_meta( $post_id, 'get_fun' );
+   } else {
+      update_post_meta( $post_id, 'get_fun', $fun );
+   }
+
+
+         if ( empty( $motto ) ) {
+      delete_post_meta( $post_id, 'get_motto' );
+   } else {
+      update_post_meta( $post_id, 'get_motto', $fun );
+   }
+
+            if ( empty( $from ) ) {
+      delete_post_meta( $post_id, 'get_from' );
+   } else {
+      update_post_meta( $post_id, 'get_from', $from );
+   }
+
+
+
+}
+add_action( 'save_post', 'about_save_metabox' );
+
 
 
 
@@ -330,7 +498,7 @@ function save_one()
      update_post_meta($post->ID, "w_one", $_POST["contributor"]);
 
      foreach ($_POST["contributor"] as $getID) {
-     update_post_meta($getID, "week_one", $post->post_title);
+     update_post_meta($getID, "points_week_one", $post->post_title);
       }
 
 
@@ -340,7 +508,7 @@ function save_one()
       delete_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));
       delete_post_meta($post->ID, "w_one", $_POST["contributor"]);
       foreach ($_POST["contributor"] as $getID) {
-     delete_post_meta($getID, "week_one", $post->post_title);
+     delete_post_meta($getID, "points_week_one", $post->post_title);
       }
 
     }
@@ -413,9 +581,10 @@ update_user_meta($user->ID, 'week_one', $string);
 /**** Week Two ***/
 
 
-function weekly_two()
+function weekly_two( $post)
 {
-  global $post;
+
+  wp_nonce_field( basename( __FILE__ ), 'prfx_nonce' );
 
   $args = array('post_type' => 'points', 'order'=> 'DESC');
   $authors = get_posts( $args );
@@ -448,38 +617,44 @@ function weekly_two()
 
 
 add_action('save_post', 'save_two');
-function save_two()
+
+function save_two($post_id)
 {
-  global $post;
-  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-    return $post->ID;
-  }
-
-
-  if (isset($_POST["two"]) && !empty($_POST["two"])) {
-    update_post_meta($post->ID, "week_two", implode(",", $_POST["two"]));
-     update_post_meta($post->ID, "w_two", $_POST["two"]);
-     
-          foreach ($_POST["two"] as $getID) {
-     update_post_meta($getID, "week_two", $post->post_title);
-      }
-
-
-  }
-
-    else {
-      delete_post_meta($post->ID, "week_two", implode(",", $_POST["two"]));
-      delete_post_meta($post->ID, "w_two", $_POST["two"]);
-     delete_post_meta(implode("", $_POST["two"]), "week_two", $post->post_title);
-
-           foreach ($_POST["two"] as $getID) {
-     delete_post_meta(implode("", $_POST["two"]), "week_two", $post->post_title);
-      }
-
+  // Checks save status
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_nonce = ( isset( $_POST[ 'prfx_nonce' ] ) && wp_verify_nonce( $_POST[ 'prfx_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+ 
+    // Exits script depending on save status
+    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+        return;
     }
 
+        if( isset( $_POST[ 'two' ] ) ) {
+        update_post_meta( $post_id, 'week_two', implode(",", $_POST["two"]) );
+        update_post_meta($post_id, "w_two", $_POST["two"]);
 
-$args = array(
+        foreach ($_POST["two"] as $getID) {
+        update_post_meta($getID, "points_week_two", get_the_title( $post_id ));}
+       
+       }
+
+       else {
+         delete_post_meta( $post_id, 'week_two', implode(",", $_POST["two"]) );
+        delete_post_meta($post_id, "w_two", $_POST["two"]);
+        
+
+        foreach ($_POST["two"] as $getID) {
+        delete_post_meta($getID, "points_week_two", get_the_title( $post_id ));
+         update_post_meta(4, "test", $getID);
+       
+       }
+
+
+         }
+
+
+         $args = array(
     'meta_query' => array(
         array(
             'key'     => 'wp__user_like_count',
@@ -511,9 +686,10 @@ foreach($users as $user) {
 
   $posts_ids = get_posts($query_posts);
 
+  update_user_meta($user->ID, 'test', $posts_ids);
 
 
-$args = array('meta_key' => 'week_two', 'post_type' => 'houseguests', 'post__in' => $posts_ids);
+$args = array('meta_key' => 'week_one', 'post_type' => 'houseguests', 'post__in' => $posts_ids);
 $lastposts = get_posts( $args );
 
 $string = '';
@@ -521,7 +697,7 @@ $string = '';
 foreach ( $lastposts as $post ) {
 
 
-  $key_1_value = get_post_meta($post->ID, 'week_two', true );
+  $key_1_value = get_post_meta($post->ID, 'week_one', true );
   if ( ! empty( $key_1_value ) ) {
      $string .= $key_1_value.', ';
   }
@@ -530,7 +706,7 @@ foreach ( $lastposts as $post ) {
 $string =  rtrim($string, ', ');
 
 
-update_user_meta($user->ID, 'week_two', $string);
+update_user_meta($user->ID, 'week_one', $string);
 
 
 }
