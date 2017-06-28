@@ -165,6 +165,10 @@ function week_callback( $post ) {
             <p>
          <label>Week 2: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'points_week_two', true ); ?>" size="30" disabled />
       </p>
+
+       <p>
+         <label>Week 3: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'points_week_three', true ); ?>" size="30" disabled />
+      </p>
    <?php
 }
 
@@ -711,7 +715,7 @@ $lastposts = get_posts( $args );
 $string = '';
 
 foreach ( $lastposts as $post ) {
-  $key_1_value = $_POST[$fields['final']];
+  $key_1_value =get_post_meta($post->ID, $fields['week'], true );
   if ( ! empty( $key_1_value ) ) {
      $string .= $key_1_value.', ';
   }

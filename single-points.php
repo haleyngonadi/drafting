@@ -32,6 +32,16 @@ get_header(); ?>
     $postid = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . $sham . "'" );
 		echo '<a href="'.get_permalink($postid).'">'.$sham.'</a>';
     ?></td>
+
+    </tr>
+
+    <tr>
+
+    <td>Week 3</td>
+        <td><?php $sham = get_post_meta(get_the_id(), 'points_week_three', true);
+    $postid = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . $sham . "'" );
+    echo '<a href="'.get_permalink($postid).'">'.$sham.'</a>';
+    ?></td>
   </tr>
 
   </table>
