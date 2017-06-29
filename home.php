@@ -18,7 +18,7 @@ get_header(); ?>
 	    $current_user = wp_get_current_user();
 
 if ( is_user_logged_in() ) {
-    echo  'Hi ' . $current_user->display_name . "!";
+    echo  'Hi ' . $current_user->user_firstname . "!";
 } else {
     echo 'Hi There!';
 }
