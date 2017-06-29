@@ -32,14 +32,11 @@ if ( is_user_logged_in() ) {
 
 							<?php
 			$args = array(
-	'post_type'  => 'housegeusts',
-	'meta_key'   => '_user_liked',
-	'orderby'    => 'meta_value_num',
-	'order'      => 'ASC',
+	'post_type'  => 'houseguests',
 	'meta_query' => array(
 		array(
 			'key'     => '_user_liked',
-			'value'   => 3,
+			'value'   =>  $current_user->ID,
 			'compare' => 'LIKE',
 		),
 	),
@@ -48,7 +45,7 @@ $postslist = get_posts( $args );
 
 
 var_dump($postslist);
-			?>
+			?>ss
 
 
 			<?php
@@ -86,6 +83,8 @@ var_dump($postslist);
 			endwhile; 
 			?>
 			</div>
+
+
 			<?php else : ?>
 			
 				<h3 class="point-name">How it works</h3>
