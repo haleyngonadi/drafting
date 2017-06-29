@@ -1077,3 +1077,9 @@ b {
 
     }
 
+
+
+
+.um *, .um :after, .um :before {
+    box-sizing: border-box;
+}
