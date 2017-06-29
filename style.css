@@ -1147,10 +1147,6 @@ ul.sub-menu li {
 
 
 
-ul.sub-menu {
-    display:none;
-}
-
 .menu-item-has-children:hover ul {
   visibility: visible; /* shows sub-menu */
   opacity: 1;
