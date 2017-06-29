@@ -282,11 +282,11 @@ function about_callback( $post ) {
              
               <div class="prfx-row-content">
         <label for="meta-radio-one">
-            <input type="radio" name="meta-radio" id="meta-radio-one" value="radio-one" <?php if ( isset ( $prfx_stored_meta['meta-radio'] ) ) checked( $prfx_stored_meta['meta-radio'][0], 'evicted' ); ?>>
+            <input type="radio" name="meta-radio" id="meta-radio-one" value="evicted" <?php if ( isset ( $prfx_stored_meta['meta-radio'] ) ) checked( $prfx_stored_meta['meta-radio'][0], 'evicted' ); ?>>
             <?php _e( 'Evicted', 'prfx-textdomain' )?>
         </label>
         <label for="meta-radio-two">
-            <input type="radio" name="meta-radio" id="meta-radio-two" value="radio-two" <?php if ( isset ( $prfx_stored_meta['meta-radio'] ) ) checked( $prfx_stored_meta['meta-radio'][0], 'game' ); ?>>
+            <input type="radio" name="meta-radio" id="meta-radio-two" value="game" <?php if ( isset ( $prfx_stored_meta['meta-radio'] ) ) checked( $prfx_stored_meta['meta-radio'][0], 'game' ); ?>>
             <?php _e( 'In The Game', 'prfx-textdomain' )?>
         </label>
     </div>
