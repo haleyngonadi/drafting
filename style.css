@@ -1154,10 +1154,12 @@ ul.sub-menu {
 p.about-me {
     border-top: 1px solid #eee;
     padding-top: 11px;
+    margin-bottom: 20px;
 }
 
 
 .um-page-user .entry-header {
 
     border-bottom: 0px solid #eee; 
+        margin-bottom: 0;
 }
