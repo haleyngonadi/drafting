@@ -35,7 +35,7 @@ if ( is_user_logged_in() ) {
   'posts_per_page' => -1,
   'meta_query' => array(
     array(
-      'key' => 'user_liked',
+      'key' => '_user_liked',
       'value' => 1,
       'compare' => 'LIKE'
     )
