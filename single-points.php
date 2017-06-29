@@ -20,8 +20,10 @@ get_header(); ?>
        <h3 class="point-name">VETO Player</h3>
       <?php else:?>
         <h3 class="point-name"><?php the_title()?></h3>
+
       <?php endif; ?>
 
+<?php custom_breadcrumbs(); ?>
 
 
 			
