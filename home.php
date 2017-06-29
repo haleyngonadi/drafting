@@ -39,7 +39,8 @@ if ( is_user_logged_in() ) {
 			$likedposts = get_user_meta( $current_user->ID,'_drafted', 'true');
 			//var_dump($likedposts);
 
-		$the_query = new WP_Query( array( 'post_type' => 'houseguests', 'post__in' => $likedposts ) );
+			if (!empty($likedposts)) {
+		$the_query = new WP_Query( array( 'post_type' => 'houseguests', 'post__in' => $likedposts ) );}
 	if ( $the_query->have_posts() ) : ?>
 	<h3 class="point-name">
 	Your Drafts
