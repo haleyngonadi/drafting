@@ -1123,11 +1123,16 @@ body.um-own-profile h1.entry-title {
 
 
 ul.sub-menu {
-    margin: 0;
-    width: 100%;
-    padding: 23px;
-    position: absolute;
-    left: 0;
+   visibility: hidden; /* hides sub-menu */
+  opacity: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-2em);
+  z-index: -1;
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+  padding: 0 23px 23px;
 }
 
 ul.sub-menu li {
@@ -1147,8 +1152,11 @@ ul.sub-menu {
 }
 
 .menu-item-has-children:hover ul {
-    display:block;
-    position:absolute;
+  visibility: visible; /* shows sub-menu */
+  opacity: 1;
+  z-index: 1;
+  transform: translateY(0%);
+  transition-delay: 0s, 0s, 0.3s;
 }
 
 p.about-me {
