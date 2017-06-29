@@ -22,6 +22,8 @@ if ( ! isset( $content_width ) ) {
 
 add_theme_support( 'post-thumbnails' );
 add_image_size( 'homepage-thumb', 400, 400, true );
+add_image_size( 'hg-thumb', 300, 300, array( 'center', 'top' ) );
+
 
 /*** Enqueue Styles and Scripts ***/
 
@@ -49,6 +51,7 @@ function register_my_menus() {
   register_nav_menus(
     array(
       'header-menu' => __( 'Header Menu' ),
+       'right-menu' => __( 'Right Menu' ),
      )
    );
  }
@@ -66,8 +69,8 @@ function book_setup_post_type() {
         'labels' => array(
         'name' => __( 'Points' ) ),
         'menu_icon' => 'dashicons-portfolio',
-        'supports' => array( 'title', 'thumbnail' ),
-        'has_archive' => true,
+        'supports' => array( 'title'),
+        'has_archive' => false,
     );
     register_post_type( 'points', $args );
 }
@@ -165,6 +168,10 @@ function week_callback( $post ) {
             <p>
          <label>Week 2: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'points_week_two', true ); ?>" size="30" disabled />
       </p>
+
+       <p>
+         <label>Week 3: </label><input style="width: 20em;" type="text" name="my_url" value="<?php echo get_post_meta( $post->ID, 'points_week_three', true ); ?>" size="30" disabled />
+      </p>
    <?php
 }
 
@@ -234,6 +241,8 @@ function about_callback( $post ) {
    // Create a nonce field.
   wp_nonce_field( 'about_metabox', 'about_metabox_nonce' );
 
+  $prfx_stored_meta = get_post_meta( $post->ID );
+
 
    ?>
       <p>
@@ -267,6 +276,23 @@ function about_callback( $post ) {
        <p>
          <label>Motto </label><br>
              <textarea style="width: 100%"  name="the_motto" id="meta-textarea"><?php echo get_post_meta( $post->ID, 'get_motto', true ); ?></textarea>
+      </p>
+
+
+             <p>
+         <label>Status </label><br>
+             
+              <div class="prfx-row-content">
+        <label for="meta-radio-one">
+            <input type="radio" name="meta-radio" id="meta-radio-one" value="evicted" <?php if ( isset ( $prfx_stored_meta['meta-radio'] ) ) checked( $prfx_stored_meta['meta-radio'][0], 'evicted' ); ?>>
+            <?php _e( 'Evicted', 'prfx-textdomain' )?>
+        </label>
+        <label for="meta-radio-two">
+            <input type="radio" name="meta-radio" id="meta-radio-two" value="game" <?php if ( isset ( $prfx_stored_meta['meta-radio'] ) ) checked( $prfx_stored_meta['meta-radio'][0], 'game' ); ?>>
+            <?php _e( 'In The Game', 'prfx-textdomain' )?>
+        </label>
+    </div>
+
       </p>
 
    <?php
@@ -359,7 +385,7 @@ function about_save_metabox( $post_id ) {
          if ( empty( $motto ) ) {
       delete_post_meta( $post_id, 'get_motto' );
    } else {
-      update_post_meta( $post_id, 'get_motto', $fun );
+      update_post_meta( $post_id, 'get_motto', $motto );
    }
 
             if ( empty( $from ) ) {
@@ -367,6 +393,10 @@ function about_save_metabox( $post_id ) {
    } else {
       update_post_meta( $post_id, 'get_from', $from );
    }
+
+if( isset( $_POST[ 'meta-radio' ] ) ) {
+    update_post_meta( $post_id, 'meta-radio', $_POST[ 'meta-radio' ] );
+}
 
 
 
@@ -388,112 +418,144 @@ add_action("admin_init", "users_meta_init");
 function users_meta_init()
 {
 
+
+add_meta_box('boxes', 'Weekly', 'weekly_callback', "houseguests", "normal", "high");
+
+}
+// function to display list of authors in select box in post
+function weekly_callback()
+{
+  global $post;
+
+  $args = array('post_type' => 'points', 'order'=> 'ASC', 'posts_per_page'=>-1);
+  $authors = get_posts( $args );
+
+
 $prefix = 'week_';
 $feature_meta_fields = array(
     array(
         'meta_id'=>  $prefix.'1',
         'title'  => 'Week 1',
         'callback' => 'weekly_one',
+        'get' => 'contributor[]',
+        'week' => 'week_one',
+
+
     ),
     array(
         'meta_id'=>  $prefix.'2',
         'title'  => 'Week 2',
         'callback' => 'weekly_two',
+        'get' => 'two[]',
+        'week' => 'week_two',
     ),
     array(
         'meta_id'=>  $prefix.'3',
         'title'  => 'Week 3',
         'callback' => 'weekly_three',
+        'get' => 'three[]',
+        'week' => 'week_three',
     ),
     array(
          'meta_id'=>  $prefix.'4',
         'title'  => 'Week 4',
         'callback' => 'weekly_four',
+        'get' => 'four[]',
+        'week' => 'week_four',
     ),
     array(
         'meta_id'=>  $prefix.'5',
         'title'  => 'Week 5',
         'callback' => 'weekly_five',
+        'get' => 'five[]',
+        'week' => 'week_five',
     ),
     array(
          'meta_id'=>  $prefix.'6',
         'title'  => 'Week 6',
         'callback' => 'weekly_six',
+        'get' => 'six[]',
+        'week' => 'week_six',
     ),
         array(
         'meta_id'=>  $prefix.'7',
         'title'  => 'Week 7',
         'callback' => 'weekly_seven',
+        'get' => 'seven[]',
+        'week' => 'week_seven',
     ),
     array(
         'meta_id'=>  $prefix.'8',
         'title'  => 'Week 8',
         'callback' => 'weekly_eight',
+        'get' => 'eight[]',
+        'week' => 'week_eight',
     ),
     array(
         'meta_id'=>  $prefix.'9',
         'title'  => 'Week 9',
         'callback' => 'weekly_nine',
+        'get' => 'nine[]',
+        'week' => 'week_nine',
     ),
     array(
          'meta_id'=>  $prefix.'10',
         'title'  => 'Week 10',
         'callback' => 'weekly_ten',
+        'get' => 'ten[]',
+        'week' => 'week_ten',
     ),
     array(
         'meta_id'=>  $prefix.'11',
         'title'  => 'Week 11',
         'callback' => 'weekly_eleven',
+        'get' => 'eleven[]',
+        'week' => 'week_eleven',
     ),
     array(
          'meta_id'=>  $prefix.'12',
         'title'  => 'Week 12',
         'callback' => 'weekly_twelve',
+        'get' => 'twelve[]',
+        'week' => 'week_twelve',
     )
 );
 
-
-  foreach ($feature_meta_fields as $arr) {
-
-      add_meta_box($arr['meta_id'],$arr['title'], $arr['callback'], "houseguests", "normal", "high");
-
-}
-
-
-
-}
-// function to display list of authors in select box in post
-function weekly_one()
-{
-  global $post;
-
-  $args = array('post_type' => 'points', 'order'=> 'DESC');
-  $authors = get_posts( $args );
-
+foreach ($feature_meta_fields as $fields) {
 
   $output = '';
   if (!empty($authors)) {
     $output.= '<ul class="categorychecklist form-no-clear">';
+      $output.= '<h3>' .$fields['title']. '</h3>';
+
     foreach($authors as $author) {
       $author_info = $author->ID;
-      $authors_array = explode(",", get_post_meta($post->ID, 'week_one', true));
+      $authors_array = explode(",", get_post_meta($post->ID, $fields['week'], true));
       if (in_array($author_info, $authors_array)) {
         $author_selected = 'checked';
       }
       else {
         $author_selected = '';
       }
+
       $output.= '<li>';
       $output.= '<label class="selectit">';
-      $output.= '<input type="checkbox" name="contributor[]" value="' .$author->ID. '" ' . $author_selected . '>' .$author->post_title. ' ' ;
+      $output.= '<input type="checkbox" name="' .$fields['get']. '" value="' .$author->ID. '" ' . $author_selected . '>' .$author->post_title. ' ' ;
       $output.= '</label></li>';
+
     }
+
+
     $output.= '</ul>';
   }
   else {
     $output.= _x('No Contributor found.', 'rtPanel');
   }
   echo $output;
+
+}
+
+
 }
 
 
@@ -506,27 +568,147 @@ function save_one()
     return $post->ID;
   }
 
+     // Check the user's permissions.
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+      return;
+   }
 
-  if (isset($_POST["contributor"]) && !empty($_POST["contributor"])) {
-    update_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));
-     update_post_meta($post->ID, "w_one", $_POST["contributor"]);
+  $prefix = 'week_';
+$feature_meta_fields = array(
+    array(
+        'meta_id'=>  $prefix.'1',
+        'title'  => 'Week 1',
+        'callback' => 'weekly_one',
+        'get' => 'contributor[]',
+        'week' => 'week_one',
+        'final' => 'one',
+    ),
+    array(
+        'meta_id'=>  $prefix.'2',
+        'title'  => 'Week 2',
+        'callback' => 'weekly_two',
+        'get' => 'two[]',
+        'week' => 'week_two',
+        'final' => 'two',
 
-     foreach ($_POST["contributor"] as $getID) {
-     update_post_meta($getID, "points_week_one", $post->post_title);
-      }
+    ),
+    array(
+        'meta_id'=>  $prefix.'3',
+        'title'  => 'Week 3',
+        'callback' => 'weekly_three',
+        'get' => 'three[]',
+        'week' => 'week_three',
+        'final' => 'three',
+
+    ),
+    array(
+         'meta_id'=>  $prefix.'4',
+        'title'  => 'Week 4',
+        'callback' => 'weekly_four',
+        'get' => 'four[]',
+        'week' => 'week_four',
+        'final' => 'four',
+
+    ),
+    array(
+        'meta_id'=>  $prefix.'5',
+        'title'  => 'Week 5',
+        'callback' => 'weekly_five',
+        'get' => 'five[]',
+        'week' => 'week_five',
+        'final' => 'five',
+
+    ),
+    array(
+         'meta_id'=>  $prefix.'6',
+        'title'  => 'Week 6',
+        'callback' => 'weekly_six',
+        'get' => 'six[]',
+        'week' => 'week_six',
+        'final' => 'six',
+
+    ),
+        array(
+        'meta_id'=>  $prefix.'7',
+        'title'  => 'Week 7',
+        'callback' => 'weekly_seven',
+        'get' => 'seven[]',
+        'week' => 'week_seven',
+        'final' => 'seven',
+
+    ),
+    array(
+        'meta_id'=>  $prefix.'8',
+        'title'  => 'Week 8',
+        'callback' => 'weekly_eight',
+        'get' => 'eight[]',
+        'week' => 'week_eight',
+        'final' => 'eight',
+
+    ),
+    array(
+        'meta_id'=>  $prefix.'9',
+        'title'  => 'Week 9',
+        'callback' => 'weekly_nine',
+        'get' => 'nine[]',
+        'week' => 'week_nine',
+        'final' => 'nine',
+
+    ),
+    array(
+         'meta_id'=>  $prefix.'10',
+        'title'  => 'Week 10',
+        'callback' => 'weekly_ten',
+        'get' => 'ten[]',
+        'week' => 'week_ten',
+        'final' => 'ten',
+
+    ),
+    array(
+        'meta_id'=>  $prefix.'11',
+        'title'  => 'Week 11',
+        'callback' => 'weekly_eleven',
+        'get' => 'eleven[]',
+        'week' => 'week_eleven',
+        'final' => 'eleven',
+
+    ),
+    array(
+         'meta_id'=>  $prefix.'12',
+        'title'  => 'Week 12',
+        'callback' => 'weekly_twelve',
+        'get' => 'twelve[]',
+        'week' => 'week_twelve',
+        'final' => 'twelve',
+
+    )
+);
+
+foreach ($feature_meta_fields as $fields) {
+
+    if (isset($_POST[$fields['final']]) && !empty($_POST[$fields['final']])) {
+    update_post_meta($post->ID, $fields['week'], implode(",", $_POST[$fields['final']]));
+
+    $data1 = "w_"; $data2 = $fields['final']; $fin = $data1 . '' . $data2;
 
 
-  }
+     update_post_meta($post->ID, $fin, $_POST[$fields['final']]);
 
-    else {
-      delete_post_meta($post->ID, "week_one", implode(",", $_POST["contributor"]));
-      delete_post_meta($post->ID, "w_one", $_POST["contributor"]);
-      foreach ($_POST["contributor"] as $getID) {
-     delete_post_meta($getID, "points_week_one", $post->post_title);
-      }
+    $data3 = "points_"; $data4 = $fields['week']; $end = $data3 . '' . $data4;
 
+
+     foreach ($_POST[$fields['final']] as $getID) {update_post_meta($getID, $end, $post->post_title);}
     }
 
+    else {
+      delete_post_meta($post->ID, $fields['week'], implode(",", $_POST[$fields['final']]));
+
+      $data1 = "w_"; $data2 = $fields['final']; $fin = $data1 . '' . $data2;
+
+      delete_post_meta($post->ID, $fin, $_POST[$fields['final']]);
+
+
+    }
 
 $args = array(
     'meta_query' => array(
@@ -544,150 +726,9 @@ $users = $user_query->get_results();
   if (!empty($users)) {
 
 foreach($users as $user) {
-
-
         $query_posts = array(
-        'numberposts' => -1,
-        'post_type' => 'houseguests',
-        'fields' => 'ids',
-        'meta_query' => array (
-        array (
-          'key' => '_user_liked',
-          'value' => $user->ID,
-          'compare' => 'LIKE'
-        )
-        ) );    
-
-  $posts_ids = get_posts($query_posts);
-
-  update_user_meta($user->ID, 'test', $posts_ids);
 
 
-$args = array('meta_key' => 'week_one', 'post_type' => 'houseguests', 'post__in' => $posts_ids);
-$lastposts = get_posts( $args );
-
-$string = '';
-
-foreach ( $lastposts as $post ) {
-
-
-  $key_1_value = get_post_meta($post->ID, 'week_one', true );
-  if ( ! empty( $key_1_value ) ) {
-     $string .= $key_1_value.', ';
-  }
-
-}
-$string =  rtrim($string, ', ');
-
-
-update_user_meta($user->ID, 'week_one', $string);
-
-update_post_meta($user->ID, 'all_weeks', $lastposts);
-
-}
-
-}
-
-
-}
-
-
-
-/**** Week Two ***/
-
-
-function weekly_two( $post)
-{
-
-  wp_nonce_field( basename( __FILE__ ), 'prfx_nonce' );
-
-  $args = array('post_type' => 'points', 'order'=> 'DESC');
-  $authors = get_posts( $args );
-
-
-  $output = '';
-  if (!empty($authors)) {
-    $output.= '<ul class="categorychecklist form-no-clear">';
-    foreach($authors as $author) {
-      $author_info = $author->ID;
-      $authors_array = explode(",", get_post_meta($post->ID, 'week_two', true));
-      if (in_array($author_info, $authors_array)) {
-        $author_selected = 'checked';
-      }
-      else {
-        $author_selected = '';
-      }
-      $output.= '<li>';
-      $output.= '<label class="selectit">';
-      $output.= '<input type="checkbox" name="two[]" value="' .$author->ID. '" ' . $author_selected . '>' .$author->post_title. ' ' ;
-      $output.= '</label></li>';
-    }
-    $output.= '</ul>';
-  }
-  else {
-    $output.= _x('No Contributor found.', 'rtPanel');
-  }
-  echo $output;
-}
-
-
-add_action('save_post', 'save_two');
-
-function save_two($post_id)
-{
-  // Checks save status
-    $is_autosave = wp_is_post_autosave( $post_id );
-    $is_revision = wp_is_post_revision( $post_id );
-    $is_valid_nonce = ( isset( $_POST[ 'prfx_nonce' ] ) && wp_verify_nonce( $_POST[ 'prfx_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
- 
-    // Exits script depending on save status
-    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
-        return;
-    }
-
-        if( isset( $_POST[ 'two' ] ) ) {
-        update_post_meta( $post_id, 'week_two', implode(",", $_POST["two"]) );
-        update_post_meta($post_id, "w_two", $_POST["two"]);
-
-        foreach ($_POST["two"] as $getID) {
-        update_post_meta($getID, "points_week_two", get_the_title( $post_id ));}
-       
-       }
-
-       else {
-         delete_post_meta( $post_id, 'week_two', implode(",", $_POST["two"]) );
-        delete_post_meta($post_id, "w_two", $_POST["two"]);
-        
-
-        foreach ($_POST["two"] as $getID) {
-        delete_post_meta($getID, "points_week_two", get_the_title( $post_id ));
-         update_post_meta(4, "test", $getID);
-       
-       }
-
-
-         }
-
-
-         $args = array(
-    'meta_query' => array(
-        array(
-            'key'     => 'wp__user_like_count',
-            'compare' => 'EXISTS'
-        )
-    )
- );
-$user_query = new WP_User_Query( $args );
-// Get the results
-$users = $user_query->get_results();
-
-
-  if (!empty($users)) {
-
-foreach($users as $user) {
-
-
-        $query_posts = array(
         'numberposts' => -1,
         'post_type' => 'houseguests',
         'fields' => 'ids',
@@ -702,15 +743,12 @@ foreach($users as $user) {
   $posts_ids = get_posts($query_posts);
 
 
-$args = array('meta_key' => 'week_two', 'post_type' => 'houseguests', 'post__in' => $posts_ids);
+$args = array('meta_key' => $fields['week'], 'post_type' => 'houseguests', 'post__in' => $posts_ids);
 $lastposts = get_posts( $args );
-
 $string = '';
 
 foreach ( $lastposts as $post ) {
-
-
-  $key_1_value = get_post_meta($post->ID, 'week_two', true );
+  $key_1_value =get_post_meta($post->ID, $fields['week'], true );
   if ( ! empty( $key_1_value ) ) {
      $string .= $key_1_value.', ';
   }
@@ -718,14 +756,323 @@ foreach ( $lastposts as $post ) {
 }
 $string =  rtrim($string, ', ');
 
+  if (!empty($string)) {
 
-update_user_meta($user->ID, 'week_two', $string);
+  	update_user_meta($user->ID, $fields['week'], $string);
 
-update_post_meta($user->ID, 'all_weeks', $lastposts);
+
+
+$array = array_map( 'trim', explode( ',', $string ) );
+
+
+	$args = array('post_type' => 'points', 'post__in' => $array);
+	$the_query = get_posts( $args );
+
+
+		$sum = '';
+		foreach ( $the_query as $points ) {
+		$key_1_value =get_post_meta($points->ID, '_point_value', true );
+		if ( ! empty( $key_1_value ) ) {
+		$sum+=  $key_1_value;
+		}
+
+	}
+
+
+		$data1 = "total_"; $data2 = $fields['week']; $sim = $data1 . '' . $data2;
+		update_user_meta($user->ID, $sim, $sum);
+
+		$totalvalues = array(
+    	array('final' => 'total_week_one'),
+    	array('final' => 'total_week_two'),
+    	array('final' => 'total_week_three'),
+		array('final' => 'total_week_four'),
+    	array('final' => 'total_week_five'),
+    	array('final' => 'total_week_six'),
+    	array('final' => 'total_week_seven'),
+    	array('final' => 'total_week_eight'),
+    	array('final' => 'total_week_nine'),
+		array('final' => 'total_week_ten'),
+    	array('final' => 'total_week_eleven'),
+    	array('final' => 'total_week_twelve')
+
+    	);
+
+		$add = '';
+		foreach ( $totalvalues as $gettotal ) {
+		$figure =get_user_meta($user->ID, $gettotal['final'], true );
+		if ( ! empty( $figure ) ) {
+		$add+=  $figure;
+		}
+
+		}
+
+
+
+	 update_user_meta($user->ID, 'totals', $add);
+
+
+} /*** end if string ***/
+
+}/*** end for each ***/
+
+
+} /*** end Empty Users ***/
+}
+
+
+
+
+
+
 
 }
 
+
+
+
+function wpse_149342_pre_user_query( $query )
+{
+    remove_action( current_action(), __FUNCTION__ );
+
+    $query->query_orderby = str_replace( 
+        'meta_value', 
+        'meta_value+0', 
+        $query->query_orderby 
+    );
 }
 
 
+
+/*** Breadcrumbs ***/
+
+// Breadcrumbs
+function custom_breadcrumbs() {
+       
+    // Settings
+    $separator          = '&gt;';
+    $breadcrums_id      = 'breadcrumbs';
+    $breadcrums_class   = 'breadcrumbs';
+    $home_title         = 'Homepage';
+      
+    // If you have any custom post types with custom taxonomies, put the taxonomy name below (e.g. product_cat)
+    $custom_taxonomy    = 'product_cat';
+       
+    // Get the query & post information
+    global $post,$wp_query;
+       
+    // Do not display on the homepage
+    if ( !is_front_page() ) {
+       
+        // Build the breadcrums
+        echo '<ul id="' . $breadcrums_id . '" class="' . $breadcrums_class . '">';
+           
+        // Home page
+        echo '<li class="item-home"><a class="bread-link bread-home" href="' . get_home_url() . '" title="' . $home_title . '">' . $home_title . '</a></li>';
+        echo '<li class="separator separator-home"> ' . $separator . ' </li>';
+           
+        if ( is_archive() && !is_tax() && !is_category() && !is_tag() ) {
+              
+            echo '<li class="item-current item-archive"><strong class="bread-current bread-archive">' . post_type_archive_title($prefix, false) . '</strong></li>';
+              
+        } else if ( is_archive() && is_tax() && !is_category() && !is_tag() ) {
+              
+            // If post is a custom post type
+            $post_type = get_post_type();
+              
+            // If it is a custom post type display name and link
+            if($post_type != 'post') {
+                  
+                $post_type_object = get_post_type_object($post_type);
+                $post_type_archive = get_post_type_archive_link($post_type);
+              
+                echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '">' . $post_type_object->labels->name . '</a></li>';
+                echo '<li class="separator"> ' . $separator . ' </li>';
+              
+            }
+              
+            $custom_tax_name = get_queried_object()->name;
+            echo '<li class="item-current item-archive"><strong class="bread-current bread-archive">' . $custom_tax_name . '</strong></li>';
+              
+        } else if ( is_single() ) {
+              
+            // If post is a custom post type
+            $post_type = get_post_type();
+              
+            // If it is a custom post type display name and link
+            if($post_type != 'post') {
+                  
+                $post_type_object = get_post_type_object($post_type);
+                $post_type_archive = get_post_type_archive_link($post_type);
+              
+                echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '">' . $post_type_object->labels->name . '</a></li>';
+                echo '<li class="separator"> ' . $separator . ' </li>';
+              
+            }
+              
+            // Get post category info
+            $category = get_the_category();
+             
+            if(!empty($category)) {
+              
+                // Get last category post is in
+                $last_category = end(array_values($category));
+                  
+                // Get parent any categories and create array
+                $get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
+                $cat_parents = explode(',',$get_cat_parents);
+                  
+                // Loop through parent categories and store in variable $cat_display
+                $cat_display = '';
+                foreach($cat_parents as $parents) {
+                    $cat_display .= '<li class="item-cat">'.$parents.'</li>';
+                    $cat_display .= '<li class="separator"> ' . $separator . ' </li>';
+                }
+             
+            }
+              
+            // If it's a custom post type within a custom taxonomy
+            $taxonomy_exists = taxonomy_exists($custom_taxonomy);
+            if(empty($last_category) && !empty($custom_taxonomy) && $taxonomy_exists) {
+                   
+                $taxonomy_terms = get_the_terms( $post->ID, $custom_taxonomy );
+                $cat_id         = $taxonomy_terms[0]->term_id;
+                $cat_nicename   = $taxonomy_terms[0]->slug;
+                $cat_link       = get_term_link($taxonomy_terms[0]->term_id, $custom_taxonomy);
+                $cat_name       = $taxonomy_terms[0]->name;
+               
+            }
+              
+            // Check if the post is in a category
+            if(!empty($last_category)) {
+                echo $cat_display;
+                echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+                  
+            // Else if post is in a custom taxonomy
+            } else if(!empty($cat_id)) {
+                  
+                echo '<li class="item-cat item-cat-' . $cat_id . ' item-cat-' . $cat_nicename . '"><a class="bread-cat bread-cat-' . $cat_id . ' bread-cat-' . $cat_nicename . '" href="' . $cat_link . '" title="' . $cat_name . '">' . $cat_name . '</a></li>';
+                echo '<li class="separator"> ' . $separator . ' </li>';
+                echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+              
+            } else {
+                  
+                echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+                  
+            }
+              
+        } else if ( is_category() ) {
+               
+            // Category page
+            echo '<li class="item-current item-cat"><strong class="bread-current bread-cat">' . single_cat_title('', false) . '</strong></li>';
+               
+        } else if ( is_page() ) {
+               
+            // Standard page
+            if( $post->post_parent ){
+                   
+                // If child page, get parents 
+                $anc = get_post_ancestors( $post->ID );
+                   
+                // Get parents in the right order
+                $anc = array_reverse($anc);
+                   
+                // Parent page loop
+                if ( !isset( $parents ) ) $parents = null;
+                foreach ( $anc as $ancestor ) {
+                    $parents .= '<li class="item-parent item-parent-' . $ancestor . '"><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '" title="' . get_the_title($ancestor) . '">' . get_the_title($ancestor) . '</a></li>';
+                    $parents .= '<li class="separator separator-' . $ancestor . '"> ' . $separator . ' </li>';
+                }
+                   
+                // Display parent pages
+                echo $parents;
+                   
+                // Current page
+                echo '<li class="item-current item-' . $post->ID . '"><strong title="' . get_the_title() . '"> ' . get_the_title() . '</strong></li>';
+                   
+            } else {
+                   
+                // Just display current page if not parents
+                echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '"> ' . get_the_title() . '</strong></li>';
+                   
+            }
+               
+        } else if ( is_tag() ) {
+               
+            // Tag page
+               
+            // Get tag information
+            $term_id        = get_query_var('tag_id');
+            $taxonomy       = 'post_tag';
+            $args           = 'include=' . $term_id;
+            $terms          = get_terms( $taxonomy, $args );
+            $get_term_id    = $terms[0]->term_id;
+            $get_term_slug  = $terms[0]->slug;
+            $get_term_name  = $terms[0]->name;
+               
+            // Display the tag name
+            echo '<li class="item-current item-tag-' . $get_term_id . ' item-tag-' . $get_term_slug . '"><strong class="bread-current bread-tag-' . $get_term_id . ' bread-tag-' . $get_term_slug . '">' . $get_term_name . '</strong></li>';
+           
+        } elseif ( is_day() ) {
+               
+            // Day archive
+               
+            // Year link
+            echo '<li class="item-year item-year-' . get_the_time('Y') . '"><a class="bread-year bread-year-' . get_the_time('Y') . '" href="' . get_year_link( get_the_time('Y') ) . '" title="' . get_the_time('Y') . '">' . get_the_time('Y') . ' Archives</a></li>';
+            echo '<li class="separator separator-' . get_the_time('Y') . '"> ' . $separator . ' </li>';
+               
+            // Month link
+            echo '<li class="item-month item-month-' . get_the_time('m') . '"><a class="bread-month bread-month-' . get_the_time('m') . '" href="' . get_month_link( get_the_time('Y'), get_the_time('m') ) . '" title="' . get_the_time('M') . '">' . get_the_time('M') . ' Archives</a></li>';
+            echo '<li class="separator separator-' . get_the_time('m') . '"> ' . $separator . ' </li>';
+               
+            // Day display
+            echo '<li class="item-current item-' . get_the_time('j') . '"><strong class="bread-current bread-' . get_the_time('j') . '"> ' . get_the_time('jS') . ' ' . get_the_time('M') . ' Archives</strong></li>';
+               
+        } else if ( is_month() ) {
+               
+            // Month Archive
+               
+            // Year link
+            echo '<li class="item-year item-year-' . get_the_time('Y') . '"><a class="bread-year bread-year-' . get_the_time('Y') . '" href="' . get_year_link( get_the_time('Y') ) . '" title="' . get_the_time('Y') . '">' . get_the_time('Y') . ' Archives</a></li>';
+            echo '<li class="separator separator-' . get_the_time('Y') . '"> ' . $separator . ' </li>';
+               
+            // Month display
+            echo '<li class="item-month item-month-' . get_the_time('m') . '"><strong class="bread-month bread-month-' . get_the_time('m') . '" title="' . get_the_time('M') . '">' . get_the_time('M') . ' Archives</strong></li>';
+               
+        } else if ( is_year() ) {
+               
+            // Display year archive
+            echo '<li class="item-current item-current-' . get_the_time('Y') . '"><strong class="bread-current bread-current-' . get_the_time('Y') . '" title="' . get_the_time('Y') . '">' . get_the_time('Y') . ' Archives</strong></li>';
+               
+        } else if ( is_author() ) {
+               
+            // Auhor archive
+               
+            // Get the author information
+            global $author;
+            $userdata = get_userdata( $author );
+               
+            // Display author name
+            echo '<li class="item-current item-current-' . $userdata->user_nicename . '"><strong class="bread-current bread-current-' . $userdata->user_nicename . '" title="' . $userdata->display_name . '">' . 'Author: ' . $userdata->display_name . '</strong></li>';
+           
+        } else if ( get_query_var('paged') ) {
+               
+            // Paginated archives
+            echo '<li class="item-current item-current-' . get_query_var('paged') . '"><strong class="bread-current bread-current-' . get_query_var('paged') . '" title="Page ' . get_query_var('paged') . '">'.__('Page') . ' ' . get_query_var('paged') . '</strong></li>';
+               
+        } else if ( is_search() ) {
+           
+            // Search results page
+            echo '<li class="item-current item-current-' . get_search_query() . '"><strong class="bread-current bread-current-' . get_search_query() . '" title="Search results for: ' . get_search_query() . '">Search results for: ' . get_search_query() . '</strong></li>';
+           
+        } elseif ( is_404() ) {
+               
+            // 404 page
+            echo '<li>' . 'Error 404' . '</li>';
+        }
+       
+        echo '</ul>';
+           
+    }
+       
 }
