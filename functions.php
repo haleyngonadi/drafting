@@ -383,7 +383,7 @@ function about_save_metabox( $post_id ) {
          if ( empty( $motto ) ) {
       delete_post_meta( $post_id, 'get_motto' );
    } else {
-      update_post_meta( $post_id, 'get_motto', $fun );
+      update_post_meta( $post_id, 'get_motto', $motto );
    }
 
             if ( empty( $from ) ) {
