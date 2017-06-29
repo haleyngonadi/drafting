@@ -74,31 +74,37 @@ get_header(); ?>
 
            <td>
 
-    <?php 
-    echo '<a href="'.get_permalink($wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . get_post_meta(91, 'points_week_one', true) . "'" );).'">'.get_post_meta(91, 'points_week_one', true).'</a>';
+  <?php $veto_one = get_post_meta(91, 'points_week_one', true);
+    $vetof = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . $nom_one . "'" );
+    if (!empty()) {echo ', <a href="'.get_permalink($vetof).'">'.$nom_one.'</a>';}
+    ?>
+    <?php $veto_two = get_post_meta(92, 'points_week_one', true);
+    $vetoa = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . $veto_two . "'" );
+    if (!empty()) {echo ', <a href="'.get_permalink($vetoa).'">'.$veto_two.'</a>';}
     ?>
 
-   <?php 
-    echo ', <a href="'.get_permalink($wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . get_post_meta(92, 'points_week_one', true) . "'" );).'">'.get_post_meta(92, 'points_week_one', true).'</a>';
+  <?php $veto_three = get_post_meta(93, 'points_week_one', true);
+    $vetob = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . $veto_three . "'" );
+    if (!empty()) {echo ', <a href="'.get_permalink($vetob).'">'.$veto_three.'</a>';}
     ?>
 
-     <?php 
-    echo ', <a href="'.get_permalink($wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . get_post_meta(93, 'points_week_one', true) . "'" );).'">'.get_post_meta(93, 'points_week_one', true).'</a>';
+  <?php $veto_four = get_post_meta(94, 'points_week_one', true);
+    $vetoc = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . $veto_four . "'" );
+    if (!empty()) {echo ', <a href="'.get_permalink($vetoc).'">'.$veto_four.'</a>';}
     ?>
 
-       <?php 
-    echo '<a href="'.get_permalink($wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . get_post_meta(94, 'points_week_one', true) . "'" );).'">'.get_post_meta(94, 'points_week_one', true).'</a>';
+  <?php $veto_five = get_post_meta(95, 'points_week_one', true);
+    $videod = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . $veto_five . "'" );
+    if (!empty()) {echo ', <a href="'.get_permalink($videod).'">'.$veto_five.'</a>';}
     ?>
 
-   <?php 
-    echo ', <a href="'.get_permalink($wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . get_post_meta(95, 'points_week_one', true) . "'" );).'">'.get_post_meta(95, 'points_week_one', true).'</a>';
+        <?php $veto_six = get_post_meta(96, 'points_week_one', true);
+    $vetoe = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . $veto_six . "'" );
+    if (!empty()) {echo ', <a href="'.get_permalink($vetoe).'">'.$veto_six.'</a>';}
     ?>
 
-     <?php 
-    echo ', <a href="'.get_permalink($wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . get_post_meta(96, 'points_week_one', true) . "'" );).'">'.get_post_meta(96, 'points_week_one', true).'</a>';
-    ?>
 
-   </td>
+    </td>
 
 
 
