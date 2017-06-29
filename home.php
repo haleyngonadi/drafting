@@ -68,7 +68,49 @@ if ( is_user_logged_in() ) {
 			?>
 			</div>
 			<?php else : ?>
-			<p><?php _e( 'You have not drafted any players yet.'); ?></p>
+			
+				<h3 class="point-name">How it works</h3>
+
+	<p>Upon <a href="">logging in</a> or registering, you'd be awarded the opportunity of drafting <b>FOUR</b> unique players, all of whom will either earn or cost you a few points depending on the each week's activities. So, choose wisely.</p>
+
+		<h3 class="point-name">Points</h3>
+
+			<p>You will earn or lose points based on the following:</p>
+
+			<div class="row point-row">
+
+	<?php 
+$args = array(
+	'post_type' => 'points',
+	
+);
+$the_query = new WP_Query( $args ); ?>
+
+<?php if ( $the_query->have_posts() ) : ?>
+
+	<!-- pagination here -->
+
+	<!-- the loop -->
+	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+		<div class="col-sm-4"><div id="points-title"><a href="<?php the_permalink(); ?>" title="Click for more."><?php the_title(); ?></a></div><span title="<?php the_title()?> is worth <?php echo get_post_meta(get_the_id(), '_point_value', true);?> points."> <?php echo get_post_meta(get_the_id(), '_point_value', true);?> Points</span></div>
+	<?php endwhile; ?>
+	<!-- end of the loop -->
+
+	<!-- pagination here -->
+
+	<?php wp_reset_postdata(); ?>
+
+<?php else : ?>
+	<p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+<?php endif; ?>
+
+</div>
+
+
+	<h3 class="point-name">Why Play?</h3>
+	<p>In addition to the game being fun and you earning MAJOR bragging rights for choosely your drafts wisely, the <b>TOP 3</b> people with the most points at the end of this season of Big Brother America, will be awarded something special and BB-related. Stay tuned! </p>
+				
+				
 			<?php 
 			endif; 
 			wp_reset_postdata(); 
