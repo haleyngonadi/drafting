@@ -32,7 +32,7 @@
 
 		<?php
 // Set the Current Author Variable $curauth
-$curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+$curauth = um_profile_id();
 
 ?>
 
@@ -91,7 +91,7 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
 
 	</div>
 	</div>
-	
+
 	
 	</div>
 	

@@ -61,31 +61,31 @@ span.the-hg {
 }
 
 
-body.author {
+body.um-own-profile {
   background: #fb7802;
 }
 
 
-body.author ul.listed li {
+body.um-own-profile ul.listed li {
     border-bottom: 3px solid #fb7802;
 
   }
 
-.author ul.listed li:before {
+.um-own-profile ul.listed li:before {
     background: #fb7802;
 
   }
   
- .author ul.listed {
+ .um-own-profile ul.listed {
     border: 3px solid #fb7802;
 }
 
-.author .circle-span:before {
+.um-own-profile .circle-span:before {
   background: #fb7802;
 
   }
 
-.author .point-name:before {
+.um-own-profile .point-name:before {
     background: #fb7802 !important;
 }
 .wrapper {
@@ -435,7 +435,7 @@ span.won-title {
     padding: 5px;
 }
 
-.author .week-not {
+.um-own-profile .week-not {
     border-right: 0px solid #e3e3e3;
     padding: 0px;
 }
@@ -465,7 +465,7 @@ span.draft-name {
     font-size: 18px;
 }
 
-.author-photo img {
+.um-own-profile-photo img {
     height: auto;
     border-radius: 50%;
     max-width: 172px;
