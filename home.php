@@ -73,7 +73,7 @@ if ( is_user_logged_in() ) {
 	Select Your Drafts
 	</h3>
 
-	<p> Once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of your houseguests in your drafts is <b class="draft-name">FOUR</b>.</p>
+	<p> Once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of your houseguests in your drafts is <b class="draft-name">FOUR</b>. Choose wisely.</p>
 
 
 	<?php 
