@@ -33,7 +33,7 @@ $curauth = um_profile_id();
 
 
 
-	<p> <?php echo nl2br(get_the_author_meta('description')); ?></p>
+	<p> <?php echo um_user('descripiton'); ?></p>
 		
 		<div class="row points-row">
 <div class="col-sm-4 inner-point">
