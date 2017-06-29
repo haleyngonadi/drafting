@@ -35,14 +35,16 @@ if ( is_user_logged_in() ) {
 
 
 			<?php
+
+			echo get_current_user_id();
 			$types = get_post_types( array( 'public' => true ) );
 			$args = array(
 			  'numberposts' => -1,
-			  'post_type' => $types,
+			  'post_type' => 'housegeusts',
 			  'meta_query' => array (
 				array (
 				  'key' => '_user_liked',
-				  'value' => get_current_user_id(),
+				  'value' => 1,
 				  'compare' => 'LIKE'
 				)
 			  ) );		
