@@ -18,7 +18,7 @@ get_header(); ?>
 	global $current_user;
       get_currentuserinfo();
 if ( is_user_logged_in() ) {
-    echo  'Welcome, ' . $current_user->display_name . "!";
+    echo  'Hi ' . $current_user->display_name . "!";
 } else {
     echo 'Hi There!';
 }
@@ -42,7 +42,7 @@ if ( is_user_logged_in() ) {
 			  'meta_query' => array (
 				array (
 				  'key' => '_user_liked',
-				  'value' => $current_user->ID,
+				  'value' => get_current_user_id(),
 				  'compare' => 'LIKE'
 				)
 			  ) );		
