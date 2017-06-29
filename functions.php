@@ -437,7 +437,7 @@ $feature_meta_fields = array(
         'meta_id'=>  $prefix.'1',
         'title'  => 'Week 1',
         'callback' => 'weekly_one',
-        'get' => 'contributor[]',
+        'get' => 'one[]',
         'week' => 'week_one',
 
 
@@ -818,6 +818,8 @@ $array = array_map( 'trim', explode( ',', $string ) );
 
 
 } /*** end Empty Users ***/
+
+
 }
 
 

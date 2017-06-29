@@ -470,7 +470,7 @@ span.won-title {
     height: 400px;
     background-size: cover;
     background-repeat: no-repeat;
-    max-height: 250px;
+    max-height: 300px;
 }
 
 .the_weeks {
@@ -1302,4 +1302,10 @@ a.jm-home-like {
 
 .someone {
   position: relative;
+}
+
+
+a.sl-button.se-button {
+    background: #9d00a9;
+    color: white;
 }
