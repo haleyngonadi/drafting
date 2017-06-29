@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-	<div id="content" class="clearfix">
+	<div id="content" class="clearfix site-content">
 	
 		<?php while ( have_posts() ) : the_post(); ?>
 						
