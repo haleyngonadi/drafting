@@ -29,8 +29,8 @@ function sl_enqueue_scripts() {
 	wp_enqueue_script( 'simple-likes-public-js', get_template_directory_uri() . '/js/simple-likes-public.js', array( 'jquery' ), '0.5', false );
 	wp_localize_script( 'simple-likes-public-js', 'simpleLikes', array(
 		'ajaxurl' => admin_url( 'admin-ajax.php' ),
-		'like' => __( 'Draft', 'YourThemeTextDomain' ),
-		'unlike' => __( 'Un-Draft?', 'YourThemeTextDomain' )
+		'like' => __( 'Draft', 'drafts' ),
+		'unlike' => __( 'Un-Draft?', 'drafts' )
 	) ); 
 }
 
@@ -44,7 +44,7 @@ function process_simple_like() {
 	// Security
 	$nonce = isset( $_REQUEST['nonce'] ) ? sanitize_text_field( $_REQUEST['nonce'] ) : 0;
 	if ( !wp_verify_nonce( $nonce, 'simple-likes-nonce' ) ) {
-		exit( __( 'Not permitted', 'YourThemeTextDomain' ) );
+		exit( __( 'Not permitted', 'drafts' ) );
 	}
 	// Test if javascript is disabled
 	$disabled = ( isset( $_REQUEST['disabled'] ) && $_REQUEST['disabled'] == true ) ? true : false;
@@ -218,11 +218,11 @@ function get_simple_likes_button( $post_id, $is_comment = NULL ) {
 	// Liked/Unliked Variables
 	if ( already_liked( $post_id, $is_comment ) ) {
 		$class = esc_attr( ' liked' );
-		$title = __( 'Un-Draft?', 'YourThemeTextDomain' );
+		$title = __( 'Un-Draft?', 'drafts' );
 		$icon = $icon_full;
 	} else {
 		$class = '';
-		$title = __( 'Draft', 'YourThemeTextDomain' );
+		$title = __( 'Draft', 'drafts' );
 		$icon = $icon_empty;
 	}
 
@@ -358,7 +358,7 @@ function sl_format_count( $number ) {
  * @since    0.5
  */
 function get_like_count( $like_count ) {
-	$like_text = __( 'Like', 'YourThemeTextDomain' );
+	$like_text = __( 'Like', 'drafts' );
 	if ( is_numeric( $like_count ) && $like_count > 0 ) { 
 		$number = sl_format_count( $like_count );
 	} else {
@@ -374,7 +374,7 @@ add_action( 'edit_user_profile', 'show_user_likes' );
 function show_user_likes( $user ) { ?>        
 	<table class="form-table">
 		<tr>
-			<th><label for="user_likes"><?php _e( 'You Like:', 'YourThemeTextDomain' ); ?></label></th>
+			<th><label for="user_likes"><?php _e( 'Your Drafts:', 'drafts' ); ?></label></th>
 			<td>
 			<?php
 			$types = get_post_types( array( 'public' => true ) );
@@ -400,7 +400,7 @@ function show_user_likes( $user ) { ?>
 			?>
 			</p>
 			<?php else : ?>
-			<p><?php _e( 'You have not drafted any players yet.', 'YourThemeTextDomain' ); ?></p>
+			<p><?php _e( 'You have not drafted any players yet.', 'drafts' ); ?></p>
 			<?php 
 			endif; 
 			wp_reset_postdata(); 
