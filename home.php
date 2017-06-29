@@ -56,7 +56,7 @@ var_dump($rows);
 		$args=array(
    'meta_key'       => '_user_liked',
    'meta_value'      => $current_user->ID,//here goes current used ID by default.
-   'meta_compare'   => '=', 
+   'meta_compare'   => 'LIKE', 
 );
 			$the_query = new WP_Query( $args );
 	if ( $the_query->have_posts() ) : ?>
