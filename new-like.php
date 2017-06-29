@@ -192,8 +192,22 @@ function getPostLikeLink( $post_id ) {
 		$title = __( 'Draft', 'favethemes' );
 		$heart = '<i class="fa fa-heart"></i>';
 	}
-	$output = '<a href="#" class="jm-post-like sl-button'.esc_attr( $class ).' " data-post_id="'.esc_attr( $post_id ).'" title="'.esc_attr( $title ).'">'.$title.'</a><span class="jm-load"></span>';
+			$user_id = get_current_user_id();
+	$total = get_user_meta( "_user_draft_count", $user_id, true );
+
+	echo $total;
+
+	if ( $total == 4) {
+		return '<a class="sl-button" href=""> Your Draft Is Full</a>';
+		}
+
+		else {
+
+
+		$output = '<div class="someone"><a href="#" class="jm-home-like'.esc_attr( $class ).' " data-post_id="'.esc_attr( $post_id ).'" title="'.esc_attr( $title ).'">'.$heart.'</a><span class="jm-load"></span></div>';
 	return $output;
+
+}
 }
 
 
