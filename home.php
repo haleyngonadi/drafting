@@ -37,7 +37,7 @@ if ( is_user_logged_in() ) {
 		array(
 			'key'     => '_user_liked',
 			'value'   =>  $current_user->ID,
-			'compare' => 'IN',
+			'compare' => 'LIKE',
 		),
 	),
 );
@@ -45,7 +45,7 @@ $postslist = get_posts( $args );
 
 
 var_dump($postslist);
-			?>ss
+			?>
 
 
 			<?php
@@ -62,26 +62,24 @@ var_dump($postslist);
 				)
 			  ) );		
 			$sep = '';
-			$like_query = new WP_Query( $args );
-			if ( $like_query->have_posts() ) : ?>
-			<h3 class="point-name"> Your Drafts</h3>
-			<div class="row">
-			<?php while ( $like_query->have_posts() ) : $like_query->the_post(); 
-			 ?>
+			$the_query = new WP_Query( $args );
+	if ( $the_query->have_posts() ) : ?>
 
-			 <div class="col-sm-3">
+	<!-- pagination here -->
 
-			 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+	<!-- the loop -->
+	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+		<h2><?php the_title(); ?></h2>
+	<?php endwhile; ?>
+	<!-- end of the loop -->
 
-			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
+	<!-- pagination here -->
 
-			<span class="draft-name"><?php the_title(); ?></span></a>
+	<?php wp_reset_postdata(); ?>
 
-			</div>
-
-			<?php
-			endwhile; 
-			?>
+<?php else : ?>
+	<p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+<?php endif; ?>
 			</div>
 
 
