@@ -20,7 +20,7 @@ get_header(); ?>
 $args = array(
 	'post_type' => 'points',
 	'posts_per_page'=>-1,
-	'orderby' => 'DESC'
+	'orderby' => 'ASC'
 	
 );
 $the_query = new WP_Query( $args ); ?>
