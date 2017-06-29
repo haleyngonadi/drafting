@@ -43,7 +43,7 @@ if ( is_user_logged_in() ) {
 );
 $query = new WP_Query( $args );
 $rows = $query->get_posts();
-var_dump(rows);
+var_dump($rows);
 	?>
 
 			<?php if ( is_user_logged_in() ) : ?>
