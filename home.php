@@ -1,84 +1,37 @@
 <?php
-/**
- * The template for displaying all pages
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages and that
- * other 'pages' on your WordPress site will use a different template.
- *
- * @package WordPress
- * @subpackage Drafting
- * @since Drafting 1.0
- */
-
+/* Template Name: Home */
 get_header(); ?>
 
+<div id="main-content" class="main-content">
 
-<div class="site-content" data-active="<?php echo get_user_meta(1, 'active', true );?>">
 
-<?php
-// Set the Current Author Variable $curauth
-$curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+	<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main">
+
+			
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+<header class="pages-header"><h3 class="point-name">
+	
+
+	<?php
+	global $current_user;
+      get_currentuserinfo();
+if ( is_user_logged_in() ) {
+    echo  'Welcome, ' . $current_user->display_name . "!";
+} else {
+    echo 'Hi There!';
+}
 ?>
 
-	<div class="row author-row">
-					<div class="col-sm-3">
+</h3></header>
 
-	<div class="author-photo"><?php echo get_avatar($curauth->user_email, '300', $avatar); ?></div>
+	<div class="entry-content">
 
-
-
-	</div>
-
-	<div class="col-sm-9">
-
-	<header class="entry-header"><h1 class="entry-title"> <?php echo $curauth->nickname; ?></h1></header>
+			<?php if ( is_user_logged_in() ) : ?>
 
 
-
-
-	<p> <?php echo nl2br(get_the_author_meta('description')); ?></p>
-		
-		<div class="row points-row">
-<div class="col-sm-4 inner-point">
-
-
-	<span class="point-big draft-count">
-
-	<?php 
-
-	$countoflikes = get_user_meta( get_the_ID(), 'wp__user_like_count', true );
-	if(!empty($countoflikes)) {
-		echo $countoflikes;
-	}
-	else {
-		echo '0';
-	}
-	?></span>
-	<span class="point-small">draft(s)</span>
-
-</div>
-
-<div class="col-sm-4 inner-point">
-	<span class="point-big point-week">0</span>
-	<span class="point-small">this week</span>
-
-</div>
-
-<div class="col-sm-4 inner-point">
-	<span class="point-big points-all">0</span>
-	<span class="point-small">all time</span>
-
-</div>
-
-</div>
-
-
-	</div>
-	</div>
-
-	<h3 class="point-name"> Your Drafts</h3>
-
+					<h3 class="point-name"> Your Drafts</h3>
 
 
 			<?php
@@ -89,7 +42,7 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
 			  'meta_query' => array (
 				array (
 				  'key' => '_user_liked',
-				  'value' => $curauth->ID,
+				  'value' => $current_user->ID,
 				  'compare' => 'LIKE'
 				)
 			  ) );		
@@ -122,7 +75,7 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
 			?>
 
 
-<div class="the_weeks row">
+		<div class="the_weeks row">
 
 <?php 
 
@@ -198,7 +151,7 @@ foreach ( $feature_meta_fields as $fields ) : ?>
 
 $getit = $fields['callback'];
 
-$user_last = get_user_meta( $curauth->ID, $getit, true ); 
+$user_last = get_user_meta( $current_user->ID, $getit, true ); 
    	 $array = array_map( 'trim', explode( ',', $user_last ) ); 
 
 ?>
@@ -268,6 +221,60 @@ $the_query = new WP_Query( $args ); ?>
 </div>
 
 
+<?php else : ?>
+
+
+	<h3 class="point-name">How it works</h3>
+
+	<p>Upon <a href="">logging in</a> or registering, you'd be awarded the opportunity of drafting <b>FOUR</b> unique players, all of whom will either earn or cost you a few points depending on the each week's activities. So, choose wisely.</p>
+
+		<h3 class="point-name">Points</h3>
+
+			<p>You will earn or lose points based on the following:</p>
+
+			<div class="row point-row">
+
+	<?php 
+$args = array(
+	'post_type' => 'points',
+	
+);
+$the_query = new WP_Query( $args ); ?>
+
+<?php if ( $the_query->have_posts() ) : ?>
+
+	<!-- pagination here -->
+
+	<!-- the loop -->
+	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+		<div class="col-sm-4"><div id="points-title"><a href="<?php the_permalink(); ?>" title="Click for more."><?php the_title(); ?></a></div><span title="<?php the_title()?> is worth <?php echo get_post_meta(get_the_id(), '_point_value', true);?> points."> <?php echo get_post_meta(get_the_id(), '_point_value', true);?> Points</span></div>
+	<?php endwhile; ?>
+	<!-- end of the loop -->
+
+	<!-- pagination here -->
+
+	<?php wp_reset_postdata(); ?>
+
+<?php else : ?>
+	<p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+<?php endif; ?>
 
 </div>
-<?php get_footer();?>
+
+
+	<h3 class="point-name">Why Play?</h3>
+	<p>In addition to the game being fun and you earning MAJOR bragging rights for choosely your drafts wisely, the <b>TOP 3</b> people with the most points at the end of this season of Big Brother America, will be awarded something special and BB-related. Stay tuned! </p>
+				
+			<?php endif; ?>
+
+		
+
+	</div><!-- .entry-content -->
+</article><!-- #post-## -->
+
+		</div><!-- #content -->
+	</div><!-- #primary -->
+</div><!-- #main-content -->
+
+<?php
+get_footer();

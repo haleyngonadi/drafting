@@ -24,7 +24,7 @@ body.single-houseguest,
   background: #01acd7
 }
 
-.point-name:before {
+.page-template-points .point-name:before {
   background: #01acd7 !important;
 }
 
@@ -92,6 +92,7 @@ body.author ul.listed li {
 	background: white;
 	margin: 0 63px;
 	    padding: 35px 0;
+      min-height: 500px;
 }
 
 
@@ -326,7 +327,7 @@ a.sl-button.liked {
     color: white;
 }
 a.sl-button:hover {
-color: white;
+color: white !important;
 }
 
 
@@ -891,3 +892,188 @@ div#points-title {
     transform: translate(7px, 6px) rotate(3.5deg);
   }
 }
+
+
+
+.unstyledList, .tabBlock-tabs {
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+  text-align: center;
+}
+
+
+.tabBlock {
+  margin: 0 0 2.5rem;
+}
+
+.tabBlock-tab {
+  background-color: #fff;
+  border-color: #fff;
+  border-left-style: solid;
+  border-width: 3px;
+  color: #ddd;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  position: relative;
+  -webkit-transition: 0.1s ease-in-out;
+  transition: 0.1s ease-in-out;
+  border-bottom: solid;
+  border-left-width: 0;
+  padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+.tabBlock-tab:last-of-type {
+  border-right-style: solid;
+}
+.tabBlock-tab::before, .tabBlock-tab::after {
+  content: "";
+  display: block;
+  height: 4px;
+  position: absolute;
+  -webkit-transition: 0.1s ease-in-out;
+  transition: 0.1s ease-in-out;
+}
+/*.tabBlock-tab::before {
+  background-color: #b5a8c5;
+  left: -2px;
+  right: -2px;
+  top: -2px;
+}
+.tabBlock-tab::after {
+  background-color: transparent;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+}*/
+
+.tabBlock-tab.is-active {
+  position: relative;
+  color: #ff0066;
+  z-index: 1;
+}
+.tabBlock-tab.is-active::before {
+  background-color: #975997;
+}
+.tabBlock-tab.is-active::after {
+  background-color: #fff;
+}
+
+.tabBlock-content {
+  background-color: #fff;
+  padding: 1.25rem;
+}
+
+.tabBlock-pane > :last-child {
+  margin-bottom: 0;
+}
+
+
+
+.leader-photo img {
+    max-width: 100%;
+    height: initial;
+    border-radius: 50%;
+}
+
+
+
+.leader-photo  {
+margin-bottom: 20px;
+}
+
+
+figure.tabBlock {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+
+
+
+span.leader-title {
+    font-family: 'Abril Fatface', cursive;
+    font-size: 25px;
+    display: block;
+    text-transform: lowercase;
+    color: #222;
+    letter-spacing: 3px;
+}
+
+
+b.random-name {
+     color: #ff0066; 
+    font-size: 14px;
+    display: block;
+    text-decoration: underline;
+        text-transform: uppercase;
+            line-height: 14px;
+    margin-top: 10px;
+
+}
+
+
+p.the-drafts {
+    display: inline-block;
+    font-size: 14px;
+}
+
+
+span.week-total {
+    font-family: 'Abril Fatface', cursive;
+    background: #ff0066;
+    font-size: 35px;
+    margin-bottom: -15px;
+    color: white;
+    display: block;
+    border-bottom: 6px solid #ef0462;
+        margin-top: 18px;
+
+}
+
+
+.row.leader-row {
+    border-bottom: 3px solid #efefef;
+    margin-top: 20px;
+}
+
+
+.error404 .page-content {
+    text-align: center;
+}
+
+input#searchsubmit {
+    background: #ff0066;
+    border: 0;
+    color: white;
+    margin-left: -4px;
+    padding: 8px;
+}
+
+
+input#s {
+    padding: 7px 21px;
+    border: #f1f1f1 solid 1px;
+}
+
+label.screen-reader-text {
+    margin-right: 9px;
+}
+
+b {
+  color: #ff0066;
+}
+
+
+
+.home div#points-title {
+    background: #ff0066;
+}
+
+.home .point-row span {
+    background: #e8015e;
+
+    }
+

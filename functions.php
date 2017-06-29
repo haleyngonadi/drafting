@@ -67,7 +67,7 @@ function book_setup_post_type() {
         'name' => __( 'Points' ) ),
         'menu_icon' => 'dashicons-portfolio',
         'supports' => array( 'title', 'thumbnail' ),
-        'has_archive' => true,
+        'has_archive' => false,
     );
     register_post_type( 'points', $args );
 }
@@ -696,6 +696,8 @@ $users = $user_query->get_results();
 
 foreach($users as $user) {
         $query_posts = array(
+
+
         'numberposts' => -1,
         'post_type' => 'houseguests',
         'fields' => 'ids',
@@ -722,10 +724,66 @@ foreach ( $lastposts as $post ) {
 
 }
 $string =  rtrim($string, ', ');
-update_user_meta($user->ID, $fields['week'], $string);
+
+  if (!empty($string)) {
+
+  	update_user_meta($user->ID, $fields['week'], $string);
 
 
-}
+
+$array = array_map( 'trim', explode( ',', $string ) );
+
+
+	$args = array('post_type' => 'points', 'post__in' => $array);
+	$the_query = get_posts( $args );
+
+
+		$sum = '';
+		foreach ( $the_query as $points ) {
+		$key_1_value =get_post_meta($points->ID, '_point_value', true );
+		if ( ! empty( $key_1_value ) ) {
+		$sum+=  $key_1_value;
+		}
+
+	}
+
+
+		$data1 = "total_"; $data2 = $fields['week']; $sim = $data1 . '' . $data2;
+		update_user_meta($user->ID, $sim, $sum);
+
+		$totalvalues = array(
+    	array('final' => 'total_week_one'),
+    	array('final' => 'total_week_two'),
+    	array('final' => 'total_week_three'),
+		array('final' => 'total_week_four'),
+    	array('final' => 'total_week_five'),
+    	array('final' => 'total_week_six'),
+    	array('final' => 'total_week_seven'),
+    	array('final' => 'total_week_eight'),
+    	array('final' => 'total_week_nine'),
+		array('final' => 'total_week_ten'),
+    	array('final' => 'total_week_eleven'),
+    	array('final' => 'total_week_twelve')
+
+    	);
+
+		$add = '';
+		foreach ( $totalvalues as $gettotal ) {
+		$figure =get_user_meta($user->ID, $gettotal['final'], true );
+		if ( ! empty( $figure ) ) {
+		$add+=  $figure;
+		}
+
+		}
+
+
+
+	 update_user_meta($user->ID, 'totals', $add);
+
+
+} /*** end if string ***/
+
+}/*** end for each ***/
 
 
 } /*** end Empty Users ***/
@@ -737,4 +795,18 @@ update_user_meta($user->ID, $fields['week'], $string);
 
 
 
+}
+
+
+
+
+function wpse_149342_pre_user_query( $query )
+{
+    remove_action( current_action(), __FUNCTION__ );
+
+    $query->query_orderby = str_replace( 
+        'meta_value', 
+        'meta_value+0', 
+        $query->query_orderby 
+    );
 }

@@ -393,7 +393,7 @@ function show_user_likes( $user ) { ?>
 			?>
 			</p>
 			<?php else : ?>
-			<p><?php _e( 'You do not like anything yet.', 'YourThemeTextDomain' ); ?></p>
+			<p><?php _e( 'You have not drafted any players yet.', 'YourThemeTextDomain' ); ?></p>
 			<?php 
 			endif; 
 			wp_reset_postdata(); 
