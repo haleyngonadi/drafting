@@ -39,7 +39,7 @@ if ( is_user_logged_in() ) {
 	'meta_query' => array(
 		array(
 			'key'     => '_user_liked',
-			'value'   => 1,
+			'value'   => 3,
 			'compare' => 'LIKE',
 		),
 	),
