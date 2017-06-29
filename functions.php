@@ -69,7 +69,7 @@ function book_setup_post_type() {
         'labels' => array(
         'name' => __( 'Points' ) ),
         'menu_icon' => 'dashicons-portfolio',
-        'supports' => array( 'title', 'thumbnail' ),
+        'supports' => array( 'title'),
         'has_archive' => false,
     );
     register_post_type( 'points', $args );
