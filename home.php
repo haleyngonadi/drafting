@@ -96,7 +96,7 @@ $getall = new WP_Query( array( 'post_type' => 'houseguests', 'posts_per_page' =>
 			 		
 			 		<?php 
 			 		echo get_the_ID();
-			 		echo getDraftlink(get_the_ID());?>
+			 		echo getPostLikeLink(get_the_ID());?>
 
 			 	</div>
 
