@@ -1189,15 +1189,16 @@ p.about-me {
 
 
 #breadcrumbs{
-    list-style:none;
-    margin:10px 0;
-    overflow:hidden;
+list-style: none;
+    margin-top: -10px;
+    overflow: hidden;
+    padding: 0;
 }
   
 #breadcrumbs li{
     display:inline-block;
     vertical-align:middle;
-    margin-right:15px;
+    margin-right:8px;
 }
   
 #breadcrumbs .separator{
