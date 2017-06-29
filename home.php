@@ -88,14 +88,14 @@ $getall = new WP_Query( array( 'post_type' => 'houseguests', 'posts_per_page' =>
 	<!-- the loop -->
 	<div class="row">
 	<?php while ( $getall->have_posts() ) : $getall->the_post(); ?>
-		 <div class="col-sm-3 home-drafts">
+		 <div class="col-sm-3 home-drafts" style="text-align: center;">
 
 			 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 
-			 	<span class="draft-name"><?php the_title(); ?>
+			 	<span class="draft-name"><?php the_title(); ?></span>
 			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
 
-			</span></a>
+			</a>
 
 			<?php 
 			 		echo getPostLikeLink(get_the_ID());?>
