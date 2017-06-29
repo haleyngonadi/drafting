@@ -73,8 +73,9 @@ if ( is_user_logged_in() ) {
 	Select Your Drafts
 	</h3>
 
-	<p> Once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of your houseguests in your drafts is <b class="draft-name">FOUR</b>. Choose wisely.</p>
+	<p> <b>TIP:</b> Choose wisely because once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of houseguests in your drafts is reaches the number <b class="draft-name">FOUR</b>. Ready to select your drafts? Click this icon (<i class="fa fa-heart"></i>) which appears on the photo whichever houseguest you would like to draft!</p>
 
+<br>
 
 	<?php 
 // the query
@@ -87,11 +88,15 @@ $getall = new WP_Query( array( 'post_type' => 'houseguests', 'posts_per_page' =>
 	<!-- the loop -->
 	<div class="row">
 	<?php while ( $getall->have_posts() ) : $getall->the_post(); ?>
-		 <div class="col-sm-3">
+		 <div class="col-sm-3 home-drafts">
 
 			 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 
-			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
+			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')">
+			 		
+			 		<?php echo getDraftlink(get_the_ID());?>
+
+			 	</div>
 
 			<span class="draft-name"><?php the_title(); ?></span></a>
 
