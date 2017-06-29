@@ -1128,6 +1128,7 @@ ul.sub-menu {
 
 ul.sub-menu li {
     border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+    border-right: 0px
 }
 
 .menu-item-has-children:after {
@@ -1143,6 +1144,6 @@ ul.sub-menu {
 
 .menu-item-has-children:hover ul {
     display:block;
-    position:relative;
+    position:absolute;
 }
 
