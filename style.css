@@ -1171,3 +1171,8 @@ p.about-me {
     border-bottom: 0px solid #eee; 
         margin-bottom: 0;
 }
+
+
+.hg-item {
+  margin-bottom: 10px;
+}

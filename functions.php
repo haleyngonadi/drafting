@@ -22,6 +22,8 @@ if ( ! isset( $content_width ) ) {
 
 add_theme_support( 'post-thumbnails' );
 add_image_size( 'homepage-thumb', 400, 400, true );
+add_image_size( 'hg-thumb', 300, 300, array( 'center', 'top' ) );
+
 
 /*** Enqueue Styles and Scripts ***/
 

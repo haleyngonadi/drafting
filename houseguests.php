@@ -19,7 +19,7 @@ get_header(); ?>
 	<?php 
 $args = array(
 	'post_type' => 'houseguests',
-	'numberposts' => 16,
+	'posts_per_page'=>-1
 
 	
 );
@@ -31,7 +31,7 @@ $the_query = new WP_Query( $args ); ?>
 
 	<!-- the loop -->
 	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-		<div class="col-sm-4"><a href="<?php the_permalink(); ?>" title="Click for more."><?php the_post_thumbnail('homepage-thumb'); ?></a>
+		<div class="col-sm-4 hg-item"><a href="<?php the_permalink(); ?>" title="Click for more."><?php the_post_thumbnail('hg-thumb'); ?></a>
 		<div id="house-title"><span class="the-hg"><?php the_title(); ?></span>	<span class="hg-drafted" title="Drafts">
 
 	<?php 
