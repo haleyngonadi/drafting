@@ -79,6 +79,23 @@ $curauth = um_profile_id();
 
 		<h3 class="point-name"> <?php echo um_user('display_name'); ?>'s Drafts</h3>
 
+			<?php 
+
+	$countoflikes = get_user_meta( $curauth , 'draft_name', true );
+	if(!empty($countoflikes)) {
+
+		echo '<h3 class="point-name">';
+		echo $countoflikes;
+		echo '</h3>';
+	}
+	else {
+		echo um_user('display_name');
+		echo " 's Drafts";
+	}
+	?>
+
+
+
 
 
 			<?php
