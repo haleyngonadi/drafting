@@ -15,16 +15,25 @@ jQuery(document).ready(function() {
 					if (lecount == 0)
 					{
 						var lecount = "Like";
+						$('.draft-count').html('0');
 					}
-					heart.prop('title', 'Like');
+
+					else {$('.draft-count').html(lecount);}
+
+
+					heart.prop('title', 'Draft');
 					heart.removeClass("liked");
 					heart.html("<i class='linecon-icon-heart'></i>&nbsp;"+lecount);
+
+
+							
 				}
 				else
 				{
-					heart.prop('title', 'Unlike');
+					heart.prop('title', 'Un-Draft');
 					heart.addClass("liked");
-					heart.html("<i class='linecon-icon-heart'></i>&nbsp;"+count);
+					heart.html("Un-Draft?");
+					$('.draft-count').html(count);
 				}
 			}
 		});
