@@ -23,7 +23,7 @@ jQuery(document).ready(function() {
 
 					heart.prop('title', 'Draft');
 					heart.removeClass("liked");
-					heart.html("<i class='linecon-icon-heart'></i>&nbsp;"+lecount);
+					heart.html("Draft");
 
 
 							

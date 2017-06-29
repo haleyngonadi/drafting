@@ -94,7 +94,9 @@ $getall = new WP_Query( array( 'post_type' => 'houseguests', 'posts_per_page' =>
 
 			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')">
 			 		
-			 		<?php echo getDraftlink(get_the_ID());?>
+			 		<?php 
+			 		echo get_the_ID();
+			 		echo getDraftlink(get_the_ID());?>
 
 			 	</div>
 
