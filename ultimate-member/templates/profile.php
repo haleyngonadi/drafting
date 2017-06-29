@@ -33,7 +33,11 @@ $curauth = um_profile_id();
 
 
 
-	<p> <?php echo um_user('description'); ?></p>
+	<p class="about-me"> <?php 
+
+	if (!empty(um_user('description'))) {
+		echo '<p class="about-me">';
+		echo um_user('description'); echo '</p>'; }?>
 		
 		<div class="row points-row">
 <div class="col-sm-4 inner-point">

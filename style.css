@@ -1151,3 +1151,13 @@ ul.sub-menu {
     position:absolute;
 }
 
+p.about-me {
+    border-top: 1px solid #eee;
+    padding-top: 11px;
+}
+
+
+.um-page-user .entry-header {
+
+    border-bottom: 0px solid #eee; 
+}
