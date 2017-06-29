@@ -44,9 +44,10 @@ if ( is_user_logged_in() ) {
 		),
 	),
 );
-$query = new WP_Query( $args );
+$postslist = get_posts( $args );
 
-var_dump($query);
+
+var_dump($postslist);
 			?>
 
 
