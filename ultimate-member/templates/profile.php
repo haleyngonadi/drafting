@@ -33,7 +33,7 @@ $curauth = um_profile_id();
 
 
 
-	<p class="about-me"> <?php 
+	 <?php 
 
 	if (!empty(um_user('description'))) {
 		echo '<p class="about-me">';
