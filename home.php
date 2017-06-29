@@ -35,10 +35,9 @@ if ( is_user_logged_in() ) {
 
 			<?php
 
-			$types = get_post_types( array( 'public' => true ) );
 			$args = array(
 			  'numberposts' => -1,
-			  'post_type' => 'housegeusts',
+			  'post_type' => 'houseguests',
 			  'meta_query' => array (
 				array (
 				  'key' => '_user_liked',
