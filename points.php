@@ -36,11 +36,11 @@ $the_query = new WP_Query( $args ); ?>
 		<div class="col-sm-4"><div id="points-title"><a href="<?php the_permalink(); ?>" title="Click for more."><?php the_title(); ?></a></div><span title="<?php the_title()?> is worth <?php echo get_post_meta(get_the_id(), '_point_value', true);?> points."> <?php echo get_post_meta(get_the_id(), '_point_value', true);?> Point(s)</span></div>
 	<?php endwhile; ?>
 
-	<div class="col-sm-4"><div id="points-title"><a href="/points/nominated" title="Click for more."></a></div><span title="A nominated houseguest will cost you -5 points."> -5 Point(s)</span></div>
+	<div class="col-sm-4"><div id="points-title"><a href="/points/nominated" title="Click for more.">Nominated</a></div><span title="A nominated houseguest will cost you -5 points."> -5 Point(s)</span></div>
 
-	<div class="col-sm-4"><div id="points-title"><a href="/points/veto-player" title="Click for more."></a></div><span title="A houseguest picked to play in the veto will earn you 2 points."> 2 Point(s)</span></div>
+	<div class="col-sm-4"><div id="points-title"><a href="/points/veto-player" title="Click for more.">Veto Player</a></div><span title="A houseguest picked to play in the veto will earn you 2 points."> 2 Point(s)</span></div>
 
-		<div class="col-sm-4"><div id="points-title"><a href="/points/have-not" title="Click for more."></a></div><span title="Havenot will cost you -2 points."> -2 Point(s)</span></div>
+		<div class="col-sm-4"><div id="points-title"><a href="/points/have-not" title="Click for more.">Have Not</a></div><span title="Havenot will cost you -2 points."> -2 Point(s)</span></div>
 
 
 	<!-- end of the loop -->
