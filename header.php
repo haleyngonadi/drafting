@@ -75,7 +75,7 @@
 
 <?php wp_nav_menu( array( 'theme_location' => 'header-menu',  'menu_class' => 'navigation', 'menu_class' => 'navigation pull-left',  ) ); ?>
 
-<?php wp_nav_menu( array( 'theme_location' => 'header-menu',  'menu_class' => 'navigation',  'menu_class' => 'navigation pull-right',  ) ); ?>
+<?php wp_nav_menu( array( 'theme_location' => 'right-menu',  'menu_class' => 'navigation',  'menu_class' => 'navigation pull-right',  ) ); ?>
 
 </div>
 
