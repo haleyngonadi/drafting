@@ -28,6 +28,24 @@ if ( is_user_logged_in() ) {
 
 	<div class="entry-content">
 
+	<?php 
+	$args = array(
+  'post_type' => 'houseguests',
+  'post_status' => 'publish',
+  'posts_per_page' => -1,
+  'meta_query' => array(
+    array(
+      'key' => 'user_liked',
+      'value' => 1,
+      'compare' => 'LIKE'
+    )
+  )
+);
+$query = new WP_Query( $args );
+$rows = $query->get_posts();
+var_dump(rows);
+	?>
+
 			<?php if ( is_user_logged_in() ) : ?>
 
 
