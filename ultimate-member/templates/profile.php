@@ -108,8 +108,6 @@ $curauth = um_profile_id();
 			$likedposts = get_user_meta(  $curauth,'_drafted', 'true');
 
 
-			var_dump($likedposts);
-
 			$like_query = new WP_Query( array( 'post_type' => 'houseguests', 'post__in' => $likedposts ) );
 
 			if ( $like_query->have_posts() ) : ?>
