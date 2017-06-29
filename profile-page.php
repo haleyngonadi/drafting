@@ -7,8 +7,6 @@ get_header(); ?>
 	
 		<?php while ( have_posts() ) : the_post(); ?>
 						
-			<div class="pages-header"><h3 class="point-name"><?php the_title(); ?></h3></div>
-
 			<?php the_content(); ?>
 			
 
