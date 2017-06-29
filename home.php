@@ -72,37 +72,27 @@ if ( is_user_logged_in() ) {
 	<p><?php _e( 'You have no houseguests in your drafts. Draft a few below!' ); ?></p>
 
 
-	<?php
+	<?php 
+// the query
+$getall = new WP_Query( array( 'post_type' => 'houseguests') ); ?>
 
-
-			
-		$the_query = new WP_Query( array( 'post_type' => 'houseguests' ) );
-	if ($the_query->have_posts() ) : ?>
-	<h3 class="point-name">
-	Pick Your Drafts
-	</h3>
+<?php if ( $getall->have_posts() ) : ?>
 
 	<!-- pagination here -->
 
 	<!-- the loop -->
-	<div class="row">
-	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-					 <div class="col-sm-3">
-
-			 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-
-			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
-
-			<span class="draft-name"><?php the_title(); ?></span></a>
-
-			</div>
+	<?php while ( $getall->have_posts() ) : $getall->the_post(); ?>
+		<h2><?php the_title(); ?></h2>
 	<?php endwhile; ?>
-	</div>
 	<!-- end of the loop -->
 
 	<!-- pagination here -->
 
 	<?php wp_reset_postdata(); ?>
+
+<?php else : ?>
+	<p><?php _e( 'Sorry, houseguests found.' ); ?></p>
+<?php endif; ?>
 
 
 <?php endif; ?>
