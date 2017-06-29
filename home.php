@@ -30,22 +30,7 @@ if ( is_user_logged_in() ) {
 
 			<?php if ( is_user_logged_in() ) : ?>
 
-							<?php
-			$args = array(
-	'post_type'  => 'houseguests',
-	'meta_query' => array(
-		array(
-			'key'     => '_user_liked',
-			'value'   =>  $current_user->ID,
-			'compare' => 'LIKE',
-		),
-	),
-);
-$postslist = get_posts( $args );
 
-
-var_dump($postslist);
-			?>
 
 
 			<?php
@@ -83,59 +68,6 @@ var_dump($postslist);
 			</div>
 
 
-			<?php else : ?>
-			
-				<h3 class="point-name">How it works</h3>
-
-	<p>Upon <a href="/login">logging in</a> or <a href="/register">registering</a>, you'd be awarded the opportunity of drafting <b>FOUR</b> unique players, all of whom will either earn or cost you a few points depending on the each week's activities. So, choose wisely.</p>
-
-		<p>To Begin, please <a href="/houseguests">click here</a> to head to the memory wall to select your drafts.</p>
-
-
-		<h3 class="point-name">Points</h3>
-
-			<p>You will earn or lose <a href="/points">points</a> based on the following and more:</p>
-
-			<div class="row point-row">
-
-	<?php 
-$args = array(
-	'post_type' => 'points',
-		'posts_per_page'=> 6,
-		'post__not_in' => array( 96, 95, 94, 93, 92, 91, 90, 89, 97, 102, 101, 100, 110,111, 112  )
-	
-);
-$the_query = new WP_Query( $args ); ?>
-
-<?php if ( $the_query->have_posts() ) : ?>
-
-	<!-- pagination here -->
-
-	<!-- the loop -->
-	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-		<div class="col-sm-4"><div id="points-title"><a href="<?php the_permalink(); ?>" title="Click for more."><?php the_title(); ?></a></div><span title="<?php the_title()?> is worth <?php echo get_post_meta(get_the_id(), '_point_value', true);?> points."> <?php echo get_post_meta(get_the_id(), '_point_value', true);?> Points</span></div>
-	<?php endwhile; ?>
-	<!-- end of the loop -->
-
-	<!-- pagination here -->
-
-	<?php wp_reset_postdata(); ?>
-
-<?php else : ?>
-	<p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
-<?php endif; ?>
-
-</div>
-
-
-	<h3 class="point-name">Why Play?</h3>
-	<p>In addition to the game being fun and you earning MAJOR bragging rights for choosely your drafts wisely, the <b>TOP 3</b> people with the most points at the end of this season of Big Brother America, will be awarded something special and BB-related. Stay tuned! </p>
-				
-
-			<?php 
-			endif; 
-			wp_reset_postdata(); 
-			?>
 
 
 		<div class="the_weeks row">
