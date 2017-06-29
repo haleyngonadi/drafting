@@ -581,7 +581,7 @@ $feature_meta_fields = array(
         'callback' => 'weekly_one',
         'get' => 'contributor[]',
         'week' => 'week_one',
-        'final' => 'contributor',
+        'final' => 'one',
     ),
     array(
         'meta_id'=>  $prefix.'2',
