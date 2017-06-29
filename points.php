@@ -9,10 +9,10 @@ get_header(); ?>
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 
-<?php
-
-		the_title( '<header class="pages-header"><h3 class="point-name">', '</h3></header><!-- .entry-header -->' );
-	?>
+<header class="pages-header">
+<?php the_title( '<h3 class="point-name">', '</h3>' ); ?>
+<?php custom_breadcrumbs(); ?>
+</header><!-- .entry-header -->
 
 <div class="row point-row">
 

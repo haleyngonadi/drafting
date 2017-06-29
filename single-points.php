@@ -120,19 +120,7 @@ get_header(); ?>
 
   </table>
 
-					<nav id="nav-single">
-						<h3 class="assistive-text"><?php _e( 'Navigation', 'twentyeleven' ); ?></h3>
-
-            <?php 
-  $p = get_adjacent_post(false, '', true);
-  if(!empty($p)) echo '<span class="meta-nav">&larr;</span> <span class="prev"><a href="' . get_permalink($p->ID) . '" title="' . $p->post_title . '">' . $p->post_title . '</a></span>';
-
-  $n = get_adjacent_post(false, '', false);
-  if(!empty($n)) echo '<span class="next"><a href="' . get_permalink($n->ID) . '" title="' . $n->post_title . '">' . $n->post_title . ' <span class="meta-nav">&rarr;</span></a></span>'; 
-?>
-
-
-					</nav><!-- #nav-single -->
+					
 
 
 				<?php endwhile; // end of the loop. ?>
