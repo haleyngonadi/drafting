@@ -11,7 +11,16 @@ get_header(); ?>
 
 		<div id="primary">
 			<div id="content" role="main" class="point-single">
-			<h3 class="point-name"><?php the_title()?></h3>
+
+        <?php if ( is_single('112')) : ?>
+       <h3 class="point-name">Have Not</h3>
+      <?php else:?>
+        <h3 class="point-name"><?php the_title()?></h3>
+      <?php endif; ?>
+
+
+
+			
 				<?php while ( have_posts() ) : the_post(); ?>
 
 					<table class="point-system">
