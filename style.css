@@ -1103,3 +1103,12 @@ body.um-own-profile h1.entry-title {
 .um-account-main div.um-account-heading {
     display: none;
 }
+
+
+
+.menu {
+    width: 100%;
+    display: table;
+    background: rgba(0, 0, 0, 0.08);
+    border-bottom: 4px solid rgba(0, 0, 0, 0.03);
+}

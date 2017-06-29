@@ -72,7 +72,7 @@
 <body <?php body_class(); ?>>
 
 
-<?php wp_nav_menu( array( 'theme_location' => 'header-menu',  'menu_class' => 'navigation', 'container_class' => 'pull-left', ) ); ?>
+<?php wp_nav_menu( array( 'theme_location' => 'header-menu',  'menu_class' => 'navigation', 'container_class' => 'menu', 'menu_class' => 'navigation pull-left',  ) ); ?>
 
 
 
