@@ -74,7 +74,7 @@ if ( is_user_logged_in() ) {
 
 	<?php 
 // the query
-$getall = new WP_Query( array( 'post_type' => 'houseguests') ); ?>
+$getall = new WP_Query( array( 'post_type' => 'houseguests', 'posts_per_page' => -1) ); ?>
 
 <?php if ( $getall->have_posts() ) : ?>
 
