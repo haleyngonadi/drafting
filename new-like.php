@@ -210,6 +210,15 @@ function getDraftlink( $post_id ) {
 		$heart = '<i class="fa fa-heart-o"></i>';
 	}
 
+
+		$user_id = get_current_user_id();
+	$total = get_user_meta( "_user_draft_count", $user_id );
+
+	if ( $total == 4) {
+		return '<a class="sl-button" href=""> Your Draft Is Full</a>';
+		}
+
+		
 		$output = '<div class="someone"><a href="#" class="jm-home-like'.esc_attr( $class ).' " data-post_id="'.esc_attr( $post_id ).'" title="'.esc_attr( $title ).'">'.$heart.'</a><span class="jm-load"></span></div>';
 	return $output;
 	
