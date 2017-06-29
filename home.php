@@ -36,7 +36,7 @@ if ( is_user_logged_in() ) {
 
 			<?php
 
-			$likedposts = get_user_meta( $current_user->ID,'wpbc_drafted', 'true');
+			$likedposts = get_user_meta( $current_user->ID,'_drafted', 'true');
 			var_dump($likedposts);
 
 		$the_query = new WP_Query( array( 'post_type' => 'houseguests', 'post__in' => $likedposts ) );
