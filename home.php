@@ -92,15 +92,12 @@ $getall = new WP_Query( array( 'post_type' => 'houseguests', 'posts_per_page' =>
 
 			 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 
-			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')">
-			 		
-			 		<?php 
-			 		echo get_the_ID();
-			 		echo getPostLikeLink(get_the_ID());?>
-
-			 	</div>
+			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
 
 			<span class="draft-name"><?php the_title(); ?></span></a>
+
+			<?php 
+			 		echo getPostLikeLink(get_the_ID());?>
 
 			</div>
 	<?php endwhile; ?></div>
