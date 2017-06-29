@@ -192,7 +192,7 @@ function getPostLikeLink( $post_id ) {
 		$title = __( 'Draft', 'favethemes' );
 		$heart = '<i class="fa fa-heart"></i>';
 	}
-	$output = '<a href="#" class="jm-post-like sl-button'.esc_attr( $class ).' " data-post_id="'.esc_attr( $post_id ).'" title="'.esc_attr( $title ).'">'.$heart.'&nbsp;'.$title'</a><span class="jm-load"></span>';
+	$output = '<a href="#" class="jm-post-like sl-button'.esc_attr( $class ).' " data-post_id="'.esc_attr( $post_id ).'" title="'.esc_attr( $title ).'">'.$title.'</a><span class="jm-load"></span>';
 	return $output;
 }
 
