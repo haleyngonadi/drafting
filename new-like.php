@@ -42,13 +42,13 @@ function jm_post_like() {
 	if ( isset( $_POST['jm_post_like'] ) ) {
 	
 		$post_id = $_POST['post_id']; // post id
-		$post_like_count = get_post_meta( $post_id, "_post_like_count", true ); // post like count
+		$post_like_count = get_post_meta( $post_id, "_draft_count", true ); // post like count
 		
 		if ( is_user_logged_in() ) { // user is logged in
 			global $current_user;
 			$user_id = $current_user->ID; // current user
-			$meta_POSTS = ( is_multisite() ) ? get_user_option( "_liked_posts", $user_id  ) : get_user_meta( $user_id, "_liked_posts" ); // post ids from user meta
-			$meta_USERS = get_post_meta( $post_id, "_user_liked" ); // user ids from post meta
+			$meta_POSTS = ( is_multisite() ) ? get_user_option( "_drafted", $user_id  ) : get_user_meta( $user_id, "_drafted" ); // post ids from user meta
+			$meta_USERS = get_post_meta( $post_id, "_user_drafted" ); // user ids from post meta
 			$liked_POSTS = NULL; // setup array variable
 			$liked_USERS = NULL; // setup array variable
 			
@@ -71,14 +71,14 @@ function jm_post_like() {
 			$user_likes = count( $liked_POSTS ); // count user likes
 	
 			if ( !AlreadyLiked( $post_id ) ) { // like the post
-				update_post_meta( $post_id, "_user_liked", $liked_USERS ); // Add user ID to post meta
-				update_post_meta( $post_id, "_post_like_count", ++$post_like_count ); // +1 count post meta
+				update_post_meta( $post_id, "_user_drafted", $liked_USERS ); // Add user ID to post meta
+				update_post_meta( $post_id, "_draft_count", ++$post_like_count ); // +1 count post meta
 				if ( is_multisite() ) { // if multisite support
-					update_user_option( $user_id, "_liked_posts", $liked_POSTS ); // Add post ID to user meta
-					update_user_option( $user_id, "_user_like_count", $user_likes ); // +1 count user meta
+					update_user_option( $user_id, "_drafted", $liked_POSTS ); // Add post ID to user meta
+					update_user_option( $user_id, "_user_draft_count", $user_likes ); // +1 count user meta
 				} else {
-					update_user_meta( $user_id, "_liked_posts", $liked_POSTS ); // Add post ID to user meta
-					update_user_meta( $user_id, "_user_like_count", $user_likes ); // +1 count user meta
+					update_user_meta( $user_id, "_drafted", $liked_POSTS ); // Add post ID to user meta
+					update_user_meta( $user_id, "_user_draft_count", $user_likes ); // +1 count user meta
 				}
 				echo $post_like_count; // update count on front end
 
@@ -88,14 +88,14 @@ function jm_post_like() {
 				unset( $liked_POSTS[$pid_key] ); // remove from array
 				unset( $liked_USERS[$uid_key] ); // remove from array
 				$user_likes = count( $liked_POSTS ); // recount user likes
-				update_post_meta( $post_id, "_user_liked", $liked_USERS ); // Remove user ID from post meta
-				update_post_meta($post_id, "_post_like_count", --$post_like_count ); // -1 count post meta
+				update_post_meta( $post_id, "_user_drafted", $liked_USERS ); // Remove user ID from post meta
+				update_post_meta($post_id, "_draft_count", --$post_like_count ); // -1 count post meta
 				if ( is_multisite() ) { // if multisite support
-					update_user_option( $user_id, "_liked_posts", $liked_POSTS ); // Remove post ID from user meta			
-					update_user_option( $user_id, "_user_like_count", $user_likes ); // -1 count user meta
+					update_user_option( $user_id, "_drafted", $liked_POSTS ); // Remove post ID from user meta			
+					update_user_option( $user_id, "_user_draft_count", $user_likes ); // -1 count user meta
 				} else {
-					update_user_meta( $user_id, "_liked_posts", $liked_POSTS ); // Add post ID to user meta
-					update_user_meta( $user_id, "_user_like_count", $user_likes ); // +1 count user meta
+					update_user_meta( $user_id, "_drafted", $liked_POSTS ); // Add post ID to user meta
+					update_user_meta( $user_id, "_user_draft_count", $user_likes ); // +1 count user meta
 				}
 				echo "already".$post_like_count; // update count on front end
 				
@@ -118,14 +118,14 @@ function jm_post_like() {
 			
 			if ( !AlreadyLiked( $post_id ) ) { // like the post
 				update_post_meta( $post_id, "_user_IP", $liked_IPS ); // Add user IP to post meta
-				update_post_meta( $post_id, "_post_like_count", ++$post_like_count ); // +1 count post meta
+				update_post_meta( $post_id, "_draft_count", ++$post_like_count ); // +1 count post meta
 				echo $post_like_count; // update count on front end
 				
 			} else { // unlike the post
 				$ip_key = array_search( $ip, $liked_IPS ); // find the key
 				unset( $liked_IPS[$ip_key] ); // remove from array
 				update_post_meta( $post_id, "_user_IP", $liked_IPS ); // Remove user IP from post meta
-				update_post_meta( $post_id, "_post_like_count", --$post_like_count ); // -1 count post meta
+				update_post_meta( $post_id, "_draft_count", --$post_like_count ); // -1 count post meta
 				echo "already".$post_like_count; // update count on front end
 				
 			}
@@ -141,7 +141,7 @@ function jm_post_like() {
 function AlreadyLiked( $post_id ) { // test if user liked before
 	if ( is_user_logged_in() ) { // user is logged in
 		$user_id = get_current_user_id(); // current user
-		$meta_USERS = get_post_meta( $post_id, "_user_liked" ); // user ids from post meta
+		$meta_USERS = get_post_meta( $post_id, "_user_drafted" ); // user ids from post meta
 		$liked_USERS = ""; // set up array variable
 		
 		if ( count( $meta_USERS ) != 0 ) { // meta exists, set up values
@@ -181,7 +181,7 @@ function AlreadyLiked( $post_id ) { // test if user liked before
  * (5) Front end button
  */
 function getPostLikeLink( $post_id ) {
-	$like_count = get_post_meta( $post_id, "_post_like_count", true ); // get post likes
+	$like_count = get_post_meta( $post_id, "_draft_count", true ); // get post likes
 	$count = ( empty( $like_count ) || $like_count == "0" ) ? '' : '&nbsp;-&nbsp;'.$like_count;
 	if ( AlreadyLiked( $post_id ) ) {
 		$class = __(  ' liked', 'favethemes' );
@@ -211,7 +211,7 @@ add_shortcode('jmliker', 'jm_like_shortcode');
  * (7) Get total likes
  */
 function totalLikes( $post_id ) {
-	$like_count = get_post_meta( $post_id, "_post_like_count", true ); // get post likes
+	$like_count = get_post_meta( $post_id, "_draft_count", true ); // get post likes
 	$count = ( empty( $like_count ) || $like_count == "0" ) ?  __( 'Like', 'favethemes' ) : $like_count;
 	if ( AlreadyLiked( $post_id ) ) {
 		$class = __(  ' liked', 'favethemes' );
