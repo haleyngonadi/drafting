@@ -1089,3 +1089,8 @@ b {
 body.um-own-profile h1.entry-title {
     text-transform: lowercase;
 }
+
+
+.um-account-main div.um-account-heading {
+    display: none;
+}

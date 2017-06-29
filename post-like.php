@@ -230,8 +230,15 @@ function get_simple_likes_button( $post_id, $is_comment = NULL ) {
 	$output = '<span class="sl-wrapper"><a href="' . admin_url( 'admin-ajax.php?action=process_simple_like' . '&post_id=' . $post_id . '&nonce=' . $nonce . '&is_comment=' . $is_comment . '&disabled=true' ) . '" class="sl-button' . $post_id_class . $class . $comment_class . '" data-nonce="' . $nonce . '" data-post-id="' . $post_id . '" data-iscomment="' . $is_comment . '" title="' . $title . '">' .  $title .  '</a>' . $loader . '</span>';
 	return $output;}
 
+	$user_id = get_current_user_id();
+	$total = get_user_meta( "_user_like_count", $user_id );
+
+	if ( $user_id == 4) {
+		return '<a class="sl-button" href=""> Your Draft Is Full</a>';
+		}
+
 	else {
-		return '<a class="sl-button" href="/wp-login.php"> Login To Draft</a>';
+		return '<a class="sl-button" href="/login"> Login To Draft</a>';
 	}
 } // get_simple_likes_button()
 
