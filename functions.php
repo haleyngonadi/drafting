@@ -239,6 +239,8 @@ function about_callback( $post ) {
    // Create a nonce field.
   wp_nonce_field( 'about_metabox', 'about_metabox_nonce' );
 
+  $prfx_stored_meta = get_post_meta( $post->ID );
+
 
    ?>
       <p>
@@ -272,6 +274,23 @@ function about_callback( $post ) {
        <p>
          <label>Motto </label><br>
              <textarea style="width: 100%"  name="the_motto" id="meta-textarea"><?php echo get_post_meta( $post->ID, 'get_motto', true ); ?></textarea>
+      </p>
+
+
+             <p>
+         <label>Status </label><br>
+             
+              <div class="prfx-row-content">
+        <label for="meta-radio-one">
+            <input type="radio" name="meta-radio" id="meta-radio-one" value="radio-one" <?php if ( isset ( $prfx_stored_meta['meta-radio'] ) ) checked( $prfx_stored_meta['meta-radio'][0], 'evicted' ); ?>>
+            <?php _e( 'Evicted', 'prfx-textdomain' )?>
+        </label>
+        <label for="meta-radio-two">
+            <input type="radio" name="meta-radio" id="meta-radio-two" value="radio-two" <?php if ( isset ( $prfx_stored_meta['meta-radio'] ) ) checked( $prfx_stored_meta['meta-radio'][0], 'game' ); ?>>
+            <?php _e( 'In The Game', 'prfx-textdomain' )?>
+        </label>
+    </div>
+
       </p>
 
    <?php
@@ -372,6 +391,10 @@ function about_save_metabox( $post_id ) {
    } else {
       update_post_meta( $post_id, 'get_from', $from );
    }
+
+if( isset( $_POST[ 'meta-radio' ] ) ) {
+    update_post_meta( $post_id, 'meta-radio', $_POST[ 'meta-radio' ] );
+}
 
 
 
