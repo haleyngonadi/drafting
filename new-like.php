@@ -185,7 +185,7 @@ function getPostLikeLink( $post_id ) {
 	$count = ( empty( $like_count ) || $like_count == "0" ) ? '' : '&nbsp;-&nbsp;'.$like_count;
 	if ( AlreadyLiked( $post_id ) ) {
 		$class = __(  ' liked', 'favethemes' );
-		$title = __( 'Un-Draft', 'favethemes' );
+		$title = __( 'Un-Draft?', 'favethemes' );
 		$heart = '<i class="fa fa-heart"></i>';
 	} else {
 		$class = __( ' classlike', 'favethemes' );

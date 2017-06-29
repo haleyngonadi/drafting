@@ -43,7 +43,7 @@ echo strtok($name, " ");?> are: <?php echo get_post_meta(get_the_id(), "get_aje
 
 	<?php 
 
-	$countoflikes = get_post_meta( get_the_ID(), '_post_like_count', true );
+	$countoflikes = get_post_meta( get_the_ID(), '_draft_count', true );
 	if(!empty($countoflikes)) {
 		echo $countoflikes;
 	}
