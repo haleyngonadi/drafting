@@ -37,7 +37,7 @@ if ( is_user_logged_in() ) {
 		array(
 			'key'     => '_user_liked',
 			'value'   =>  $current_user->ID,
-			'compare' => 'LIKE',
+			'compare' => 'IN',
 		),
 	),
 );
