@@ -1113,6 +1113,7 @@ body.um-own-profile h1.entry-title {
 }
 .menu-item-has-children {
     position: relative;
+        min-width: 150px;
 }
 
 
@@ -1136,11 +1137,11 @@ ul.sub-menu li {
 
 
 
-.menu-item-has-children li ul {
+ul.sub-menu {
     display:none;
 }
 
-.menu-item-has-children li:hover ul {
+.menu-item-has-children:hover ul {
     display:block;
     position:relative;
 }
