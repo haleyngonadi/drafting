@@ -81,9 +81,18 @@ $getall = new WP_Query( array( 'post_type' => 'houseguests') ); ?>
 	<!-- pagination here -->
 
 	<!-- the loop -->
+	<div class="row">
 	<?php while ( $getall->have_posts() ) : $getall->the_post(); ?>
-		<h2><?php the_title(); ?></h2>
-	<?php endwhile; ?>
+		 <div class="col-sm-3">
+
+			 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+
+			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
+
+			<span class="draft-name"><?php the_title(); ?></span></a>
+
+			</div>
+	<?php endwhile; ?></div>
 	<!-- end of the loop -->
 
 	<!-- pagination here -->
