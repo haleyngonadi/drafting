@@ -31,33 +31,22 @@ if ( is_user_logged_in() ) {
 			<?php if ( is_user_logged_in() ) : ?>
 
 							<?php
-			$types = get_post_types( array( 'public' => true ) );
 			$args = array(
-			  'numberposts' => -1,
-			  'post_type' => $types,
-			  'meta_query' => array (
-				array (
-				  'key' => '_user_liked',
-				  'value' =>  $current_user->ID,
-				  'compare' => 'LIKE'
-				)
-			  ) );		
-			$sep = '';
-			$like_query = new WP_Query( $args );
-			if ( $like_query->have_posts() ) : ?>
-			<p>
-			<?php while ( $like_query->have_posts() ) : $like_query->the_post(); 
-			echo $sep; ?><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
-			<?php
-			$sep = ' &middot; ';
-			endwhile; 
-			?>
-			</p>
-			<?php else : ?>
-			<p><?php _e( 'You have not drafted any players yet.', 'drafts' ); ?></p>
-			<?php 
-			endif; 
-			wp_reset_postdata(); 
+	'post_type'  => 'housegeusts',
+	'meta_key'   => '_user_liked',
+	'orderby'    => 'meta_value_num',
+	'order'      => 'ASC',
+	'meta_query' => array(
+		array(
+			'key'     => '_user_liked',
+			'value'   => 1,
+			'compare' => 'LIKE',
+		),
+	),
+);
+$query = new WP_Query( $args );
+
+var_dump($query);
 			?>
 
 
