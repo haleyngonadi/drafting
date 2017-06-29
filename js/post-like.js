@@ -24,6 +24,7 @@ jQuery(document).ready(function() {
 					heart.prop('title', 'Draft');
 					heart.removeClass("liked");
 					heart.html("Draft");
+					$('.jm-load').hide();
 
 
 							
@@ -34,6 +35,7 @@ jQuery(document).ready(function() {
 					heart.addClass("liked");
 					heart.html("Un-Draft?");
 					$('.draft-count').html(count);
+					$('.jm-load').hide();
 				}
 			}
 		});
