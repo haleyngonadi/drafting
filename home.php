@@ -69,12 +69,16 @@ if ( is_user_logged_in() ) {
 	<?php wp_reset_postdata(); ?>
 
 <?php else : ?>
-	<p><?php _e( 'You have no houseguests in your drafts. Draft a few below!' ); ?></p>
+	<h3 class="point-name">
+	Select Your Drafts
+	</h3>
+
+	<p> Once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of your houseguests in your drafts is <b class="draft-name">FOUR</b>.</p>
 
 
 	<?php 
 // the query
-$getall = new WP_Query( array( 'post_type' => 'houseguests', 'posts_per_page' => -1) ); ?>
+$getall = new WP_Query( array( 'post_type' => 'houseguests', 'posts_per_page' => -1, 'orderby' => 'rand') ); ?>
 
 <?php if ( $getall->have_posts() ) : ?>
 
