@@ -18,6 +18,9 @@ body {
 
 }
 
+a {
+  text-decoration: none !important;
+}
 body.page-template-leaderboard {
     background: #fac75c;
 }
