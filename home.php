@@ -73,7 +73,7 @@ if ( is_user_logged_in() ) {
 	Select Your Drafts
 	</h3>
 
-	<p> <b>TIP:</b> Choose wisely because once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of houseguests in your drafts is reaches the number <b class="draft-name">FOUR</b>. Ready to select your drafts? Click this icon (<i class="fa fa-heart"></i>) which appears on the photo whichever houseguest you would like to draft!</p>
+	<p> <b>TIP:</b> Choose wisely because once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of houseguests in your drafts is reaches the number <b class="draft-name">FOUR</b>. Ready to select your drafts? Click this icon (<b><i class="fa fa-heart"></i></b>) which appears on the photo whichever houseguest you would like to draft!</p>
 
 <br>
 

@@ -1213,3 +1213,12 @@ list-style: none;
     margin-top: 10px;
 
 }
+
+
+a.jm-home-like {
+    position: absolute;
+    background: #ff0066;
+    padding: 10px;
+    color: white;
+    text-transform: uppercase;
+}
