@@ -224,7 +224,7 @@ function getDraftlink( $post_id ) {
 			echo $user_id;
 
 
-	$total = get_user_meta($user_id,"_user_draft_count", true );
+	$total = 4;
 
 	echo $total;
 
