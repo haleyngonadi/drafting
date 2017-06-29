@@ -568,6 +568,11 @@ function save_one()
     return $post->ID;
   }
 
+     // Check the user's permissions.
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+      return;
+   }
+
   $prefix = 'week_';
 $feature_meta_fields = array(
     array(
