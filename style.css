@@ -1124,3 +1124,24 @@ ul.sub-menu {
     position: absolute;
     left: 0;
 }
+
+ul.sub-menu li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+.menu-item-has-children:after {
+    content: "\f0d7";
+    font-family: FontAwesome;
+}
+
+
+
+.menu-item-has-children li ul {
+    display:none;
+}
+
+.menu-item-has-children li:hover ul {
+    display:block;
+    position:relative;
+}
+
