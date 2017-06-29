@@ -1111,3 +1111,16 @@ body.um-own-profile h1.entry-title {
     background: rgba(0, 0, 0, 0.08);
     border-bottom: 4px solid rgba(0, 0, 0, 0.03);
 }
+.menu-item-has-children {
+    position: relative;
+}
+
+
+ul.sub-menu {
+    margin: 0;
+    width: 100%;
+    background: #e4005b;
+    padding: 23px;
+    position: absolute;
+    left: 0;
+}
