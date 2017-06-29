@@ -31,7 +31,7 @@ if ( is_user_logged_in() ) {
 			<?php if ( is_user_logged_in() ) : ?>
 
 
-					<h3 class="point-name"> Your Drafts</h3>
+					
 
 
 			<?php
@@ -49,6 +49,7 @@ if ( is_user_logged_in() ) {
 			$sep = '';
 			$like_query = new WP_Query( $args );
 			if ( $like_query->have_posts() ) : ?>
+			<h3 class="point-name"> Your Drafts</h3>
 			<div class="row">
 			<?php while ( $like_query->have_posts() ) : $like_query->the_post(); 
 			 ?>
@@ -110,7 +111,7 @@ $the_query = new WP_Query( $args ); ?>
 	<h3 class="point-name">Why Play?</h3>
 	<p>In addition to the game being fun and you earning MAJOR bragging rights for choosely your drafts wisely, the <b>TOP 3</b> people with the most points at the end of this season of Big Brother America, will be awarded something special and BB-related. Stay tuned! </p>
 				
-				
+
 			<?php 
 			endif; 
 			wp_reset_postdata(); 
