@@ -19,6 +19,8 @@ get_header(); ?>
 	<?php 
 $args = array(
 	'post_type' => 'houseguests',
+	'numberposts' => 16,
+
 	
 );
 $the_query = new WP_Query( $args ); ?>
