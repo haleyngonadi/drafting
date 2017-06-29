@@ -53,17 +53,11 @@ var_dump($rows);
 
 			<?php
 
-			$args = array(
-			  'numberposts' => -1,
-			  'post_type' => 'houseguests',
-			  'meta_query' => array (
-				array (
-				  'key' => '_user_liked',
-				  'value' => get_current_user_id(),
-				  'compare' => 'LIKE'
-				)
-			  ) );		
-			$sep = '';
+		$args=array(
+   'meta_key'       => '_user_liked',
+   'meta_value'      => $current_user->ID,//here goes current used ID by default.
+   'meta_compare'   => '=', 
+);
 			$the_query = new WP_Query( $args );
 	if ( $the_query->have_posts() ) : ?>
 

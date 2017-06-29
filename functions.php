@@ -427,7 +427,7 @@ function weekly_callback()
 {
   global $post;
 
-  $args = array('post_type' => 'points', 'order'=> 'DESC');
+  $args = array('post_type' => 'points', 'order'=> 'ASC', 'posts_per_page'=>-1);
   $authors = get_posts( $args );
 
 
