@@ -47,7 +47,7 @@ $curauth = um_profile_id();
 
 	<div class="col-sm-9">
 
-	<header class="entry-header"><h1 class="entry-title"> <?php echo um_name(); ?></h1></header>
+	<header class="entry-header"><h1 class="entry-title"> <?php echo um_user('display_name'); ?></h1></header>
 
 
 
