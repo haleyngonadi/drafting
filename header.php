@@ -71,13 +71,11 @@
 
 <body <?php body_class(); ?>>
 
-<ul class="navigation">
-	
-<li>Index </li>
-<li>Houseguests </li>
-<li>Leaderboard </li>
 
-</ul>
+<?php wp_nav_menu( array( 'theme_location' => 'header-menu',  'menu_class' => 'navigation', ) ); ?>
+
+
+
 
 <div class="logo">
 
