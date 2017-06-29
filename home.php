@@ -279,7 +279,7 @@ $the_query = new WP_Query( $args ); ?>
 
 		<h3 class="point-name">Points</h3>
 
-						<p>You will earn or lose <a href="/points">points< based on the following and more:</p>
+						<p>You will earn or lose <a href="/points">points</a> based on the following and more:</p>
 
 			<div class="row point-row">
 
