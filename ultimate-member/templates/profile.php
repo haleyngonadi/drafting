@@ -84,7 +84,7 @@ $curauth = um_profile_id();
 	$countoflikes = get_user_meta( $curauth , 'draft_name', true );
 	if(!empty($countoflikes)) {
 
-		echo '<h3 class="point-name">';
+		echo '<h3 class="point-name">Team ';
 		echo $countoflikes;
 		echo '</h3>';
 	}
