@@ -483,6 +483,7 @@ height: 161px;
     background-size: cover;
     background-position: 0px -12px;
     margin-bottom: 11px;
+    position: relative;
 }
 
 span.draft-name {
@@ -1221,4 +1222,8 @@ a.jm-home-like {
     padding: 10px;
     color: white;
     text-transform: uppercase;
+    right: 0;
 }
+
+
+

@@ -185,14 +185,14 @@ function getPostLikeLink( $post_id ) {
 	$count = ( empty( $like_count ) || $like_count == "0" ) ? '' : '&nbsp;-&nbsp;'.$like_count;
 	if ( AlreadyLiked( $post_id ) ) {
 		$class = __(  ' liked', 'favethemes' );
-		$title = __( 'Unlike', 'favethemes' );
+		$title = __( 'Un-Draft', 'favethemes' );
 		$heart = '<i class="fa fa-heart"></i>';
 	} else {
 		$class = __( ' classlike', 'favethemes' );
-		$title = __( 'Like', 'favethemes' );
+		$title = __( 'Draft', 'favethemes' );
 		$heart = '<i class="fa fa-heart"></i>';
 	}
-	$output = '<a href="#" class="jm-post-like'.esc_attr( $class ).' " data-post_id="'.esc_attr( $post_id ).'" title="'.esc_attr( $title ).'">'.$heart.'&nbsp;'.$title.$count.'</a><span class="jm-load"></span>';
+	$output = '<a href="#" class="jm-post-like sl-button'.esc_attr( $class ).' " data-post_id="'.esc_attr( $post_id ).'" title="'.esc_attr( $title ).'">'.$heart.'&nbsp;'.$title'</a><span class="jm-load"></span>';
 	return $output;
 }
 
@@ -223,6 +223,10 @@ function getDraftlink( $post_id ) {
 function jm_like_shortcode() {
 	return getPostLikeLink( get_the_ID() );
 }
+
+
+
+
 add_shortcode('jmliker', 'jm_like_shortcode');
 
 /**
