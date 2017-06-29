@@ -13,7 +13,7 @@
 					<div class="col-sm-4">
 	<div class="hg-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
 
-	<?php echo get_simple_likes_button( get_the_ID() );?>
+	<?php echo getPostLikeLink( get_the_ID() );?>
 
 	</div>
 

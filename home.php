@@ -28,18 +28,6 @@ if ( is_user_logged_in() ) {
 
 	<div class="entry-content">
 
-	<?php 
-	$meta_query_args = array(
-	'relation' => 'OR', // Optional, defaults to "AND"
-	array(
-		'key'     => '_user_liked',
-		'value'   => 1,
-		'compare' => 'LIKE'
-	)
-);
-$meta_query = new WP_Meta_Query( $meta_query_args );
-var_dump($meta_query);
-	?>
 
 			<?php if ( is_user_logged_in() ) : ?>
 
@@ -48,12 +36,10 @@ var_dump($meta_query);
 
 			<?php
 
-		$args=array(
-   'meta_key'       => '_user_liked',
-   'meta_value'      => $current_user->ID,//here goes current used ID by default.
-   'meta_compare'   => 'LIKE', 
-);
-			$the_query = new WP_Query( $args );
+			$likedposts = get_user_meta( $current_user->ID,'_liked_posts', 'true');
+			var_dump($likedposts);
+
+		$the_query = new WP_Query( array( 'post_type' => 'houseguests', 'post__in' => $likedposts ) );
 	if ( $the_query->have_posts() ) : ?>
 
 	<!-- pagination here -->
