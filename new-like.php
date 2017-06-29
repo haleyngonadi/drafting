@@ -210,7 +210,7 @@ function getDraftlink( $post_id ) {
 		$heart = '<i class="fa fa-heart-o"></i>';
 	}
 
-		$output = '<a href="#" class="jm-home-like'.esc_attr( $class ).' " data-post_id="'.esc_attr( $post_id ).'" title="'.esc_attr( $title ).'">'.$heart.'</a><span class="jm-load"></span>';
+		$output = '<a href="#" class="jm-home-like'.esc_attr( $class ).' " data-post_id="'.esc_attr( $post_id ).'" title="'.esc_attr( $title ).'">'.$heart.'<span class="jm-load"></span></a>';
 	return $output;
 	
 }
