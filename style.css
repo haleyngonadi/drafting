@@ -1083,3 +1083,9 @@ b {
 .um *, .um :after, .um :before {
     box-sizing: border-box !important;
 }
+
+
+
+body.um-own-profile h1.entry-title {
+    text-transform: lowercase;
+}
