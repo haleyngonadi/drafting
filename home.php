@@ -74,9 +74,12 @@ if ( is_user_logged_in() ) {
 
 	<p>Upon <a href="/login">logging in</a> or <a href="/register">registering</a>, you'd be awarded the opportunity of drafting <b>FOUR</b> unique players, all of whom will either earn or cost you a few points depending on the each week's activities. So, choose wisely.</p>
 
+		<p>To Begin, please <a href="/houseguests">click here</a> to head to the memory wall to select your drafts.</p>
+
+
 		<h3 class="point-name">Points</h3>
 
-			<p>You will earn or lose <a href="/points">points< based on the following and more:</p>
+			<p>You will earn or lose <a href="/points">points</a> based on the following and more:</p>
 
 			<div class="row point-row">
 
@@ -272,6 +275,7 @@ $the_query = new WP_Query( $args ); ?>
 	<h3 class="point-name">How it works</h3>
 
 	<p>Upon <a href="">logging in</a> or registering, you'd be awarded the opportunity of drafting <b>FOUR</b> unique players, all of whom will either earn or cost you a few points depending on the each week's activities. So, choose wisely.</p>
+
 
 		<h3 class="point-name">Points</h3>
 
