@@ -69,7 +69,42 @@ if ( is_user_logged_in() ) {
 	<?php wp_reset_postdata(); ?>
 
 <?php else : ?>
-	<p><?php _e( 'Sorry, it looks like you have not drafted any players yet. Interested in drafting someone?' ); ?> To draft a houseguest, head to the <a href="/houseguests">memory wall</a>. </p>
+	<p><?php _e( 'You have no houseguests in your drafts. Draft a few below!' ); ?></p>
+
+
+	<?php
+
+
+			
+		$the_query = new WP_Query( array( 'post_type' => 'houseguests' ) );
+	if ($the_query->have_posts() ) : ?>
+	<h3 class="point-name">
+	Pick Your Drafts
+	</h3>
+
+	<!-- pagination here -->
+
+	<!-- the loop -->
+	<div class="row">
+	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+					 <div class="col-sm-3">
+
+			 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+
+			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
+
+			<span class="draft-name"><?php the_title(); ?></span></a>
+
+			</div>
+	<?php endwhile; ?>
+	</div>
+	<!-- end of the loop -->
+
+	<!-- pagination here -->
+
+	<?php wp_reset_postdata(); ?>
+
+
 <?php endif; ?>
 			</div>
 
