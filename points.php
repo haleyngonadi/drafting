@@ -21,7 +21,7 @@ $args = array(
 	'post_type' => 'points',
 	'posts_per_page'=>-1,
 	'orderby' => 'date',
-	'post__not_in' => array( 96, 95, 94, 93, 92, 91, 90, 89, 97, 102, 101, 100  )
+	'post__not_in' => array( 96, 95, 94, 93, 92, 91, 90, 89, 97, 102, 101, 100, 110,111, 112  )
 
 	
 );
