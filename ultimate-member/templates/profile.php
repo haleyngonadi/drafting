@@ -105,7 +105,7 @@ $curauth = um_profile_id();
 
 
 			<?php
-			$likedposts = get_user_meta( $current_user->ID,'_drafted', 'true');
+			$likedposts = get_user_meta(  $curauth,'_drafted', 'true');
 
 
 			var_dump($likedposts);
