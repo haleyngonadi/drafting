@@ -218,9 +218,13 @@ function getDraftlink( $post_id ) {
 		return '<a class="sl-button" href=""> Your Draft Is Full</a>';
 		}
 
-		
+		else {
+
+
 		$output = '<div class="someone"><a href="#" class="jm-home-like'.esc_attr( $class ).' " data-post_id="'.esc_attr( $post_id ).'" title="'.esc_attr( $title ).'">'.$heart.'</a><span class="jm-load"></span></div>';
 	return $output;
+
+}
 	
 }
 
