@@ -83,7 +83,8 @@ if ( is_user_logged_in() ) {
 	<?php 
 $args = array(
 	'post_type' => 'points',
-		'posts_per_page'=> 6
+		'posts_per_page'=> 6,
+		'post__not_in' => array( 96, 95, 94, 93, 92, 91, 90, 89, 97, 102, 101, 100, 110,111, 112  )
 	
 );
 $the_query = new WP_Query( $args ); ?>
@@ -281,7 +282,8 @@ $the_query = new WP_Query( $args ); ?>
 	<?php 
 $args = array(
 	'post_type' => 'points',
-		'posts_per_page'=> 6
+		'posts_per_page'=> 6,
+		'post__not_in' => array( 96, 95, 94, 93, 92, 91, 90, 89, 97, 102, 101, 100, 110,111, 112  )
 	
 );
 $the_query = new WP_Query( $args ); ?>
