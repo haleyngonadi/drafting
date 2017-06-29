@@ -76,13 +76,14 @@ if ( is_user_logged_in() ) {
 
 		<h3 class="point-name">Points</h3>
 
-			<p>You will earn or lose points based on the following:</p>
+			<p>You will earn or lose <a href="/points">points< based on the following and more:</p>
 
 			<div class="row point-row">
 
 	<?php 
 $args = array(
 	'post_type' => 'points',
+		'posts_per_page'=> 6
 	
 );
 $the_query = new WP_Query( $args ); ?>
@@ -273,13 +274,14 @@ $the_query = new WP_Query( $args ); ?>
 
 		<h3 class="point-name">Points</h3>
 
-			<p>You will earn or lose points based on the following:</p>
+						<p>You will earn or lose <a href="/points">points< based on the following and more:</p>
 
 			<div class="row point-row">
 
 	<?php 
 $args = array(
 	'post_type' => 'points',
+		'posts_per_page'=> 6
 	
 );
 $the_query = new WP_Query( $args ); ?>

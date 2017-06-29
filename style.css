@@ -18,6 +18,16 @@ body {
 
 }
 
+body.page-template-leaderboard {
+    background: #fac75c;
+}
+
+.page-template-leaderboard .point-name:before {
+  background: #fac75c !important;
+}
+
+
+
 body.single-houseguest,
 .page-template-points,
 .single-points{
@@ -964,7 +974,7 @@ div#points-title {
 
 .tabBlock-tab.is-active {
   position: relative;
-  color: #ff0066;
+  color: #fac75c;
   z-index: 1;
 }
 .tabBlock-tab.is-active::before {
@@ -1017,7 +1027,7 @@ span.leader-title {
 
 
 b.random-name {
-     color: #ff0066; 
+     color: #fac75c; 
     font-size: 14px;
     display: block;
     text-decoration: underline;
@@ -1036,12 +1046,12 @@ p.the-drafts {
 
 span.week-total {
     font-family: 'Abril Fatface', cursive;
-    background: #ff0066;
+    background: #fac75c;
     font-size: 35px;
     margin-bottom: -15px;
     color: white;
     display: block;
-    border-bottom: 6px solid #ef0462;
+    border-bottom: 6px solid #f9c454;
         margin-top: 18px;
 
 }
