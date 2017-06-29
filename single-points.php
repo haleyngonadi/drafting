@@ -14,9 +14,9 @@ get_header(); ?>
 
         <?php if ( is_single('112')) : ?>
        <h3 class="point-name">Have Not</h3>
-       <?php if ( is_single('110')) : ?>
+       <?php elseif ( is_single('110')) : ?>
        <h3 class="point-name">Nominated</h3>
-       <?php if ( is_single('111')) : ?>
+       <?php elseif ( is_single('111')) : ?>
        <h3 class="point-name">VETO Player</h3>
       <?php else:?>
         <h3 class="point-name"><?php the_title()?></h3>
@@ -58,7 +58,7 @@ get_header(); ?>
 
 <!---Get Noms -->
 
-        <?php if ( is_single('110')) : ?>
+        <?php elseif ( is_single('110')) : ?>
 
                     <td><?php $nom_one = get_post_meta(89, 'points_week_one', true);
     $nomaid = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . $nom_one . "'" );
@@ -70,7 +70,7 @@ get_header(); ?>
 
 <!---Get Veto Players -->
 
-        <?php if ( is_single('11')) : ?>
+        <?php elseif ( is_single('11')) : ?>
 
            <td>
 
