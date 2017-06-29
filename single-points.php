@@ -121,9 +121,17 @@ get_header(); ?>
   </table>
 
 					<nav id="nav-single">
-						<h3 class="assistive-text"><?php _e( 'Post navigation', 'twentyeleven' ); ?></h3>
-						<span class="nav-previous"><?php previous_post_link( '%link', __( '<span class="meta-nav">&larr;</span> Previous', 'twentyeleven' ) ); ?></span>
-						<span class="nav-next"><?php next_post_link( '%link', __( 'Next <span class="meta-nav">&rarr;</span>', 'twentyeleven' ) ); ?></span>
+						<h3 class="assistive-text"><?php _e( 'Navigation', 'twentyeleven' ); ?></h3>
+
+            <?php 
+  $p = get_adjacent_post(false, '', true);
+  if(!empty($p)) echo '<span class="meta-nav">&larr;</span> <span class="prev"><a href="' . get_permalink($p->ID) . '" title="' . $p->post_title . '">' . $p->post_title . '</a></span>';
+
+  $n = get_adjacent_post(false, '', false);
+  if(!empty($n)) echo '<span class="next"><a href="' . get_permalink($n->ID) . '" title="' . $n->post_title . '">' . $n->post_title . ' <span class="meta-nav">&rarr;</span></a></span>'; 
+?>
+
+
 					</nav><!-- #nav-single -->
 
 
