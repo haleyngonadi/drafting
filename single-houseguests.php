@@ -21,11 +21,11 @@
 
 		<?php the_title( '<header class="entry-header"><h1 class="entry-title">', '</h1></header><!-- .entry-header -->' );?>
 
-<p><?php the_title();?> is a <?php echo get_post_meta(get_the_id(), "get_age", true);?> year old <u><?php echo get_post_meta(get_the_id(), "get_gender", true);?></u> from <strong>Humeston, IA</strong>! The three adjectives that best describe <?php the_title();?> are: <?php echo get_post_meta(get_the_id(), "get_aject", true);?>.</p>
+<p><?php the_title();?> is a <?php echo get_post_meta(get_the_id(), "get_age", true);?> year old <u><?php echo get_post_meta(get_the_id(), "get_gender", true);?></u> from <strong><?php echo get_post_meta(get_the_id(), "get_gender", true);?></strong>! The three adjectives that best describe <?php the_title();?> are: <?php echo get_post_meta(get_the_id(), "get_aject", true);?>.</p>
 
-<p><u>A fun fact about <?php the_title();?> </u>: "I'm a storyteller extraordinaire. My stories are true, very handy, very creative, and infectious."</p>
+<p><u>A fun fact about <?php the_title();?> </u>: "<?php echo get_post_meta(get_the_id(), "get_fun", true);?>."</p>
 
-<p><u>Life Motto</u>: You only live once.</p>
+<p><u>Life Motto</u>: <?php echo get_post_meta(get_the_id(), "get_motto", true);?>.</p>
 
 
 		
