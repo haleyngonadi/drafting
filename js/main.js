@@ -1,5 +1,7 @@
 jQuery(document).ready( function() {
 
+    $('.prettySocial').prettySocial();
+
 	var result = $(".entry-content").height();
 
 	$(".hg-photo").height(result-63);

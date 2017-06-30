@@ -1782,3 +1782,39 @@ label[for=upload] input{ display:none }
     bottom: 10px;
   }
 }
+
+
+.um-page-user h1.entry-title {
+    display: inline-block;
+}
+
+ul.socials {
+    padding: 0;
+    display: inline-block;
+    margin: -3px 6px;
+}
+
+.socials li {
+display: inline-block;
+list-style-type: none;
+}
+
+.fa-facebook-square {
+  background: #3b5998;
+  padding: 4px 6px;
+}
+
+.fa-twitter-square {
+  background: #00aced;
+  padding: 4px 6px;
+}
+
+
+.fa-google-plus{
+  background: #dd4b39;
+  padding: 4px 6px;
+}
+
+.socials a {
+  color: white;
+}

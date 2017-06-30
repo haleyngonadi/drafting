@@ -54,7 +54,51 @@ $curauth = um_profile_id();
 
 	<div class="col-sm-9">
 
-	<header class="entry-header"><h1 class="entry-title"> <?php echo um_user('display_name'); ?></h1></header>
+	<header class="entry-header">
+	<h1 class="entry-title"> <?php 
+	if (!empty(um_user('first_name'))) {
+	 echo um_user('first_name'); }
+	 else {
+	 	echo um_user('display_name');
+	 }
+	 ?></h1>
+
+
+		<?php 
+		if($curauth == get_current_user_id()) : ?>
+
+	<ul class="socials">
+
+
+	<li> <a href="#" data-type="twitter" data-url="<?php echo um_user_profile_url()?>" data-via="bigbrotherdraft" class="prettySocial" data-description="Check out my #BB19 drafts:"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+	<li> <a href="#" data-type="facebook" data-title="Big Brother Draft" data-description="Check out my #BB19 drafts:" data-url="<?php echo um_user_profile_url()?>" class="prettySocial"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+	</ul>
+	<?php else: ?>
+
+			<ul class="socials">
+
+			<?php
+
+			$username = '';
+				if (substr(get_the_title(), -1) == 's') {
+					$username = the_title();
+				}
+
+				else {
+					$username = get_the_title()."'s";
+
+				}
+			?>
+
+	<li> <a href="#" data-type="twitter" data-url="<?php echo get_the_permalink()?>" data-via="bigbrotherdraft" class="prettySocial" data-description="Check out <?php echo $username;?> awesome #BB19 drafts:"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+	<li> <a href="#" data-type="facebook" data-title="Big Brother Draft" data-description="Check out <?php echo $username;?> awesome #BB19 drafts:" data-url="<?php echo get_the_permalink()?>" class="prettySocial"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+	</ul>
+
+
+	<?php endif; ?>
+
+
+	</header>
 
 
 

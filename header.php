@@ -47,7 +47,7 @@
 <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <link href="//fonts.googleapis.com/css?family=Abril+Fatface|Inconsolata:400,700|Source+Sans+Pro:100, 300,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
-<link href="<?php echo get_template_directory_uri(); ?>/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" media="all" href="<?php echo get_template_directory_uri(); ?>/css/font-awesome.min.css">
 
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 

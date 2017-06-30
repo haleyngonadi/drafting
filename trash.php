@@ -35,3 +35,19 @@
 <?php } ?>
 
  --> 
+
+
+     <a class="sl-button se-button">
+        <?php $status = get_post_meta(get_the_ID(), 'meta-radio', true);
+
+             if ($status == 'evicted') {
+                echo 'Evicted';
+             }
+
+             else {
+                echo 'In The Game';
+             }
+
+        ?>
+
+    </a>

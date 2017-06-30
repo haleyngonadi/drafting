@@ -20,8 +20,9 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js" integrity="sha256-oYqpLeqZe9cetUDV+TFiBZHp3uJ+X4F5eLs4W6uSTSE=" crossorigin="anonymous"></script>
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.countTo.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/jquery.countTo.js"></script>
 
-<script src="<?php echo get_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/jquery.prettySocial.min.js"></script>
 
 	<?php wp_footer(); ?>
 </body>
