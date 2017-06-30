@@ -713,37 +713,24 @@ foreach ($feature_meta_fields as $fields) {
 $args = array(
     'meta_query' => array(
         array(
-            'key'     => 'wp__user_like_count',
+            'key'     => '_user_draft_count',
             'compare' => 'EXISTS'
         )
     )
  );
 $user_query = new WP_User_Query( $args );
-// Get the results
 $users = $user_query->get_results();
 
 
   if (!empty($users)) {
 
 foreach($users as $user) {
-        $query_posts = array(
+  
+
+      $likedposts = get_user_meta( $user->ID,'_drafted', 'true');
 
 
-        'numberposts' => -1,
-        'post_type' => 'houseguests',
-        'fields' => 'ids',
-        'meta_query' => array (
-        array (
-          'key' => '_user_liked',
-          'value' => $user->ID,
-          'compare' => 'LIKE'
-        )
-        ) );    
-
-  $posts_ids = get_posts($query_posts);
-
-
-$args = array('meta_key' => $fields['week'], 'post_type' => 'houseguests', 'post__in' => $posts_ids);
+$args = array('meta_key' => $fields['week'], 'post_type' => 'houseguests', 'post__in' => $likedposts);
 $lastposts = get_posts( $args );
 $string = '';
 
@@ -814,7 +801,7 @@ $array = array_map( 'trim', explode( ',', $string ) );
 
 } /*** end if string ***/
 
-}/*** end for each ***/
+}/*** end for each user ***/
 
 
 } /*** end Empty Users ***/

@@ -83,6 +83,19 @@ $curauth = um_profile_id();
 
 <!-- 		<h3 class="point-name"> <?php echo um_user('display_name'); ?>'s Drafts</h3>
  -->
+			
+
+
+
+
+			<?php
+			$likedposts = get_user_meta(  $curauth,'_drafted', 'true');
+
+
+			$like_query = new WP_Query( array( 'post_type' => 'houseguests', 'post__in' => $likedposts ) );
+
+			if ( !empty($likedposts) &&$like_query->have_posts() ) : ?>
+
 			<?php 
 
 	$countoflikes = get_user_meta( $curauth , 'draft_name', true );
@@ -101,16 +114,6 @@ $curauth = um_profile_id();
 	?>
 
 
-
-
-
-			<?php
-			$likedposts = get_user_meta(  $curauth,'_drafted', 'true');
-
-
-			$like_query = new WP_Query( array( 'post_type' => 'houseguests', 'post__in' => $likedposts ) );
-
-			if ( $like_query->have_posts() ) : ?>
 			<div class="row">
 			<?php while ( $like_query->have_posts() ) : $like_query->the_post(); 
 			 ?>
@@ -130,7 +133,11 @@ $curauth = um_profile_id();
 			?>
 			</div>
 			<?php else : ?>
-			<p><?php _e( 'You have not drafted any players yet.'); ?></p>
+			
+
+			<p class="um-profile-note" style="display: block;"><i class="um-faicon-frown-o"></i><span>You have not drafted any players yet.</span></p>
+
+
 			<?php 
 			endif; 
 			wp_reset_postdata(); 
