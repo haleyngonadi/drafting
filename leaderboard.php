@@ -53,19 +53,10 @@ $user_query = new WP_User_Query( $args ); ?>
 
 
 			<?php
-			$types = get_post_types( array( 'public' => true ) );
-			$args = array(
-			  'numberposts' => -1,
-			  'post_type' => $types,
-			  'meta_query' => array (
-				array (
-				  'key' => '_user_liked',
-				  'value' => $user->ID,
-				  'compare' => 'LIKE'
-				)
-			  ) );		
-			$sep = '';
-			$like_query = new WP_Query( $args );
+			$likedposts = get_user_meta( $user->ID,'_drafted', 'true');
+
+			$like_query = new WP_Query( array( 'post_type' => 'houseguests', 'post__in' => $likedposts ) );
+
 			if ( $like_query->have_posts() ) : ?>
 			<p class="the-drafts">
 			<?php while ( $like_query->have_posts() ) : $like_query->the_post(); 
