@@ -135,7 +135,7 @@ $curauth = um_profile_id();
 			<?php else : ?>
 			
 
-			<p class="um-profile-note" style="display: block;"><i class="um-faicon-frown-o"></i><span>You have not drafted any players yet.</span></p>
+			<p class="um-profile-note" style="display: block;"><i class="um-faicon-frown-o"></i><span><?php the_title(); ?> has not drafted any houseguests yet.</span></p>
 
 
 			<?php 
