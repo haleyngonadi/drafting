@@ -13,6 +13,9 @@
 					<div class="col-sm-4">
 	<div class="hg-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
 
+    <?php if ( is_user_logged_in() ) { ?>
+
+
           <?php  $user_id = get_current_user_id();
 
     $total = get_user_meta($user_id,"_user_draft_count", true ); 
@@ -38,7 +41,11 @@
      ?>
 
 
+<?php } else { ?>
 
+echo '<a class="sl-button se-button">Login To Draft</a>';
+
+<?php } ?>
 
 
 
