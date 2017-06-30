@@ -221,7 +221,7 @@ foreach ( $feature_meta_fields as $fields ) : ?>
 $getit = $fields['callback'];
 
 
-$user_last = get_user_meta( 1, $fields['callback'], true ); 
+$user_last = get_user_meta( $curauth , $fields['callback'], true ); 
    	 $array = array_map( 'trim', explode( ',', $user_last ) ); 
 
 
