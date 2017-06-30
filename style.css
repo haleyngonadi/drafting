@@ -1464,8 +1464,7 @@ label[for=upload] input{ display:none }
   width: 100%;
   opacity: 0;
       transition: 0.3s;
-          position: absolute;
-    bottom: -45px;
+
 
 
 }
