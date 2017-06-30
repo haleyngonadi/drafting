@@ -78,6 +78,28 @@ add_action( 'init', 'book_setup_post_type' );
 
 
 
+function notify_type() {
+    $args = array(
+        'public'    => true,
+        'labels' => array(
+        'name' => __( 'Notifications' ),
+        'new_item'              => __( 'New Notification' ),
+        'edit_item'             => __( 'Edit Notification' ),
+        'view_item'             => __( 'View Notification' ),
+        'all_items'             => __( 'All Notifications' ),
+        'add_new'               => __( 'Add Notification'),
+        'add_new_item'          => __( 'Add Notification') ),
+        'menu_icon' => 'dashicons-format-status',
+        'supports' => array( 'title', 'editor'),
+        'has_archive' => true,
+    );
+    register_post_type( 'notification', $args );
+}
+add_action( 'init', 'notify_type' );
+
+
+
+
 add_action( 'init', 'create_post_type' );
 function create_post_type() {
   register_post_type( 'houseguests',
@@ -1225,5 +1247,21 @@ function my_action_callback() {
 
     $completed = $_POST['value'];
     update_user_meta( $user_id, 'avatar_image_url', $completed );
+    die();
+}
+
+
+/*** Notifications ***/
+
+  add_action( 'wp_ajax_nopriv_save_notification', 'save_notification' );
+  add_action( 'wp_ajax_save_notification', 'save_notification' );
+
+function save_notification() {
+    global $wpdb;
+    $user_id = get_current_user_id();
+
+    $seen = $_POST['seen'];
+
+    update_user_meta( $user_id, $seen, 'seen' );
     die();
 }

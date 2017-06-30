@@ -159,8 +159,6 @@ function preview(input) {
         $('.success').removeClass('active');
 
         var security = $('.change').attr('data-nonce');
-        console.log(security);
-
 
         $.ajax({
         type:'POST',
@@ -171,10 +169,10 @@ function preview(input) {
             nonce : security,
         },
         success: function(data){
-            console.log(data);
+         //   console.log(data);
         },
         error : function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR + ' :: ' + textStatus + ' :: ' + errorThrown);
+           // console.log(jqXHR + ' :: ' + textStatus + ' :: ' + errorThrown);
         },
     });
 
@@ -190,4 +188,33 @@ $("#upload").change(function(){
 });
 
 
+$( ".ns-close" ).on( "click", function() {
+
+        var notify = $('.ns-box').attr('data-notify');
+        
+        var security = $('.ns-box').attr('data-nonce');
+
+
+
+        $.ajax({
+        type:'POST',
+        url: ajax_var.url,
+        data: {
+            action: 'save_notification',
+            seen: notify,
+            nonce : security,
+        },
+        success: function(data){
+          //  console.log(data);
+            $('.ns-box').addClass('ns-hide').removeClass('ns-show');
+             $('.ns-hide').remove();
+
+        },
+        error : function (jqXHR, textStatus, errorThrown) {
+           // console.log(jqXHR + ' :: ' + textStatus + ' :: ' + errorThrown);
+        },
+    });
+
+
+    });
 })

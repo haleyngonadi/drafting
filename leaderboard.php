@@ -43,7 +43,25 @@ $user_query = new WP_User_Query( $args ); ?>
 	<?php foreach ( $user_query->results as $user ) : ?>
 		
 		<div class="row leader-row">
-			<div class="leader-photo col-sm-2"><?php echo get_avatar($user->ID, '150', $avatar); ?></div>
+			<div class="leader-photo col-sm-2">
+
+
+					<?php $imageurl = get_user_meta($user->ID, 'avatar_image_url', true);
+
+		if (!empty($imageurl)) {
+			echo '<img id="user-pic" src="'.$imageurl.'">';
+		}
+
+		else {
+			echo '<ing id="user-pic" src="'.esc_url( get_avatar_url( $user->ID ) ).'">';
+
+		}
+
+		?>
+
+				
+
+			</div>
 			
 				<div class="col-sm-10 row">
 	<div class="col-sm-9">
@@ -120,7 +138,22 @@ $user_query = new WP_User_Query( $args ); ?>
 	<?php foreach ( $user_query->results as $user ) : ?>
 		
 		<div class="row leader-row" data-id="<?php echo $user->ID ?>">
-			<div class="leader-photo col-sm-2"><?php echo get_avatar($user->ID, '150', $avatar); ?></div>
+			<div class="leader-photo col-sm-2">
+								<?php $imageurl = get_user_meta($user->ID, 'avatar_image_url', true);
+
+		if (!empty($imageurl)) {
+			echo '<img id="user-pic" src="'.$imageurl.'">';
+		}
+
+		else {
+			echo '<ing id="user-pic" src="'.esc_url( get_avatar_url( $user->ID ) ).'">';
+
+		}
+
+		?>
+				
+
+			</div>
 			
 				<div class="col-sm-10 row">
 	<div class="col-sm-9">

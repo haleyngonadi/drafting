@@ -27,11 +27,6 @@ $curauth = um_profile_id();
 
 		}
 
-/*		else {
-			echo '<img id="img" src="'. esc_url( get_avatar_url( $curauth ) ).'">';
-
-		}*/
-
 		?>
 
 

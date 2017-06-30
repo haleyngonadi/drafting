@@ -4,6 +4,51 @@ get_header(); ?>
 
 <div id="main-content" class="main-content">
 
+<?php if ( is_user_logged_in() ) { ?>
+
+
+<?php 
+// the query
+$the_query = new WP_Query( array( 'posts_per_page' => 1, 'post_type' => 'notify' ) ); ?>
+
+<?php if ( $the_query->have_posts() ) : ?>
+
+	<!-- pagination here -->
+
+	<!-- the loop -->
+	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+
+		
+
+		<?php 
+
+		$userseen = get_user_meta(get_current_user_id(), 'notify_'.get_the_id(), 'true');
+		if (!empty($userseen) && $userseen == "seen") :?>
+
+	<?php else:?>
+
+		<div class="ns-box ns-growl ns-effect-jelly ns-type-notice ns-show" data-nonce="<?php echo wp_create_nonce( 'notification-nonce' );?>" data-notify="<?php echo 'notify_'.get_the_ID()?>">
+	<div class="ns-box-inner">
+	<?php the_date('d-m-Y', '<b>', '</b>: '); ?><span class="notify">
+	<?php $imageContent = get_the_content();
+	$stripped = strip_tags($imageContent, '<p> <a>'); 
+	echo $stripped; ?></span>
+	</div>
+	<span class="ns-close"></span>
+</div>
+<?php endif; ?>	
+
+	<?php endwhile; ?>
+	<!-- end of the loop -->
+
+	<!-- pagination here -->
+
+	<?php wp_reset_postdata(); ?>
+
+
+<?php endif; ?>
+
+<?php } ?>
 
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
