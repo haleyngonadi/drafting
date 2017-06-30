@@ -25,7 +25,7 @@ get_header(); ?>
       <?php
 
 $args = array(
-	'exclude' => array( 1 )
+	'exclude' => array( 1 ),
     'meta_key' => 'totals',
     'orderby'  => 'meta_value',
     'order'    => 'DESC',
