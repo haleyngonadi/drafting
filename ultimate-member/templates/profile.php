@@ -2,17 +2,7 @@
 
 	<div class="um-form">
 	
-		<?php do_action('um_profile_before_header', $args ); ?>
 		
-		<?php if ( um_is_on_edit_profile() ) { ?><form method="post" action=""><?php } ?>
-		
-
-			<?php do_action('um_profile_header_cover_area', $args ); ?>
-			
-			<?php do_action('profile_header', $args ); ?>
-			
-		
-		<?php if ( um_is_on_edit_profile() ) { ?></form><?php } ?>
 
 
 		<?php
@@ -22,9 +12,32 @@ $curauth = um_profile_id();
 ?>
 
 	<div class="row author-row">
+					<div class="col-sm-3">
+
+	<div class="author-photo">
+		
+
+		<?php echo get_avatar($curauth); ?>
+
+
+	</div>
 
 
 
+	</div>
+
+	<div class="col-sm-9">
+
+	<header class="entry-header"><h1 class="entry-title"> <?php echo um_user('display_name'); ?></h1></header>
+
+
+
+
+	 <?php 
+
+	if (!empty(um_user('description'))) {
+		echo '<p class="about-me">';
+		echo um_user('description'); echo '</p>'; }?>
 		
 		<div class="row points-row">
 <div class="col-sm-4 inner-point">
@@ -61,6 +74,7 @@ $curauth = um_profile_id();
 </div>
 
 
+	</div>
 	</div>
 
 	

@@ -499,6 +499,9 @@ span.draft-name {
     max-width: 172px;
 }
 
+.author-photo img {
+    width: 100%;
+}
 
 ul.listed {
     list-style-type: none;
@@ -1341,5 +1344,10 @@ a.sl-button.se-button {
 
 
 .um-27.um .um-profile-headericon a:hover, .um-27.um .um-profile-edit-a.active {
+    color: #fb7802 !important;
+}
+
+
+.um-6.um .um-profile-headericon a:hover, .um-6.um .um-profile-edit-a.active {
     color: #fb7802 !important;
 }
