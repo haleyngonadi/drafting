@@ -107,4 +107,87 @@ $(function() {
 });
 
 
+function preview(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) { $('#img').attr('src', e.target.result); 
+
+    $('#img').css("background-image", "url("+e.target.result+")");  
+
+
+
+    reader.fileName = input.name;
+
+      var imageData = e.target.result;
+      var imgurData = imageData.replace(/^data:image\/(png|jpg|gif|jpeg);base64,/, '');
+
+
+
+      var clientId = '73ba01156def0e2';
+      var access_token = '717a61824e7fb1d3aed91a9054d420b71656842b';
+
+  $.ajax({
+    url: 'https://api.imgur.com/3/image',
+    headers: {
+      'Authorization': 'Client-ID ' + clientId,
+      'Authorization': 'Bearer ' + access_token,
+      'Accept': 'application/json'
+    },
+    type: 'POST',
+    data: {
+      'image': imgurData,
+      'type': 'base64',
+      'album': 'aFs8E',
+      'title': 'chideraa'
+
+    },
+    beforeSend: function() {
+        // setting a timeout
+        $('.spinner').addClass('active');
+        $('.success').addClass('active');
+
+         $('.success').html('<div class="spinner"></div> UPLOADING...');
+
+    },
+        error: function() {
+        // setting a timeout
+        $('.spinner').removeClass('active');
+         $('.success').html('UPLOAD ERROR');
+
+    },
+    success: function success(res) {
+        $('.success').removeClass('active');
+
+        var security = $('.change').attr('data-nonce');
+        console.log(security);
+
+
+        $.ajax({
+        type:'POST',
+        url: ajax_var.url,
+        data: {
+            action: 'my_action_callback',
+            value: res.data.link,
+            nonce : security,
+        },
+        success: function(data){
+            console.log(data);
+        },
+        error : function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR + ' :: ' + textStatus + ' :: ' + errorThrown);
+        },
+    });
+
+    }
+  });
+     }
+    reader.readAsDataURL(input.files[0]);     }   }
+
+$("#upload").change(function(){
+  $("#img").css({top: 0, left: 0});
+    preview(this);
+   
+});
+
+
 })

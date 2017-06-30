@@ -79,31 +79,31 @@ span.the-hg {
 }
 
 
-body.um-own-profile {
+body.um-page-user {
   background: #fb7802;
 }
 
 
-body.um-own-profile ul.listed li {
+body.um-page-user ul.listed li {
     border-bottom: 3px solid #fb7802;
 
   }
 
-.um-own-profile ul.listed li:before {
+.um-page-user ul.listed li:before {
     background: #fb7802;
 
   }
   
- .um-own-profile ul.listed {
+ .um-page-user ul.listed {
     border: 3px solid #fb7802;
 }
 
-.um-own-profile .circle-span:before {
+.um-page-user .circle-span:before {
   background: #fb7802;
 
   }
 
-.um-own-profile .point-name:before {
+.um-page-user .point-name:before {
     background: #fb7802 !important;
 }
 .wrapper {
@@ -460,7 +460,7 @@ span.won-title {
     padding: 5px;
 }
 
-.um-own-profile .week-not {
+.um-page-user .week-not {
     border-right: 0px solid #e3e3e3;
     padding: 0px;
 }
@@ -1116,7 +1116,7 @@ b {
 
 
 
-body.um-own-profile h1.entry-title {
+body.um-page-user h1.entry-title {
     text-transform: lowercase;
 }
 
@@ -1349,4 +1349,150 @@ a.sl-button.se-button {
 
 .um-6.um .um-profile-headericon a:hover, .um-6.um .um-profile-edit-a.active {
     color: #fb7802 !important;
+}
+
+
+
+
+/*** User upload image ***/
+
+.wrap {
+  width: 25%
+}
+
+
+label[for=upload] {
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    position: relative;
+    margin-top: 0;
+    border: 0;
+    padding: 0;
+    border-radius: 50%;
+    left: 0;
+    max-width: 172px;
+    transition: 0.3s;
+    cursor: pointer
+}
+
+
+label[for=upload]:hover{
+  background: rgba(0,0,0,0.2);
+}
+
+label[for=upload]:before{
+transition: 0.3s;
+color: white;
+font-size: 25px;
+  }
+
+
+label[for=upload]:hover:before{
+ content: "\f030";
+ font-family: FontAwesome;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ color: white;
+}
+
+
+
+label[for=upload] input{ display:none }
+.thumb{
+  position:relative;
+  overflow:hidden;
+  max-width: 100%;
+  width: 200px;
+  cursor:move;
+  
+}
+
+.thumb img{
+  width:100%;
+  max-width:100%;
+  max-height:800px;
+  transition:all 0.4s;
+  border-radius: 50%;
+}
+
+.spinner {
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.spinner.active {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    animation: rotate 0.8s infinite linear;
+    border: 2px solid #fff;
+    border-right-color: transparent;
+    border-radius: 50%;
+    z-index: 0;
+    visibility: visible;
+    opacity: 1;
+    margin-right: 7px;
+    float: left;
+    margin-top: 2px;
+}
+
+@keyframes rotate {
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
+}
+
+.author-photo {
+    position: relative;
+}
+
+.upload-button {
+  position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.success {
+  visibility: 0;
+  height: 0;
+  width: 100%;
+  opacity: 0;
+      transition: 0.3s;
+          position: absolute;
+    bottom: -45px;
+
+
+}
+.success.active{
+    display: inline-block;
+    border-bottom: 3px solid rgba(0,0,0,0.08);
+    color: white;
+    font-weight: bold;
+    background: #fb7802;
+    padding: 5px 15px;
+    border-radius: 0;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: 0.3s;
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+    text-align: center;
+}
+
+
+
+
+#img {
+  width: 172px;
+  background-size: cover;
+  height: 172px;
+  border-radius: 50%
 }

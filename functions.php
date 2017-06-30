@@ -1213,3 +1213,17 @@ function custom_breadcrumbs() {
 
     <?php
   }
+
+  /*** Custom Avatar ***/
+
+  add_action( 'wp_ajax_nopriv_my_action_callback', 'my_action_callback' );
+  add_action( 'wp_ajax_my_action_callback', 'my_action_callback' );
+
+function my_action_callback() {
+    global $wpdb;
+    $user_id = get_current_user_id();
+
+    $completed = $_POST['value'];
+    update_user_meta( $user_id, 'avatar_image_url', $completed );
+    die();
+}

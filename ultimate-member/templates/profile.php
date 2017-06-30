@@ -16,8 +16,38 @@ $curauth = um_profile_id();
 
 	<div class="author-photo">
 		
+		<?php $imageurl = get_user_meta($curauth, 'avatar_image_url', true);
 
-		<?php echo get_avatar($curauth); ?>
+		if (!empty($imageurl)) {
+			echo '<div id="img" style="background-image: url('.$imageurl.')"></div>';
+		}
+
+		else {
+			echo '<div id="img" style="background-image: url('.esc_url( get_avatar_url( $curauth ) ).')"></div>';
+
+		}
+
+/*		else {
+			echo '<img id="img" src="'. esc_url( get_avatar_url( $curauth ) ).'">';
+
+		}*/
+
+		?>
+
+
+		
+
+		<?php 
+		$nonce = wp_create_nonce( 'new-avatar-nonce' );
+		if($curauth == get_current_user_id()) : ?>
+		   <form class="upload-button" action="">
+    	<label for="upload"><div class="spinner"></div> <span class="change" data-nonce="<?php echo $nonce;?>"></span>
+      	<input type='file' id="upload"></label>
+
+  		</form>
+
+  		<div class="success"></div>
+		<?php endif; ?>
 
 
 	</div>
