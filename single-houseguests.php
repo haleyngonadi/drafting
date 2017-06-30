@@ -41,9 +41,11 @@
      ?>
 
 
-<?php } else { ?>
+<?php } else {
 
 echo '<a class="sl-button se-button">Login To Draft</a>';
+ ?>
+
 
 <?php } ?>
 
