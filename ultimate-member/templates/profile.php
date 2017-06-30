@@ -14,7 +14,8 @@ $curauth = um_profile_id();
 	<div class="row author-row">
 					<div class="col-sm-3">
 
-	<div class="author-photo">
+
+	<div class="author-photo" data-name="<?php echo get_user_meta($curauth, 'first_name', 'true');?>">
 		
 		<?php $imageurl = get_user_meta($curauth, 'avatar_image_url', true);
 

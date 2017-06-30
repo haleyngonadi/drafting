@@ -120,6 +120,7 @@ function preview(input) {
 
       var imageData = e.target.result;
       var imgurData = imageData.replace(/^data:image\/(png|jpg|gif|jpeg);base64,/, '');
+      var getname = $('.author-photo').attr('data-name');
 
 
 
@@ -138,7 +139,7 @@ function preview(input) {
       'image': imgurData,
       'type': 'base64',
       'album': 'aFs8E',
-      'title': 'chideraa'
+      'title': getname
 
     },
     beforeSend: function() {
@@ -160,12 +161,15 @@ function preview(input) {
 
         var security = $('.change').attr('data-nonce');
 
+        var geturl = res.data.link;
+        geturl.replace('http://','https://');
+
         $.ajax({
         type:'POST',
         url: ajax_var.url,
         data: {
             action: 'my_action_callback',
-            value: res.data.link,
+            value: geturl.replace('http://','https://'),
             nonce : security,
         },
         success: function(data){
