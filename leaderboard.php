@@ -25,11 +25,12 @@ get_header(); ?>
       <?php
 
 $args = array(
+	'exclude' => array( 1 )
     'meta_key' => 'totals',
     'orderby'  => 'meta_value',
     'order'    => 'DESC',
     'number'         => '10',
-    'exclude' => array( 1 )
+    
 
 );
 
@@ -47,7 +48,7 @@ $user_query = new WP_User_Query( $args ); ?>
 				<div class="col-sm-10 row">
 	<div class="col-sm-9">
 
-			<span class="leader-title"> <?php echo $user->display_name ;?></span>
+			<span class="leader-title"> <?php echo $user->first_name ;?></span>
 				<b class="random-name"> Drafts:</b> 
 
 
