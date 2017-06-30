@@ -43,7 +43,7 @@
 
 <?php } else {
 
-echo '<a class="sl-button se-button">Login To Draft</a>';
+echo '<a class="sl-button se-button" href="/login">Login To Draft</a>';
  ?>
 
 
