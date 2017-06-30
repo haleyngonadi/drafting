@@ -1065,3 +1065,151 @@ function custom_breadcrumbs() {
     }
        
 }
+
+/***
+  *** @profile header
+  ***/
+  add_action('profile_header', 'profile_header', 9 );
+  function profile_header( $args ) {
+    global $ultimatemember;
+
+    $classes = null;
+
+    if ( !$args['cover_enabled'] ) {
+      $classes .= ' no-cover';
+    }
+
+    $default_size = str_replace( 'px', '', $args['photosize'] );
+
+    $overlay = '<span class="um-profile-photo-overlay">
+      <span class="um-profile-photo-overlay-s">
+        <ins>
+          <i class="um-faicon-camera"></i>
+        </ins>
+      </span>
+    </span>';
+
+    ?>
+
+      <div class="um-header<?php echo $classes; ?>">
+
+        <?php do_action('um_pre_header_editprofile', $args); ?>
+
+        <div class="um-profile-photo" data-user_id="<?php echo um_profile_id(); ?>">
+
+          <a href="<?php echo um_user_profile_url(); ?>" class="um-profile-photo-img" title="<?php echo um_user('display_name'); ?>"><?php echo $overlay . get_avatar( um_user('ID'), $default_size ); ?></a>
+
+          <?php
+
+          if ( !isset( $ultimatemember->user->cannot_edit ) ) {
+
+            $ultimatemember->fields->add_hidden_field( 'profile_photo' );
+
+            if ( !um_profile('profile_photo') ) { // has profile photo
+
+              $items = array(
+                '<a href="#" class="um-manual-trigger" data-parent=".um-profile-photo" data-child=".um-btn-auto-width">'.__('Upload photo','ultimate-member').'</a>',
+                '<a href="#" class="um-dropdown-hide">'.__('Cancel','ultimate-member').'</a>',
+              );
+
+              $items = apply_filters('um_user_photo_menu_view', $items );
+
+              echo $ultimatemember->menu->new_ui( 'bc', 'div.um-profile-photo', 'click', $items );
+
+            } else if ( $ultimatemember->fields->editing == true ) {
+
+              $items = array(
+                '<a href="#" class="um-manual-trigger" data-parent=".um-profile-photo" data-child=".um-btn-auto-width">'.__('Change photo','ultimate-member').'</a>',
+                '<a href="#" class="um-reset-profile-photo" data-user_id="'.um_profile_id().'" data-default_src="'.um_get_default_avatar_uri().'">'.__('Remove photo','ultimate-member').'</a>',
+                '<a href="#" class="um-dropdown-hide">'.__('Cancel','ultimate-member').'</a>',
+              );
+
+              $items = apply_filters('um_user_photo_menu_edit', $items );
+
+              echo $ultimatemember->menu->new_ui( 'bc', 'div.um-profile-photo', 'click', $items );
+
+            }
+
+          }
+
+          ?>
+
+        </div>
+
+        <div class="um-profile-meta">
+
+          <div class="um-main-meta">
+
+            <?php if ( $args['show_name'] ) { ?>
+            <div class="um-name">
+
+              <a href="<?php echo um_user_profile_url(); ?>" title="<?php echo um_user('display_name'); ?>"><?php echo um_user('display_name', 'html'); ?></a>
+
+              <?php do_action('um_after_profile_name_inline', $args ); ?>
+
+            </div>
+            <?php } ?>
+
+            <div class="um-clear"></div>
+
+            <?php do_action('um_after_profile_header_name_args', $args ); ?>
+            <?php do_action('um_after_profile_header_name'); ?>
+
+          </div>
+
+          <?php if ( isset( $args['metafields'] ) && !empty( $args['metafields'] ) ) { ?>
+          <div class="um-meta">
+
+            <?php echo $ultimatemember->profile->show_meta( $args['metafields'] ); ?>
+
+          </div>
+          <?php } ?>
+
+          <?php if ( $ultimatemember->fields->viewing == true && um_user('description') && $args['show_bio'] ) { ?>
+
+          <div class="um-meta-text">
+            <?php 
+            
+            $description = get_user_meta( um_user('ID') , 'description', true);
+              if( um_get_option( 'profile_show_html_bio' ) ) : ?>
+              <?php echo make_clickable( wpautop( wp_kses_post( $description ) ) ); ?>
+            <?php else : ?>
+              <?php echo esc_html( $description ); ?>
+            <?php endif; ?>
+          </div>
+
+          <?php } else if ( $ultimatemember->fields->editing == true  && $args['show_bio'] ) { ?>
+
+          <div class="um-meta-text">
+            <textarea id="um-meta-bio" data-character-limit="<?php echo um_get_option('profile_bio_maxchars'); ?>" placeholder="<?php _e('Tell us a bit about yourself...','ultimate-member'); ?>" name="<?php echo 'description-' . $args['form_id']; ?>" id="<?php echo 'description-' . $args['form_id']; ?>"><?php if ( um_user('description') ) { echo um_user('description'); } ?></textarea>
+            <span class="um-meta-bio-character um-right"><span class="um-bio-limit"><?php echo um_get_option('profile_bio_maxchars'); ?></span></span>
+            <?php 
+              if ( $ultimatemember->fields->is_error('description') ) {
+                echo $ultimatemember->fields->field_error( $ultimatemember->fields->show_error('description'), true ); 
+              }
+            ?>
+
+          </div>
+
+          <?php } ?>
+
+          <div class="um-profile-status <?php echo um_user('account_status'); ?>">
+            <span><?php printf(__('This user account status is %s','ultimate-member'), um_user('account_status_name') ); ?></span>
+          </div>
+
+          <?php do_action('um_after_header_meta', um_user('ID'), $args ); ?>
+
+        </div><div class="um-clear"></div>
+   
+            <?php
+            if ( $ultimatemember->fields->is_error( 'profile_photo' ) ) {
+                echo $ultimatemember->fields->field_error( $ultimatemember->fields->show_error('profile_photo'), 'force_show' );
+            }
+            ?>
+
+        <?php do_action('um_after_header_info', um_user('ID'), $args); ?>
+
+      </div>
+
+    <?php
+  }

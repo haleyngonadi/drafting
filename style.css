@@ -1309,3 +1309,37 @@ a.sl-button.se-button {
     background: #9d00a9;
     color: white;
 }
+
+
+
+.um-page-account .um *, .um-page-account .um :after, .um-page-account .um :before {
+    box-sizing: content-box !important;
+}
+
+
+.um-name, .um-name a {
+    font-size: 36px !important;
+    font-family: 'Inconsolata', monospace;
+    color: #222 !important;
+    margin-top: 0;
+    text-transform: lowercase;
+    font-weight: normal;
+}
+
+
+.um-meta-text {
+    margin: 6px 0 0;
+    color: #808080 !important;
+    line-height: 1.4em;
+    font-size: 15px;
+}
+
+
+.um-header {
+    border-bottom: 0 !important;
+}
+
+
+.um-27.um .um-profile-headericon a:hover, .um-27.um .um-profile-edit-a.active {
+    color: #fb7802 !important;
+}
