@@ -29,6 +29,7 @@ $args = array(
     'orderby'  => 'meta_value',
     'order'    => 'DESC',
     'number'         => '10',
+    'exclude' => array( 1 )
 
 );
 
