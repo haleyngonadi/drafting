@@ -118,9 +118,16 @@ if ( is_user_logged_in() ) {
 	Draft Season
 	</h3>
 
-	<p> Unfortunately, you can no longer draft houseguests as the drafting season is now offically over. Find out how the houseguests are doing by clicking one of their pictures below! </p>
+	<p> Unfortunately, you can no longer replace the houseguests in your drafts as the drafting season is now offically over. Find out how the houseguests are doing by clicking one of their pictures below! </p>
 
-	<!-- <p> <b>TIP:</b> Choose wisely because once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of houseguests in your drafts is reaches the number <b class="draft-name">FOUR</b>. Ready to select your drafts? Select a houseguest below to begin!</p> -->
+	
+
+
+	<h3 class="point-name">
+	New Players
+	</h3>
+
+	<p> <b>TIP:</b> Choose your draft picks wisely as once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of houseguests in your drafts is reaches the number <b class="draft-name">FOUR</b>. Ready to select your drafts? Select a houseguest below to begin!</p>
 
 <br>
 

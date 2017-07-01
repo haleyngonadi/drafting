@@ -22,7 +22,16 @@
     $likedposts = get_user_meta( $user_id,'_drafted', 'true');
 
     if (in_array(get_the_id(), $likedposts)) {
-         echo '<a class="sl-button se-button"> DRAFTED</a>';
+
+        $status = get_post_meta(get_the_ID(), 'meta-radio', true); 
+
+        if ($status == 'evicted') { 
+                echo 'Evicted'; 
+             } 
+
+         else { 
+                echo 'In The Game'; 
+             }
     }
 
      else {
