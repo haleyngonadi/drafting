@@ -83,6 +83,12 @@ body.um-page-user {
   background: #fb7802;
 }
 
+body.um-page-user .pages-header {
+    display: none;
+}
+
+
+
 
 body.um-page-user ul.listed li {
     border-bottom: 3px solid #fb7802;

@@ -157,7 +157,7 @@ $curauth = um_profile_id();
 	}
 	else {
 		echo '<h3 class="point-name">';
-		echo um_user('display_name');
+		echo um_user('first_name');
 		echo "'s Drafts";
 		echo '</h3>';
 	}
