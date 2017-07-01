@@ -114,20 +114,13 @@ if ( is_user_logged_in() ) {
 	<?php wp_reset_postdata(); ?>
 
 <?php else : ?>
-	<h3 class="point-name">
-	Draft Season
-	</h3>
-
-	<p> Unfortunately, you can no longer replace the houseguests in your drafts as the drafting season is now offically over. Find out how the houseguests are doing by clicking one of their pictures below! </p>
-
-	
 
 
 	<h3 class="point-name">
-	New Players
+	Select Your Drats
 	</h3>
 
-	<p> <b>TIP:</b> Choose your draft picks wisely as once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of houseguests in your drafts is reaches the number <b class="draft-name">FOUR</b>. Ready to select your drafts? Select a houseguest below to begin!</p>
+	<p> <b>TIP:</b> Choose your draft picks wisely as once a houseguest has been drafted, you will not be able to un-draft the houseguest as the drafting season is now officially <b class="draft-name">OVER</b>. Ready to select your drafts? Select a houseguest below to begin!</p>
 
 <br>
 
