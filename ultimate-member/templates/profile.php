@@ -74,6 +74,30 @@ $curauth = um_profile_id();
 	<li> <a href="#" data-type="facebook" data-title="Big Brother Draft" data-description="Check out my #BB19 drafts:" data-url="<?php echo um_user_profile_url()?>" class="prettySocial"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
 	</ul>
 
+<?php else:?>
+
+		<ul class="socials">
+
+		<?php 
+ 
+
+      $username = ''; 
+        if (substr(um_user('first_name'), -1) == 's') { 
+          $username = um_user('first_name')."'";
+        } 
+ 
+        else { 
+          $username = um_user('first_name')."'s"; 
+ 
+        } 
+      ?> 
+
+
+	<li> <a href="#" data-type="twitter" data-url="<?php echo um_user_profile_url()?>" data-via="bigbrotherdraft" class="prettySocial" data-description="Check out <?php echo $username?> #BB19 drafts:"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+	<li> <a href="#" data-type="facebook" data-title="Big Brother Draft" data-description="Check out <?php echo $username?> #BB19 drafts:" data-url="<?php echo um_user_profile_url()?>" class="prettySocial"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+	</ul>
+
+
 
 	<?php endif; ?>
 

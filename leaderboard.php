@@ -66,7 +66,15 @@ $user_query = new WP_User_Query( $args ); ?>
 				<div class="col-sm-10 row">
 	<div class="col-sm-9">
 
-			<span class="leader-title"> <?php echo $user->first_name ;?></span>
+					<?php 	
+		$permalink_base = um_get_option('permalink_base');
+		$profile_slug = get_user_meta( $user->ID, "um_user_profile_url_slug_{$permalink_base}", true );
+
+		?>
+
+			<a class="leader-title" href="<?php echo get_site_url()?>/player/<?php echo $profile_slug?>"> <?php echo $user->first_name ;?></a>
+
+			
 				<b class="random-name"> Drafts:</b> 
 
 
@@ -123,7 +131,7 @@ echo 'No users found.';?>
 $args = array(
     'meta_key' => 'totals',
     'orderby'  => 'meta_value',
-    'order'    => 'DESC',
+    'order'    => 'ASC',
     'number'         => '10',
     'exclude' => array( 1 ),
 
@@ -158,7 +166,13 @@ $user_query = new WP_User_Query( $args ); ?>
 				<div class="col-sm-10 row">
 	<div class="col-sm-9">
 
-			<span class="leader-title"> <?php echo $user->display_name ;?></span>
+		<?php 	
+		$permalink_base = um_get_option('permalink_base');
+		$profile_slug = get_user_meta( $user->ID, "um_user_profile_url_slug_{$permalink_base}", true );
+
+		?>
+
+			<a class="leader-title" href="<?php echo get_site_url()?>/player/<?php echo $profile_slug?>"> <?php echo $user->first_name ;?></a>
 				<b class="random-name"> Drafts:</b> 
 
 

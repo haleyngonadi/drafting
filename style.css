@@ -1029,13 +1029,14 @@ figure.tabBlock {
 
 
 
-span.leader-title {
+.leader-title {
     font-family: 'Abril Fatface', cursive;
     font-size: 25px;
     display: block;
     text-transform: lowercase;
     color: #222;
     letter-spacing: 3px;
+    text-decoration: none;
 }
 
 
