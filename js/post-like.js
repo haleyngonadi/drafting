@@ -33,9 +33,11 @@ jQuery(document).ready(function() {
 				{
 					heart.prop('title', 'Un-Draft');
 					heart.addClass("liked");
-					heart.html("Un-Draft?");
+					heart.html("DRAFTED");
 					$('.draft-count').html(count);
 					$('.jm-load').hide();
+
+					$('.jm-post-like').unbind('click', false);
 				}
 			}
 		});
