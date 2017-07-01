@@ -19,7 +19,7 @@
           <?php  $user_id = get_current_user_id();
 
     $total = get_user_meta($user_id,"_user_draft_count", true ); 
-    $likedposts = get_user_meta( $user_id,'_drafted', 'true');
+    $likedposts = get_user_meta( $user_id,'_drafted');
 
     if (in_array(get_the_id(), $likedposts)) {
 

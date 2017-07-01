@@ -36,8 +36,9 @@ jQuery(document).ready(function() {
 					heart.html("DRAFTED");
 					$('.draft-count').html(count);
 					$('.jm-load').hide();
+					$(".sl-button").removeAttr("href");
 
-					$('.jm-post-like').unbind('click', false);
+					$('.sl-button').removeClass('jm-post-like');
 				}
 			}
 		});
