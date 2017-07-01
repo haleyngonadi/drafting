@@ -194,7 +194,7 @@ $curauth = um_profile_id();
 
 			 <div class="col-sm-3">
 
-			 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+			 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" class="home_drafts">
 
 			 	<div class="draft-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
 
