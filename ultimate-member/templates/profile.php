@@ -290,14 +290,7 @@ $the_query = new WP_Query( $args ); ?>
 		<section class="weeks <?php echo $fields['callback'];?>" data-value="<?php echo $fields['meta_id'];?>">
 
 
-<?php $meta = get_user_meta(1, 'active', true );
-    if ($fields['meta_id'] == $meta) {
-        echo '<div class="week-active" title="Active Week">';
-    } else {
-        echo '<div class="week-not">';
-      }
-	
-?>
+<div class="week-not">
 	
 <div class="week-header">
 <span class="circle-span">stats</span>
