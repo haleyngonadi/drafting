@@ -38,7 +38,19 @@
 
 
         if ($total ==4) {
-            echo '<a class="sl-button se-button"> Your Draft Is Full</a>';
+
+             $status = get_post_meta(get_the_ID(), 'meta-radio', true); 
+
+        if ($status == 'evicted') { 
+                echo '<a class="sl-button se-button">Evicted</a>'; 
+             } 
+
+         else { 
+                echo '<a class="sl-button se-button">In The Game</a>'; 
+             }
+
+
+          //  echo '<a class="sl-button se-button"> Your Draft Is Full</a>';
         }
 
         else {
