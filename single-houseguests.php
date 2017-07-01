@@ -13,7 +13,7 @@
 					<div class="col-sm-4">
 	<div class="hg-photo" style=" background-image:url('<?php the_post_thumbnail_url();?>')"></div>
 
-<<?php if ( is_user_logged_in() ) { ?>
+<?php if ( is_user_logged_in() ) { ?>
 
 
           <?php  $user_id = get_current_user_id();
