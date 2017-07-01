@@ -115,10 +115,12 @@ if ( is_user_logged_in() ) {
 
 <?php else : ?>
 	<h3 class="point-name">
-	Select Your Drafts
+	Draft Season
 	</h3>
 
-	<p> <b>TIP:</b> Choose wisely because once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of houseguests in your drafts is reaches the number <b class="draft-name">FOUR</b>. Ready to select your drafts? Select a houseguest below to begin!</p>
+	<p> Unfortunately, you can no longer draft houseguests as the drafting season is now offically over. Find out how the houseguests are doing by clicking one of their pictures below! </p>
+
+	<!-- <p> <b>TIP:</b> Choose wisely because once a houseguest has been drafted, you will not be able to un-draft the houseguest once the number of houseguests in your drafts is reaches the number <b class="draft-name">FOUR</b>. Ready to select your drafts? Select a houseguest below to begin!</p> -->
 
 <br>
 
