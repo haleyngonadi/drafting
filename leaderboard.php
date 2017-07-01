@@ -28,7 +28,7 @@ $args = array(
 	'exclude' => array( 1 ),
     'meta_key' => 'totals',
     'orderby'  => 'meta_value',
-    'order'    => 'DESC',
+    'order'    => 'ASC',
     'number'         => '10',
     
 
@@ -74,7 +74,7 @@ $user_query = new WP_User_Query( $args ); ?>
 
 			<a class="leader-title" href="<?php echo get_site_url()?>/player/<?php echo $profile_slug?>"> <?php echo $user->first_name ;?></a>
 
-			
+
 				<b class="random-name"> Drafts:</b> 
 
 
