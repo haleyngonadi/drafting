@@ -26,11 +26,11 @@
         $status = get_post_meta(get_the_ID(), 'meta-radio', true); 
 
         if ($status == 'evicted') { 
-                echo 'Evicted'; 
+                echo '<a class="sl-button se-button">Evicted</a>'; 
              } 
 
          else { 
-                echo 'In The Game'; 
+                echo '<a class="sl-button se-button">In The Game</a>'; 
              }
     }
 
