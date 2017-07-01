@@ -53,7 +53,7 @@ $user_query = new WP_User_Query( $args ); ?>
 		}
 
 		else {
-			echo '<ing id="user-pic" src="'.esc_url( get_avatar_url( $user->ID ) ).'">';
+			echo '<img id="user-pic" src="'.esc_url( get_avatar_url( $user->ID ) ).'">';
 
 		}
 
@@ -146,7 +146,7 @@ $user_query = new WP_User_Query( $args ); ?>
 		}
 
 		else {
-			echo '<ing id="user-pic" src="'.esc_url( get_avatar_url( $user->ID ) ).'">';
+			echo '<img id="user-pic" src="'.esc_url( get_avatar_url( $user->ID ) ).'">';
 
 		}
 
