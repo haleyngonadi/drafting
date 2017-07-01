@@ -36,12 +36,12 @@
             echo getPostLikeLink( get_the_ID() );
         }
 
-    }
+    
 
      ?>
 
 
-<?php } else {
+<?php  else {
 
 echo '<a class="sl-button se-button" href="/login">Login To Draft</a>';
  ?>
