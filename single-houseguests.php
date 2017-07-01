@@ -21,11 +21,11 @@
     $total = get_user_meta($user_id,"_user_draft_count", true ); 
     $likedposts = get_user_meta( $user_id,'_drafted', 'true');
 
-    if (in_array(get_the_id(), $likedposts)) {
-        echo getPostLikeLink( get_the_ID() );
-    }
+    // if (in_array(get_the_id(), $likedposts)) {
+    //     echo getPostLikeLink( get_the_ID() );
+    // }
 
-     else {
+    //  else {
 
 
         if ($total ==4) {
