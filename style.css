@@ -488,14 +488,23 @@ span.won-title {
 height: 161px;
     background-size: cover;
     background-position: 0px -12px;
-    margin-bottom: 11px;
+    margin-bottom: 5px;
     position: relative;
+}
+
+.the_drafts {
+  border: dashed #f06;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
 }
 
 span.draft-name {
     font-family: 'Inconsolata', monospace;
     color: #222;
+    margin-bottom: 5px;
     font-size: 18px;
+    display: inline-block;
 }
 
 .author-photo img {
