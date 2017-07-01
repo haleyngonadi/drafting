@@ -28,7 +28,7 @@ $args = array(
 	'exclude' => array( 1 ),
     'meta_key' => 'totals',
     'orderby'  => 'meta_value',
-    'order'    => 'ASC',
+    'order'    => 'DESC',
     'number'         => '10',
     
 
@@ -131,7 +131,7 @@ echo 'No users found.';?>
 $args = array(
     'meta_key' => 'totals',
     'orderby'  => 'meta_value',
-    'order'    => 'ASC',
+    'order'    => 'DESC',
     'number'         => '10',
     'exclude' => array( 1 ),
 
