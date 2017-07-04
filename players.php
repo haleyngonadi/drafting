@@ -17,7 +17,7 @@ get_header(); ?>
 
 
 		<?php
-$blogusers = get_users( array( 'exclude' => array('1'), 'orderby' => 'rand' ) );
+$blogusers = get_users( array( 'exclude' => array('1'), 'orderby' => 'rand', 'number' => -1 ) );
 
 
 // Array of WP_User objects.
