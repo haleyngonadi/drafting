@@ -640,6 +640,12 @@ div#points-title {
   animation-delay: 0s;
 }
 
+.user-image {
+  width: 87px;
+  height: 87px;
+  border-radius: 50%;
+  background-size: cover;
+}
 
 .cirt {
   border-top: 1px solid #f3f3f3;

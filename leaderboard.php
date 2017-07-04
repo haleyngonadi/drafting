@@ -48,12 +48,13 @@ $user_query = new WP_User_Query( $args ); ?>
 
 					<?php $imageurl = get_user_meta($user->ID, 'avatar_image_url', true);
 
+		
 		if (!empty($imageurl)) {
-			echo '<img id="user-pic" src="'.$imageurl.'">';
+			echo '<div class="user-image" style="background-image: url('.$imageurl.')"></div>';
 		}
 
 		else {
-			echo '<img id="user-pic" src="'.esc_url( get_avatar_url( $user->ID ) ).'">';
+			echo '<div class="user-image" style="background-image: url('.esc_url( get_avatar_url( $user->ID ) ).')"></div>';
 
 		}
 
