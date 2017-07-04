@@ -1265,3 +1265,7 @@ function save_notification() {
     update_user_meta( $user_id, $seen, 'seen' );
     die();
 }
+
+
+
+

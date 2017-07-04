@@ -307,7 +307,7 @@ padding: 10px;
     margin: 15px 0;
 }
 
-span.point-big {
+span.point-big, span.user-big {
     font-family: 'Abril Fatface', cursive;
     color: #222;
     display: inline-block;
@@ -315,7 +315,7 @@ span.point-big {
         margin-bottom: -15px;
 }
 
-span.point-small {
+span.point-small, span.user-small {
     text-transform: uppercase;
     font-size: 12px;
     display: block;
@@ -639,6 +639,72 @@ div#points-title {
   animation-timing-function: ease-in-out;
   animation-delay: 0s;
 }
+
+
+.cirt {
+  border-top: 1px solid #f3f3f3;
+  display: inline-block;
+}
+
+.item {
+  border: 1px solid #f3f3f3;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.item div:first-child {
+    border-right: 1px solid #f3f3f3;
+}
+
+
+.player-image {
+  width: 150px;
+  background-size: cover;
+  height: 150px;
+  border-radius: 50%;
+  margin: 20px auto;
+}
+
+
+.page-template-players {
+background: #00a996;
+
+}
+
+.page-template-players .point-name:before {
+background: #00a996;
+
+}
+
+.player-name {
+    position: absolute;
+    left: -9px;
+    background: #00a996;
+    color: white;
+    bottom: 80px;
+    padding: 2px 5px;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.player-name:before {
+    content: "";
+    position: absolute;
+
+    left: -8px;
+    z-index: -2;
+    top: -8px;
+    border-color: transparent #039686 transparent transparent;
+    border-style: solid;
+    border-width: 8px;
+}
+
+span.user-small {
+    margin-bottom: 9px;
+}
+
+
 
 @keyframes shake-little {
   0% {
@@ -1518,6 +1584,7 @@ label[for=upload] input{ display:none }
   height: 172px;
   border-radius: 50%
 }
+
 
 
 
