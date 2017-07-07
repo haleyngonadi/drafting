@@ -153,12 +153,50 @@ function points_add_metabox() {
 }
 add_action( 'add_meta_boxes', 'points_add_metabox' );
 
-add_action( 'add_meta_boxes', 'points_add_metabox' );
+
+function drafts_metabox() {
+   add_meta_box(
+		'drafts_section',           // The HTML id attribute for the metabox section
+		'Drafted By:',     // The title of your metabox section
+		'drafts_callback',  // The metabox callback function (below)
+		'houseguests',
+		'side'                 
+	);
+}
+add_action( 'add_meta_boxes', 'drafts_metabox' );
 
 
 /**
  * Print the metabox content.
  */
+
+function drafts_callback( $post ) {
+
+   // Create a nonce field.
+	wp_nonce_field( 'drafts_metabox', 'drafts_metabox_nonce' );
+
+	// Retrieve a previously saved value, if available.
+	$getdrafts = get_post_meta( $post->ID, '_user_drafted', true );
+
+$blogusers = get_users( array( 'include' => $getdrafts ) );
+// Array of WP_User objects.
+foreach ( $blogusers as $user ) :
+   ?>
+
+      <p>
+         <label><b>Name</b>: </label><?php echo '<span>' . esc_html( $user->first_name ) . '</span>';?><br>
+          <label><b>ID</b>: </label><?php echo ' <span>' . esc_html( $user->ID ) . '</span>';?>
+      </p>
+
+
+
+    
+   <?php endforeach;
+}
+
+
+
+
 
 function basic_callback( $post ) {
 
@@ -715,6 +753,8 @@ foreach ($feature_meta_fields as $fields) {
 
 
 
+
+
     if (isset($_POST[$fields['final']]) && !empty($_POST[$fields['final']])) {
 
 
@@ -736,7 +776,7 @@ foreach ($feature_meta_fields as $fields) {
     }
 
     else {
-      delete_post_meta($post->ID, $fields['week'], implode(",", $_POST[$fields['final']]));
+      delete_post_meta($post->ID, $fields['week'], $_POST[$fields['final']]);
 
       $data1 = "w_"; $data2 = $fields['final']; $fin = $data1 . '' . $data2;
 
@@ -745,7 +785,7 @@ foreach ($feature_meta_fields as $fields) {
 
     }
 
-    /***
+
 
 $args = array(
     'meta_query' => array(
@@ -759,7 +799,6 @@ $user_query = new WP_User_Query( $args );
 $users = $user_query->get_results();
 
 
-  if (!empty($users)) {
 
 foreach($users as $user) {
   
@@ -767,12 +806,12 @@ foreach($users as $user) {
       $likedposts = get_user_meta( $user->ID,'_drafted', 'true');
 
 
-$args = array('meta_key' => $fields['week'], 'post_type' => 'houseguests', 'post__in' => $likedposts);
-$lastposts = get_posts( $args );
+$draftquery = array('meta_key' => $fields['week'], 'post_type' => 'houseguests', 'post__in' => $likedposts);
+$getalldrafts = get_posts( $draftquery );
 $string = '';
 
-foreach ( $lastposts as $post ) {
-  $key_1_value =get_post_meta($post->ID, $fields['week'], true );
+foreach ( $getalldrafts as $thedrafts ) {
+  $key_1_value =get_post_meta($thedrafts->ID, $fields['week'], true );
   if ( ! empty( $key_1_value ) ) {
      $string .= $key_1_value.', ';
   }
@@ -783,8 +822,6 @@ $string =  rtrim($string, ', ');
   if (!empty($string)) {
 
   	update_user_meta($user->ID, $fields['week'], $string);
-
-
 
 $array = array_map( 'trim', explode( ',', $string ) );
 
@@ -838,10 +875,9 @@ $array = array_map( 'trim', explode( ',', $string ) );
 
 } /*** end if string ***/
 
-/*** }end for each user ***/
+}/*** end for each user ***/
 
 
- /*** }end Empty Users ***/
 
 
 }
