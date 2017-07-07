@@ -745,7 +745,7 @@ foreach ($feature_meta_fields as $fields) {
 
     }
 
-    
+    /***
 
 $args = array(
     'meta_query' => array(
@@ -838,10 +838,10 @@ $array = array_map( 'trim', explode( ',', $string ) );
 
 } /*** end if string ***/
 
-}/*** end for each user ***/
+/*** }end for each user ***/
 
 
-} /*** end Empty Users ***/
+ /*** }end Empty Users ***/
 
 
 }
