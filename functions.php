@@ -601,7 +601,7 @@ $feature_meta_fields = array(
         'meta_id'=>  $prefix.'1',
         'title'  => 'Week 1',
         'callback' => 'weekly_one',
-        'get' => 'contributor[]',
+        'get' => 'one[]',
         'week' => 'week_one',
         'final' => 'one',
     ),
@@ -706,9 +706,18 @@ $feature_meta_fields = array(
     )
 );
 
+
+
+
 foreach ($feature_meta_fields as $fields) {
 
+
+
+
+
     if (isset($_POST[$fields['final']]) && !empty($_POST[$fields['final']])) {
+
+
     update_post_meta($post->ID, $fields['week'], implode(",", $_POST[$fields['final']]));
 
     $data1 = "w_"; $data2 = $fields['final']; $fin = $data1 . '' . $data2;
@@ -719,7 +728,11 @@ foreach ($feature_meta_fields as $fields) {
     $data3 = "points_"; $data4 = $fields['week']; $end = $data3 . '' . $data4;
 
 
-     foreach ($_POST[$fields['final']] as $getID) {update_post_meta($getID, $end, $post->post_title);}
+     foreach ($_POST[$fields['final']] as $getID) {
+      update_post_meta($getID, $end, $post->post_title);
+    }
+
+
     }
 
     else {
@@ -731,6 +744,8 @@ foreach ($feature_meta_fields as $fields) {
 
 
     }
+
+    
 
 $args = array(
     'meta_query' => array(
@@ -818,7 +833,7 @@ $array = array_map( 'trim', explode( ',', $string ) );
 
 
 
-	 update_user_meta($user->ID, 'totals', $add);
+	 update_user_meta($user->ID, 'totals', $add); 
 
 
 } /*** end if string ***/

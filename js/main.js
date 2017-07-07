@@ -12,8 +12,18 @@ var activeclass = $('#content').attr('data-active');
 if  (activeclass = 1){
 var arr = [];
 
+
+if( $('.week_two').length )         
+{
+    $('.week_two .week-not').removeClass('week-not').addClass('week-active');
+    
+}
+
 if( $('.w_two').length )         
 {
+
+    $('.w_two .week-not').removeClass('week-not').addClass('week-active');
+
 
 	var all = [];
 $('.won-value').each(function(index, elem){
