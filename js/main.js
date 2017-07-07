@@ -12,7 +12,7 @@ var activeclass = $('#content').attr('data-active');
 if  (activeclass = 1){
 var arr = [];
 
-if( $('.w_one').length )         
+if( $('.w_two').length )         
 {
 
 	var all = [];
@@ -24,12 +24,12 @@ $('.won-value').each(function(index, elem){
  $('.points-all').countTo({from: 0, to: eval(all.join("+"))});
 
 
-    $(".w_one").find('.won-value').each(function(index, elem){
+    $(".w_two").find('.won-value').each(function(index, elem){
     arr.push($(this).text());
 
 });
 }
- else if( $('.week_one').length ){
+ else if( $('.week_two').length ){
 
  	var all = [];
 $('.list-value').each(function(index, elem){
@@ -42,7 +42,7 @@ $('.list-value').each(function(index, elem){
 
 
 
-   $(".week_one").find('.list-value').each(function(index, elem){
+   $(".week_two").find('.list-value').each(function(index, elem){
     arr.push($(this).text());
 
     });

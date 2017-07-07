@@ -129,7 +129,7 @@ echo 'No users found.';?>
       <?php
 
 $args = array(
-    'meta_key' => 'totals',
+    'meta_key' => 'total_week_two',
     'orderby'  => 'meta_value',
     'order'    => 'DESC',
     'number'         => '10',
@@ -202,7 +202,7 @@ $user_query = new WP_User_Query( $args ); ?>
 
 
 	
-			<span class="week-total"><?php echo get_user_meta( $user->ID, 'total_week_one', true );?></span>
+			<span class="week-total"><?php echo get_user_meta( $user->ID, 'total_week_two', true );?></span>
 
 
 	</div>
