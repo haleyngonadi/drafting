@@ -591,7 +591,7 @@ function save_one()
   }
 
      // Check the user's permissions.
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+    if ( ! current_user_can( 'edit_post', $post->ID ) ) {
       return;
    }
 
