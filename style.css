@@ -2014,6 +2014,17 @@ header.entry-header {
   }
 
 
+.user-image {
+  margin: 0 auto;
+}
+
+.row.leader-row {
+    text-align: center;
+}
+span.week-total {
+    margin-bottom: 16px;
+}
+
   }
 
 
