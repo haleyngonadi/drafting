@@ -83,7 +83,7 @@
 
 
 $menu = wp_nav_menu( array(
-	'theme_location'=> 'header-menu',
+	'theme_location'=> 'right-menu',
 	'fallback_cb'	=> false,
 	'container'		=> '',
 	'items_wrap' => '%3$s',
@@ -91,7 +91,7 @@ $menu = wp_nav_menu( array(
 ) );
 // Display menu-2 with all the list items from menu-1 included.
 wp_nav_menu( array(
-	'theme_location' => 'right-menu',
+	'theme_location' => 'header-menu',
 	'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s ' . $menu . '</ul>',
 	'menu_class' => 'navigation mobile-menu',
 	'container' => 'div',
