@@ -233,4 +233,14 @@ $( ".ns-close" ).on( "click", function() {
 
 
     });
+
+
+
+
+$( ".navbar-toggle" ).on( "click", function() {
+$('.mobile-container').toggleClass('mobile-active');
+
+});
+
+
 })

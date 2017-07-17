@@ -114,7 +114,7 @@ $curauth = um_profile_id();
 		echo um_user('description'); echo '</p>'; }?>
 		
 		<div class="row points-row">
-<div class="col-sm-4 inner-point">
+<div class="col-sm-4 col-xs-4  inner-point">
 
 
 	<span class="point-big draft-count">
@@ -133,13 +133,13 @@ $curauth = um_profile_id();
 
 </div>
 
-<div class="col-sm-4 inner-point">
+<div class="col-sm-4 col-xs-4 inner-point">
 	<span class="point-big point-week">0</span>
 	<span class="point-small">this week</span>
 
 </div>
 
-<div class="col-sm-4 inner-point">
+<div class="col-sm-4 col-xs-4  inner-point">
 	<span class="point-big points-all">0</span>
 	<span class="point-small">all time</span>
 

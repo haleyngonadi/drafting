@@ -60,7 +60,7 @@ foreach ( $blogusers as $user ) : ?>
 
 
 <div class="row cirt">
-<div class="col-md-6">
+<div class="col-md-6 col-xs-6">
 	
 <span class="user-big">
 	
@@ -79,7 +79,7 @@ foreach ( $blogusers as $user ) : ?>
 
 </div>
 
-<div class="col-md-6">
+<div class="col-md-6 col-xs-6">
 	<span class="user-big">
 		
 			<?php $pointscount = get_user_meta( $user->ID, 'totals', true );
