@@ -13,16 +13,16 @@ if  (activeclass = 1){
 var arr = [];
 
 
-if( $('.week_two').length )         
+if( $('.week_three').length )         
 {
-    $('.week_two .week-not').removeClass('week-not').addClass('week-active');
+    $('.week_three .week-not').removeClass('week-not').addClass('week-active');
     
 }
 
-if( $('.w_two').length )         
+if( $('.w_three').length )         
 {
 
-    $('.w_two .week-not').removeClass('week-not').addClass('week-active');
+    $('.w_three .week-not').removeClass('week-not').addClass('week-active');
 
 
 	var all = [];
@@ -34,12 +34,12 @@ $('.won-value').each(function(index, elem){
  $('.points-all').countTo({from: 0, to: eval(all.join("+"))});
 
 
-    $(".w_two").find('.won-value').each(function(index, elem){
+    $(".w_three").find('.won-value').each(function(index, elem){
     arr.push($(this).text());
 
 });
 }
- else if( $('.week_two').length ){
+ else if( $('.week_three').length ){
 
  	var all = [];
 $('.list-value').each(function(index, elem){
@@ -52,7 +52,7 @@ $('.list-value').each(function(index, elem){
 
 
 
-   $(".week_two").find('.list-value').each(function(index, elem){
+   $(".week_three").find('.list-value').each(function(index, elem){
     arr.push($(this).text());
 
     });
@@ -233,4 +233,14 @@ $( ".ns-close" ).on( "click", function() {
 
 
     });
+
+
+
+
+$( ".navbar-toggle" ).on( "click", function() {
+$('.mobile-container').toggleClass('mobile-active');
+
+});
+
+
 })

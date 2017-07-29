@@ -117,10 +117,10 @@ if ( is_user_logged_in() ) {
 
 
 	<h3 class="point-name">
-	Select Your Drats
+	Drafts
 	</h3>
 
-	<p> <b>TIP:</b> Choose your draft picks wisely as once a houseguest has been drafted, you will not be able to un-draft the houseguest as the drafting season is now officially <b class="draft-name">OVER</b>. Ready to select your drafts? Select a houseguest below to begin!</p>
+	<p> <b>Oops:</b> You must be new here. Unfortunately, the drafting season is officially <b class="draft-name">OVER</b>. You can still check out how your favorite houseguests are doing by clicking one of their pictures below. </p>
 
 <br>
 
@@ -310,7 +310,7 @@ $the_query = new WP_Query( $args ); ?>
 
 	<h3 class="point-name">How it works</h3>
 
-	<p>Upon <a href="/login">logging in</a> or <a href="/register">registering</a>, you'd be awarded the opportunity of drafting <b>FOUR</b> unique players, all of whom will either earn or cost you a few points depending on the each week's activities. So, choose wisely.</p>
+	<p>Upon <a href="/login">logging in</a> or <a href="/register">registering</a>, you'd be awarded the opportunity of drafting <b>FOUR</b> unique players, all of whom will either earn or cost you a few points depending on the each week's activities.</p>
 
 
 		<h3 class="point-name">Points</h3>
