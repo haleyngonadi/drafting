@@ -13,16 +13,16 @@ if  (activeclass = 1){
 var arr = [];
 
 
-if( $('.week_five').length )         
+if( $('.week_six').length )         
 {
-    $('.week_five .week-not').removeClass('week-not').addClass('week-active');
+    $('.week_six .week-not').removeClass('week-not').addClass('week-active');
     
 }
 
-if( $('.w_five').length )         
+if( $('.w_six').length )         
 {
 
-    $('.w_five .week-not').removeClass('week-not').addClass('week-active');
+    $('.w_six .week-not').removeClass('week-not').addClass('week-active');
 
 
 	var all = [];
@@ -34,12 +34,12 @@ $('.won-value').each(function(index, elem){
  $('.points-all').countTo({from: 0, to: eval(all.join("+"))});
 
 
-    $(".w_five").find('.won-value').each(function(index, elem){
+    $(".w_six").find('.won-value').each(function(index, elem){
     arr.push($(this).text());
 
 });
 }
- else if( $('.week_five').length ){
+ else if( $('.week_six').length ){
 
  	var all = [];
 $('.list-value').each(function(index, elem){
@@ -52,7 +52,7 @@ $('.list-value').each(function(index, elem){
 
 
 
-   $(".week_five").find('.list-value').each(function(index, elem){
+   $(".week_six").find('.list-value').each(function(index, elem){
     arr.push($(this).text());
 
     });
