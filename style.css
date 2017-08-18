@@ -413,6 +413,7 @@ span.sl-count {
 .weeks {
     margin-bottom: 10px;
     margin-top: 10px;
+        min-height: 180px;
 
 }
 
