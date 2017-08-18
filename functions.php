@@ -544,6 +544,13 @@ $feature_meta_fields = array(
         'get' => 'seven[]',
         'week' => 'week_seven',
     ),
+        array(
+        'meta_id'=>  $prefix.'double',
+        'title'  => 'Double Eviction',
+        'callback' => 'double_eviction',
+        'get' => 'double[]',
+        'week' => 'double_week',
+    ),
     array(
         'meta_id'=>  $prefix.'8',
         'title'  => 'Week 8',
@@ -697,6 +704,15 @@ $feature_meta_fields = array(
         'final' => 'seven',
 
     ),
+        array(
+        'meta_id'=>  $prefix.'double',
+        'title'  => 'Double Eviction',
+        'callback' => 'doubly_eviction',
+        'get' => 'double[]',
+        'week' => 'double_week',
+        'final' => 'double',
+    ),
+
     array(
         'meta_id'=>  $prefix.'8',
         'title'  => 'Week 8',
@@ -855,7 +871,8 @@ $array = array_map( 'trim', explode( ',', $string ) );
     	array('final' => 'total_week_nine'),
 		array('final' => 'total_week_ten'),
     	array('final' => 'total_week_eleven'),
-    	array('final' => 'total_week_twelve')
+    	array('final' => 'total_week_twelve'),
+      array('final' => 'total_double_week')
 
     	);
 

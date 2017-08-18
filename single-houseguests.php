@@ -133,6 +133,11 @@ $feature_meta_fields = array(
         'title'  => 'Week 7',
         'callback' => 'w_seven',
     ),
+         array(
+        'meta_id'=>  25,
+        'title'  => 'Double Eviction [Aug 17]',
+        'callback' => 'w_double',
+    ),
     array(
         'meta_id'=>  8,
         'title'  => 'Week 8',
